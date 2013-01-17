@@ -18,7 +18,23 @@
         if((x = [[defaults objectForKey:@"numberOfSides"] integerValue])) {
             self.numberOfSides = x;
         } else {
-        self.numberOfSides = 3;
+            self.numberOfSides = 3;
+        }
+        UIColor *innerColor;
+        NSData *innerColorData;
+        if((innerColorData = [defaults objectForKey:@"insideColor"])) {
+            innerColor = [NSKeyedUnarchiver unarchiveObjectWithData:innerColorData];
+            self.insideColor = innerColor;
+        } else {
+            self.insideColor = [UIColor brownColor];
+        }
+        UIColor *outsideColor;
+        NSData *borderColorData;
+        if((borderColorData = [defaults objectForKey:@"borderColor"])) {
+            outsideColor = [NSKeyedUnarchiver unarchiveObjectWithData:borderColorData];
+            self.borderColor = outsideColor;
+        } else {
+            self.borderColor = [UIColor redColor];
         }
     }
     return self;

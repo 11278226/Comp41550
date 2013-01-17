@@ -10,6 +10,8 @@
 
 @interface DOKPolygonView : UIView
 
-@property (assign,nonatomic) int numberOfSides;
+@property (nonatomic) int numberOfSides;
+@property (nonatomic) UIColor *insideColor;
+@property (nonatomic) UIColor *borderColor;
 
 @end

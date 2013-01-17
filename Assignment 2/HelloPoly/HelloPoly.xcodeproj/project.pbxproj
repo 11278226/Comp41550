@@ -93,9 +93,9 @@
 				7E9920F616A57B8F0086FC13 /* DOKAppDelegate.m */,
 				7E99210316A57BBD0086FC13 /* DOKViewController.h */,
 				7E99210416A57BBD0086FC13 /* DOKViewController.m */,
+				7E99210516A57BBD0086FC13 /* DOKViewController.xib */,
 				7E99210D16A5B8130086FC13 /* DOKPolygonView.h */,
 				7E99210E16A5B8130086FC13 /* DOKPolygonView.m */,
-				7E99210516A57BBD0086FC13 /* DOKViewController.xib */,
 				7E99210816A57C910086FC13 /* PolygonShape.h */,
 				7E99210916A57C910086FC13 /* PolygonShape.m */,
 				7E9920ED16A57B8F0086FC13 /* Supporting Files */,
@@ -263,8 +263,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloPoly/HelloPoly-Prefix.pch";
 				INFOPLIST_FILE = "HelloPoly/HelloPoly-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3972D22B-2E39-4329-B5B3-1ED13E869704";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -276,8 +278,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloPoly/HelloPoly-Prefix.pch";
 				INFOPLIST_FILE = "HelloPoly/HelloPoly-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3972D22B-2E39-4329-B5B3-1ED13E869704";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -301,6 +305,7 @@
 				7E99210216A57B8F0086FC13 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

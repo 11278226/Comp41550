@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "PolygonShape.h"
 
-@interface DOKViewController : UIViewController <UITextFieldDelegate>
+
+@interface DOKViewController : UIViewController <UITextFieldDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) PolygonShape *polygonModel;
 

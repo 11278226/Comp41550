@@ -13,5 +13,7 @@
 
 @property (nonatomic) int numberOfSides;
 @property (nonatomic, readonly) NSString *name;
+@property (nonatomic) UIColor *insideColor;
+@property (nonatomic) UIColor *borderColor;
 
 @end

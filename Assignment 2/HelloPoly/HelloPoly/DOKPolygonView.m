@@ -26,9 +26,9 @@
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 2.0);
-    CGContextSetStrokeColorWithColor(context, [UIColor blueColor].CGColor);
-    CGContextSetFillColorWithColor(context, [UIColor blueColor].CGColor);
-    NSArray *theArray = [self.class pointsForPolygonInRect:self.frame numberOfSides:self.numberOfSides];
+    [self.insideColor setFill];
+    [self.borderColor setStroke];
+    NSArray *theArray = [DOKPolygonView pointsForPolygonInRect:self.bounds numberOfSides:self.numberOfSides];
     for (NSValue *theValue in theArray) {
         CGPoint thePoint = [theValue CGPointValue];
         if ([theArray indexOfObject:theValue] == 0) {
@@ -39,8 +39,7 @@
     }
     // Drawing code
     CGContextClosePath(context);
-    CGContextFillPath(context);
-    CGContextStrokePath(context);
+    CGContextDrawPath(context,kCGPathFillStroke);    
 }
 
 + (NSArray *)pointsForPolygonInRect:(CGRect)rect numberOfSides:(int)numberOfSides {
