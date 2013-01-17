@@ -25,7 +25,7 @@
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetLineWidth(context, 2.0);
+    CGContextSetLineWidth(context, 5.0);
     [self.insideColor setFill];
     [self.borderColor setStroke];
     NSArray *theArray = [DOKPolygonView pointsForPolygonInRect:self.bounds numberOfSides:self.numberOfSides];

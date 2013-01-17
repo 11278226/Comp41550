@@ -15,6 +15,18 @@
 @interface DOKViewController () {
     
 }
+@property (nonatomic) CGFloat netRotation;
+-(IBAction) handleRotateGesture:(UIGestureRecognizer *) sender;
+@property (weak, nonatomic) IBOutlet UIView *previewBorderColorView;
+@property (weak, nonatomic) IBOutlet UILabel *borderBlueNumber;
+@property (weak, nonatomic) IBOutlet UILabel *borderGreenNumber;
+@property (weak, nonatomic) IBOutlet UILabel *borderRedNumber;
+- (IBAction)borderBlueColor:(UISlider *)sender;
+- (IBAction)borderGreenColor:(UISlider *)sender;
+- (IBAction)borderRedColor:(UISlider *)sender;
+@property (weak, nonatomic) IBOutlet UISlider *borderBlueSlider;
+@property (weak, nonatomic) IBOutlet UISlider *borderGreenSlider;
+@property (weak, nonatomic) IBOutlet UISlider *borderRedSlider;
 @property (weak, nonatomic) IBOutlet UISlider *fillGreenSlider;
 @property (weak, nonatomic) IBOutlet UISlider *fillBlueSlider;
 @property (weak, nonatomic) IBOutlet UISlider *fillRedSlider;
@@ -23,6 +35,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *fillGreenNumber;
 @property (weak, nonatomic) IBOutlet UILabel *fillRedNumber;
 @property (weak, nonatomic) IBOutlet UIView *colorView;
+- (IBAction)increase:(id)sender;
+- (IBAction)decrease:(id)sender;
 - (IBAction)fillRedColor:(UISlider *)sender;
 - (IBAction)fillGreenColor:(UISlider *)sender;
 - (IBAction)fillBlueColor:(UISlider *)sender;
@@ -56,6 +70,8 @@
 {
     UIColor *myColor = [UIColor colorWithRed:[self.fillRedNumber.text floatValue]/256 green:[self.fillGreenNumber.text floatValue]/256 blue:[self.fillBlueNumber.text floatValue]/256 alpha:1];
     self.previewColorView.backgroundColor = myColor;
+    UIColor *myBorderColor = [UIColor colorWithRed:[self.borderRedNumber.text floatValue]/256 green:[self.borderGreenNumber.text floatValue]/256 blue:[self.borderBlueNumber.text floatValue]/256 alpha:1];
+    self.previewBorderColorView.backgroundColor = myBorderColor;
 }
 
 - (IBAction)fillGreenColor:(UISlider *)sender {
@@ -76,6 +92,26 @@
     double value = [sender value];
     [self.polygonModel setNumberOfSides:value];
     [self updateUI];
+}
+
+- (IBAction)increase:(id)sender {
+    [self.polygonModel setNumberOfSides:self.polygonModel.numberOfSides + 1];
+    [self updateUI];
+}
+
+- (IBAction)decrease:(id)sender {
+    [self.polygonModel setNumberOfSides:self.polygonModel.numberOfSides - 1];
+    [self updateUI];
+}
+
+//---handle rotate gesture---
+-(IBAction) handleRotateGesture:(UIGestureRecognizer *) sender {
+    CGFloat rotation = [(UIRotationGestureRecognizer *) sender rotation];
+    CGAffineTransform transform = CGAffineTransformMakeRotation(rotation + self.netRotation);
+    sender.view.transform = transform;
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        self.netRotation += rotation;
+    }
 }
 
 - (PolygonShape *)polygonModel
@@ -101,6 +137,18 @@
     self.fillRedSlider.value = red*256;
     self.fillGreenSlider.value = green*256;
     self.fillBlueSlider.value = blue*256;
+    
+    //[self updatePreviewColorView];
+    
+    CGFloat redBorder, greenBorder, blueBorder, alphaBorder;
+    [self.polygonModel.borderColor getRed:&redBorder green:&greenBorder blue:&blueBorder alpha:&alphaBorder];
+    
+    self.borderRedNumber.text = [NSString stringWithFormat:@"%.0f",redBorder*256];
+    self.borderGreenNumber.text = [NSString stringWithFormat:@"%.0f",greenBorder*256];
+    self.borderBlueNumber.text = [NSString stringWithFormat:@"%.0f",blueBorder*256];
+    self.borderRedSlider.value = redBorder*256;
+    self.borderGreenSlider.value = greenBorder*256;
+    self.borderBlueSlider.value = blueBorder*256;
     
     [self updatePreviewColorView];
     
@@ -162,7 +210,24 @@
 - (IBAction)saveColorChange:(UIButton *)sender {
     UIColor *myColor = [UIColor colorWithRed:[self.fillRedNumber.text floatValue]/256 green:[self.fillGreenNumber.text floatValue]/256 blue:[self.fillBlueNumber.text floatValue]/256 alpha:1];
     self.polygonModel.insideColor = myColor;
+    UIColor *myBorderColor = [UIColor colorWithRed:[self.borderRedNumber.text floatValue]/256 green:[self.borderGreenNumber.text floatValue]/256 blue:[self.borderBlueNumber.text floatValue]/256 alpha:1];
+    self.polygonModel.borderColor = myBorderColor;
     [self updateUI];
     self.colorView.hidden = YES;
+}
+
+- (IBAction)borderBlueColor:(UISlider *)sender {
+    self.borderBlueNumber.text = [NSString stringWithFormat:@"%.0f",sender.value];
+    [self updatePreviewColorView];
+}
+
+- (IBAction)borderGreenColor:(UISlider *)sender {
+    self.borderGreenNumber.text = [NSString stringWithFormat:@"%.0f",sender.value];
+    [self updatePreviewColorView];
+}
+
+- (IBAction)borderRedColor:(UISlider *)sender {
+    self.borderRedNumber.text = [NSString stringWithFormat:@"%.0f",sender.value];
+    [self updatePreviewColorView];
 }
 @end
