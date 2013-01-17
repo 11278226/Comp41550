@@ -15,6 +15,7 @@
 @interface DOKViewController () {
     
 }
+@property (weak, nonatomic) IBOutlet UIScrollView *myScrollView;
 @property (nonatomic) CGFloat netRotation;
 -(IBAction) handleRotateGesture:(UIGestureRecognizer *) sender;
 @property (weak, nonatomic) IBOutlet UIView *previewBorderColorView;
@@ -34,7 +35,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *fillBlueNumber;
 @property (weak, nonatomic) IBOutlet UILabel *fillGreenNumber;
 @property (weak, nonatomic) IBOutlet UILabel *fillRedNumber;
-@property (weak, nonatomic) IBOutlet UIView *colorView;
 - (IBAction)increase:(id)sender;
 - (IBAction)decrease:(id)sender;
 - (IBAction)fillRedColor:(UISlider *)sender;
@@ -85,7 +85,7 @@
 }
 
 - (IBAction)changeColorPress:(id)sender {
-    self.colorView.hidden = NO;
+    self.myScrollView.hidden = NO;
 }
 
 - (IBAction)changeNumberOfSides:(UIStepper *)sender {
@@ -127,7 +127,7 @@
     [super viewDidLoad];
     [self updateUI];
     
-    
+    [self.myScrollView setContentSize:CGSizeMake(320, 426)];
     CGFloat red, green, blue, alpha;
     [self.polygonModel.insideColor getRed:&red green:&green blue:&blue alpha:&alpha];
     
@@ -204,7 +204,7 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)cancelColorChange:(UIButton *)sender {
-    self.colorView.hidden = YES;
+    self.myScrollView.hidden = YES;
 }
 
 - (IBAction)saveColorChange:(UIButton *)sender {
@@ -213,7 +213,7 @@
     UIColor *myBorderColor = [UIColor colorWithRed:[self.borderRedNumber.text floatValue]/256 green:[self.borderGreenNumber.text floatValue]/256 blue:[self.borderBlueNumber.text floatValue]/256 alpha:1];
     self.polygonModel.borderColor = myBorderColor;
     [self updateUI];
-    self.colorView.hidden = YES;
+    self.myScrollView.hidden = YES;
 }
 
 - (IBAction)borderBlueColor:(UISlider *)sender {
