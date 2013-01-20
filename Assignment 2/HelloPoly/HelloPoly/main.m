@@ -2,7 +2,7 @@
 //  main.m
 //  HelloPoly
 //
-//  Created by Diarmuid O'Keeffe on 15/01/2013.
+//  Created by Diarmuid O'Keeffe on 20/01/2013.
 //  Copyright (c) 2013 dermo. All rights reserved.
 //
 

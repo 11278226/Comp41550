@@ -7,112 +7,112 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7E9920E716A57B8F0086FC13 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9920E616A57B8F0086FC13 /* UIKit.framework */; };
-		7E9920E916A57B8F0086FC13 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9920E816A57B8F0086FC13 /* Foundation.framework */; };
-		7E9920EB16A57B8F0086FC13 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E9920EA16A57B8F0086FC13 /* CoreGraphics.framework */; };
-		7E9920F116A57B8F0086FC13 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7E9920EF16A57B8F0086FC13 /* InfoPlist.strings */; };
-		7E9920F316A57B8F0086FC13 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E9920F216A57B8F0086FC13 /* main.m */; };
-		7E9920F716A57B8F0086FC13 /* DOKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E9920F616A57B8F0086FC13 /* DOKAppDelegate.m */; };
-		7E9920F916A57B8F0086FC13 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E9920F816A57B8F0086FC13 /* Default.png */; };
-		7E9920FB16A57B8F0086FC13 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E9920FA16A57B8F0086FC13 /* Default@2x.png */; };
-		7E9920FD16A57B8F0086FC13 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E9920FC16A57B8F0086FC13 /* Default-568h@2x.png */; };
-		7E99210616A57BBE0086FC13 /* DOKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E99210416A57BBD0086FC13 /* DOKViewController.m */; };
-		7E99210716A57BBE0086FC13 /* DOKViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E99210516A57BBD0086FC13 /* DOKViewController.xib */; };
-		7E99210A16A57C910086FC13 /* PolygonShape.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E99210916A57C910086FC13 /* PolygonShape.m */; };
-		7E99210F16A5B8130086FC13 /* DOKPolygonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E99210E16A5B8130086FC13 /* DOKPolygonView.m */; };
+		7EE8AF7016AC142A004DADFB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EE8AF6F16AC142A004DADFB /* UIKit.framework */; };
+		7EE8AF7216AC142A004DADFB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EE8AF7116AC142A004DADFB /* Foundation.framework */; };
+		7EE8AF7416AC142A004DADFB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EE8AF7316AC142A004DADFB /* CoreGraphics.framework */; };
+		7EE8AF7A16AC142A004DADFB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7EE8AF7816AC142A004DADFB /* InfoPlist.strings */; };
+		7EE8AF7C16AC142A004DADFB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE8AF7B16AC142A004DADFB /* main.m */; };
+		7EE8AF8016AC142A004DADFB /* DOKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE8AF7F16AC142A004DADFB /* DOKAppDelegate.m */; };
+		7EE8AF8216AC142A004DADFB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EE8AF8116AC142A004DADFB /* Default.png */; };
+		7EE8AF8416AC142A004DADFB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EE8AF8316AC142A004DADFB /* Default@2x.png */; };
+		7EE8AF8616AC142A004DADFB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EE8AF8516AC142A004DADFB /* Default-568h@2x.png */; };
+		7EE8AF8916AC142A004DADFB /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EE8AF8716AC142A004DADFB /* MainStoryboard_iPhone.storyboard */; };
+		7EE8AF8F16AC142A004DADFB /* DOKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE8AF8E16AC142A004DADFB /* DOKViewController.m */; };
+		7EE8AF9D16AC1846004DADFB /* DOKPolygonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE8AF9A16AC1846004DADFB /* DOKPolygonView.m */; };
+		7EE8AF9E16AC1846004DADFB /* PolygonShape.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EE8AF9C16AC1846004DADFB /* PolygonShape.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7E9920E216A57B8F0086FC13 /* HelloPoly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloPoly.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E9920E616A57B8F0086FC13 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		7E9920E816A57B8F0086FC13 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		7E9920EA16A57B8F0086FC13 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		7E9920EE16A57B8F0086FC13 /* HelloPoly-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HelloPoly-Info.plist"; sourceTree = "<group>"; };
-		7E9920F016A57B8F0086FC13 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		7E9920F216A57B8F0086FC13 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7E9920F416A57B8F0086FC13 /* HelloPoly-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HelloPoly-Prefix.pch"; sourceTree = "<group>"; };
-		7E9920F516A57B8F0086FC13 /* DOKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DOKAppDelegate.h; sourceTree = "<group>"; };
-		7E9920F616A57B8F0086FC13 /* DOKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DOKAppDelegate.m; sourceTree = "<group>"; };
-		7E9920F816A57B8F0086FC13 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		7E9920FA16A57B8F0086FC13 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		7E9920FC16A57B8F0086FC13 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		7E99210316A57BBD0086FC13 /* DOKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKViewController.h; sourceTree = "<group>"; };
-		7E99210416A57BBD0086FC13 /* DOKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKViewController.m; sourceTree = "<group>"; };
-		7E99210516A57BBD0086FC13 /* DOKViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DOKViewController.xib; sourceTree = "<group>"; };
-		7E99210816A57C910086FC13 /* PolygonShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolygonShape.h; sourceTree = "<group>"; };
-		7E99210916A57C910086FC13 /* PolygonShape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PolygonShape.m; sourceTree = "<group>"; };
-		7E99210D16A5B8130086FC13 /* DOKPolygonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKPolygonView.h; sourceTree = "<group>"; };
-		7E99210E16A5B8130086FC13 /* DOKPolygonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKPolygonView.m; sourceTree = "<group>"; };
+		7EE8AF6B16AC142A004DADFB /* HelloPoly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloPoly.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7EE8AF6F16AC142A004DADFB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		7EE8AF7116AC142A004DADFB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		7EE8AF7316AC142A004DADFB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		7EE8AF7716AC142A004DADFB /* HelloPoly-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HelloPoly-Info.plist"; sourceTree = "<group>"; };
+		7EE8AF7916AC142A004DADFB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		7EE8AF7B16AC142A004DADFB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		7EE8AF7D16AC142A004DADFB /* HelloPoly-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HelloPoly-Prefix.pch"; sourceTree = "<group>"; };
+		7EE8AF7E16AC142A004DADFB /* DOKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DOKAppDelegate.h; sourceTree = "<group>"; };
+		7EE8AF7F16AC142A004DADFB /* DOKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DOKAppDelegate.m; sourceTree = "<group>"; };
+		7EE8AF8116AC142A004DADFB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		7EE8AF8316AC142A004DADFB /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		7EE8AF8516AC142A004DADFB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		7EE8AF8816AC142A004DADFB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		7EE8AF8D16AC142A004DADFB /* DOKViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DOKViewController.h; sourceTree = "<group>"; };
+		7EE8AF8E16AC142A004DADFB /* DOKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DOKViewController.m; sourceTree = "<group>"; };
+		7EE8AF9916AC1846004DADFB /* DOKPolygonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKPolygonView.h; sourceTree = "<group>"; };
+		7EE8AF9A16AC1846004DADFB /* DOKPolygonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKPolygonView.m; sourceTree = "<group>"; };
+		7EE8AF9B16AC1846004DADFB /* PolygonShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PolygonShape.h; sourceTree = "<group>"; };
+		7EE8AF9C16AC1846004DADFB /* PolygonShape.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PolygonShape.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7E9920DF16A57B8F0086FC13 /* Frameworks */ = {
+		7EE8AF6816AC142A004DADFB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E9920E716A57B8F0086FC13 /* UIKit.framework in Frameworks */,
-				7E9920E916A57B8F0086FC13 /* Foundation.framework in Frameworks */,
-				7E9920EB16A57B8F0086FC13 /* CoreGraphics.framework in Frameworks */,
+				7EE8AF7016AC142A004DADFB /* UIKit.framework in Frameworks */,
+				7EE8AF7216AC142A004DADFB /* Foundation.framework in Frameworks */,
+				7EE8AF7416AC142A004DADFB /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7E9920D716A57B8F0086FC13 = {
+		7EE8AF6016AC142A004DADFB = {
 			isa = PBXGroup;
 			children = (
-				7E9920EC16A57B8F0086FC13 /* HelloPoly */,
-				7E9920E516A57B8F0086FC13 /* Frameworks */,
-				7E9920E316A57B8F0086FC13 /* Products */,
+				7EE8AF7516AC142A004DADFB /* HelloPoly */,
+				7EE8AF6E16AC142A004DADFB /* Frameworks */,
+				7EE8AF6C16AC142A004DADFB /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		7E9920E316A57B8F0086FC13 /* Products */ = {
+		7EE8AF6C16AC142A004DADFB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7E9920E216A57B8F0086FC13 /* HelloPoly.app */,
+				7EE8AF6B16AC142A004DADFB /* HelloPoly.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7E9920E516A57B8F0086FC13 /* Frameworks */ = {
+		7EE8AF6E16AC142A004DADFB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7E9920E616A57B8F0086FC13 /* UIKit.framework */,
-				7E9920E816A57B8F0086FC13 /* Foundation.framework */,
-				7E9920EA16A57B8F0086FC13 /* CoreGraphics.framework */,
+				7EE8AF6F16AC142A004DADFB /* UIKit.framework */,
+				7EE8AF7116AC142A004DADFB /* Foundation.framework */,
+				7EE8AF7316AC142A004DADFB /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7E9920EC16A57B8F0086FC13 /* HelloPoly */ = {
+		7EE8AF7516AC142A004DADFB /* HelloPoly */ = {
 			isa = PBXGroup;
 			children = (
-				7E9920F516A57B8F0086FC13 /* DOKAppDelegate.h */,
-				7E9920F616A57B8F0086FC13 /* DOKAppDelegate.m */,
-				7E99210316A57BBD0086FC13 /* DOKViewController.h */,
-				7E99210416A57BBD0086FC13 /* DOKViewController.m */,
-				7E99210516A57BBD0086FC13 /* DOKViewController.xib */,
-				7E99210D16A5B8130086FC13 /* DOKPolygonView.h */,
-				7E99210E16A5B8130086FC13 /* DOKPolygonView.m */,
-				7E99210816A57C910086FC13 /* PolygonShape.h */,
-				7E99210916A57C910086FC13 /* PolygonShape.m */,
-				7E9920ED16A57B8F0086FC13 /* Supporting Files */,
+				7EE8AF7E16AC142A004DADFB /* DOKAppDelegate.h */,
+				7EE8AF7F16AC142A004DADFB /* DOKAppDelegate.m */,
+				7EE8AF8716AC142A004DADFB /* MainStoryboard_iPhone.storyboard */,
+				7EE8AF8D16AC142A004DADFB /* DOKViewController.h */,
+				7EE8AF8E16AC142A004DADFB /* DOKViewController.m */,
+				7EE8AF9916AC1846004DADFB /* DOKPolygonView.h */,
+				7EE8AF9A16AC1846004DADFB /* DOKPolygonView.m */,
+				7EE8AF9B16AC1846004DADFB /* PolygonShape.h */,
+				7EE8AF9C16AC1846004DADFB /* PolygonShape.m */,
+				7EE8AF7616AC142A004DADFB /* Supporting Files */,
 			);
 			path = HelloPoly;
 			sourceTree = "<group>";
 		};
-		7E9920ED16A57B8F0086FC13 /* Supporting Files */ = {
+		7EE8AF7616AC142A004DADFB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7E9920EE16A57B8F0086FC13 /* HelloPoly-Info.plist */,
-				7E9920EF16A57B8F0086FC13 /* InfoPlist.strings */,
-				7E9920F216A57B8F0086FC13 /* main.m */,
-				7E9920F416A57B8F0086FC13 /* HelloPoly-Prefix.pch */,
-				7E9920F816A57B8F0086FC13 /* Default.png */,
-				7E9920FA16A57B8F0086FC13 /* Default@2x.png */,
-				7E9920FC16A57B8F0086FC13 /* Default-568h@2x.png */,
+				7EE8AF7716AC142A004DADFB /* HelloPoly-Info.plist */,
+				7EE8AF7816AC142A004DADFB /* InfoPlist.strings */,
+				7EE8AF7B16AC142A004DADFB /* main.m */,
+				7EE8AF7D16AC142A004DADFB /* HelloPoly-Prefix.pch */,
+				7EE8AF8116AC142A004DADFB /* Default.png */,
+				7EE8AF8316AC142A004DADFB /* Default@2x.png */,
+				7EE8AF8516AC142A004DADFB /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -120,13 +120,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7E9920E116A57B8F0086FC13 /* HelloPoly */ = {
+		7EE8AF6A16AC142A004DADFB /* HelloPoly */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7E99210016A57B8F0086FC13 /* Build configuration list for PBXNativeTarget "HelloPoly" */;
+			buildConfigurationList = 7EE8AF9216AC142A004DADFB /* Build configuration list for PBXNativeTarget "HelloPoly" */;
 			buildPhases = (
-				7E9920DE16A57B8F0086FC13 /* Sources */,
-				7E9920DF16A57B8F0086FC13 /* Frameworks */,
-				7E9920E016A57B8F0086FC13 /* Resources */,
+				7EE8AF6716AC142A004DADFB /* Sources */,
+				7EE8AF6816AC142A004DADFB /* Frameworks */,
+				7EE8AF6916AC142A004DADFB /* Resources */,
 			);
 			buildRules = (
 			);
@@ -134,79 +134,87 @@
 			);
 			name = HelloPoly;
 			productName = HelloPoly;
-			productReference = 7E9920E216A57B8F0086FC13 /* HelloPoly.app */;
+			productReference = 7EE8AF6B16AC142A004DADFB /* HelloPoly.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		7E9920D916A57B8F0086FC13 /* Project object */ = {
+		7EE8AF6216AC142A004DADFB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = DOK;
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = dermo;
 			};
-			buildConfigurationList = 7E9920DC16A57B8F0086FC13 /* Build configuration list for PBXProject "HelloPoly" */;
+			buildConfigurationList = 7EE8AF6516AC142A004DADFB /* Build configuration list for PBXProject "HelloPoly" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 7E9920D716A57B8F0086FC13;
-			productRefGroup = 7E9920E316A57B8F0086FC13 /* Products */;
+			mainGroup = 7EE8AF6016AC142A004DADFB;
+			productRefGroup = 7EE8AF6C16AC142A004DADFB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7E9920E116A57B8F0086FC13 /* HelloPoly */,
+				7EE8AF6A16AC142A004DADFB /* HelloPoly */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		7E9920E016A57B8F0086FC13 /* Resources */ = {
+		7EE8AF6916AC142A004DADFB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E9920F116A57B8F0086FC13 /* InfoPlist.strings in Resources */,
-				7E9920F916A57B8F0086FC13 /* Default.png in Resources */,
-				7E9920FB16A57B8F0086FC13 /* Default@2x.png in Resources */,
-				7E9920FD16A57B8F0086FC13 /* Default-568h@2x.png in Resources */,
-				7E99210716A57BBE0086FC13 /* DOKViewController.xib in Resources */,
+				7EE8AF7A16AC142A004DADFB /* InfoPlist.strings in Resources */,
+				7EE8AF8216AC142A004DADFB /* Default.png in Resources */,
+				7EE8AF8416AC142A004DADFB /* Default@2x.png in Resources */,
+				7EE8AF8616AC142A004DADFB /* Default-568h@2x.png in Resources */,
+				7EE8AF8916AC142A004DADFB /* MainStoryboard_iPhone.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		7E9920DE16A57B8F0086FC13 /* Sources */ = {
+		7EE8AF6716AC142A004DADFB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E9920F316A57B8F0086FC13 /* main.m in Sources */,
-				7E9920F716A57B8F0086FC13 /* DOKAppDelegate.m in Sources */,
-				7E99210616A57BBE0086FC13 /* DOKViewController.m in Sources */,
-				7E99210A16A57C910086FC13 /* PolygonShape.m in Sources */,
-				7E99210F16A5B8130086FC13 /* DOKPolygonView.m in Sources */,
+				7EE8AF7C16AC142A004DADFB /* main.m in Sources */,
+				7EE8AF8016AC142A004DADFB /* DOKAppDelegate.m in Sources */,
+				7EE8AF8F16AC142A004DADFB /* DOKViewController.m in Sources */,
+				7EE8AF9D16AC1846004DADFB /* DOKPolygonView.m in Sources */,
+				7EE8AF9E16AC1846004DADFB /* PolygonShape.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		7E9920EF16A57B8F0086FC13 /* InfoPlist.strings */ = {
+		7EE8AF7816AC142A004DADFB /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				7E9920F016A57B8F0086FC13 /* en */,
+				7EE8AF7916AC142A004DADFB /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		7EE8AF8716AC142A004DADFB /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				7EE8AF8816AC142A004DADFB /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		7E9920FE16A57B8F0086FC13 /* Debug */ = {
+		7EE8AF9016AC142A004DADFB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -231,10 +239,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		7E9920FF16A57B8F0086FC13 /* Release */ = {
+		7EE8AF9116AC142A004DADFB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -252,35 +261,30 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		7E99210116A57B8F0086FC13 /* Debug */ = {
+		7EE8AF9316AC142A004DADFB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Diarmuid O'Keeffe (UG4U245BWF)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloPoly/HelloPoly-Prefix.pch";
 				INFOPLIST_FILE = "HelloPoly/HelloPoly-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3972D22B-2E39-4329-B5B3-1ED13E869704";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
-		7E99210216A57B8F0086FC13 /* Release */ = {
+		7EE8AF9416AC142A004DADFB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Diarmuid O'Keeffe (UG4U245BWF)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HelloPoly/HelloPoly-Prefix.pch";
 				INFOPLIST_FILE = "HelloPoly/HelloPoly-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3972D22B-2E39-4329-B5B3-1ED13E869704";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -289,25 +293,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7E9920DC16A57B8F0086FC13 /* Build configuration list for PBXProject "HelloPoly" */ = {
+		7EE8AF6516AC142A004DADFB /* Build configuration list for PBXProject "HelloPoly" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7E9920FE16A57B8F0086FC13 /* Debug */,
-				7E9920FF16A57B8F0086FC13 /* Release */,
+				7EE8AF9016AC142A004DADFB /* Debug */,
+				7EE8AF9116AC142A004DADFB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7E99210016A57B8F0086FC13 /* Build configuration list for PBXNativeTarget "HelloPoly" */ = {
+		7EE8AF9216AC142A004DADFB /* Build configuration list for PBXNativeTarget "HelloPoly" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7E99210116A57B8F0086FC13 /* Debug */,
-				7E99210216A57B8F0086FC13 /* Release */,
+				7EE8AF9316AC142A004DADFB /* Debug */,
+				7EE8AF9416AC142A004DADFB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 7E9920D916A57B8F0086FC13 /* Project object */;
+	rootObject = 7EE8AF6216AC142A004DADFB /* Project object */;
 }

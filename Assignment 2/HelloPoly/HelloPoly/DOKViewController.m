@@ -2,7 +2,7 @@
 //  DOKViewController.m
 //  HelloPoly
 //
-//  Created by Diarmuid O'Keeffe on 15/01/2013.
+//  Created by Diarmuid O'Keeffe on 20/01/2013.
 //  Copyright (c) 2013 dermo. All rights reserved.
 //
 
@@ -13,7 +13,7 @@
 #define MAXLENGTH 2
 
 @interface DOKViewController () {
-    
+    UILabel *polygonType;
 }
 @property (weak, nonatomic) IBOutlet UIScrollView *myScrollView;
 @property (nonatomic) CGFloat netRotation;
@@ -51,6 +51,36 @@
 @end
 
 @implementation DOKViewController
+
+- (void)didReceiveMemoryWarning
+{
+    
+    [self setNumberOfSidesLabel:nil];
+    [self setPolygonModel:nil];
+    [self setMyScrollView:nil];
+    [self setPreviewBorderColorView:nil];
+    [self setPreviewColorView:nil];
+    [self setBorderBlueNumber:nil];
+    [self setBorderGreenNumber:nil];
+    [self setBorderRedNumber:nil];
+    [self setBorderBlueSlider:nil];
+    [self setBorderGreenSlider:nil];
+    [self setBorderRedSlider:nil];
+    [self setFillBlueNumber:nil];
+    [self setFillGreenNumber:nil];
+    [self setFillRedNumber:nil];
+    [self setFillBlueSlider:nil];
+    [self setFillGreenSlider:nil];
+    [self setFillRedSlider:nil];
+    [self setAView:nil];
+    [self setNumOfSides:nil];
+    [self setPolygonStepperControl:nil];
+    [super didReceiveMemoryWarning];
+    
+    
+    
+    // Dispose of any resources that can be recreated.
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -125,7 +155,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    polygonType = [[UILabel alloc] initWithFrame:CGRectMake(20, self.aView.bounds.size.height/2 - 40, self.aView.bounds.size.width-40, 30)];
+    [polygonType setBackgroundColor:[UIColor clearColor]];
+    polygonType.textAlignment = NSTextAlignmentCenter;
+    [self.aView addSubview:polygonType];
     [self updateUI];
+    
     
     [self.myScrollView setContentSize:CGSizeMake(320, 426)];
     CGFloat red, green, blue, alpha;
@@ -157,19 +193,27 @@
                                    action:@selector(dismissKeyboard)];
     
     [self.view addGestureRecognizer:tap];
-   
+    
 }
 
 - (void)updateUI
 {
-    self.numberOfSidesLabel.text = [self.polygonModel name];
+    self.title = [self.polygonModel name];
+    polygonType.text = [self.polygonModel name];
+    //self.numberOfSidesLabel.text = [self.polygonModel name];
     self.aView.numberOfSides = self.polygonModel.numberOfSides;
     self.aView.insideColor = self.polygonModel.insideColor;
     self.aView.borderColor = self.polygonModel.borderColor;
     self.polygonStepperControl.value = self.polygonModel.numberOfSides;
     self.numOfSides.text = [NSString stringWithFormat:@"%d",self.polygonModel.numberOfSides];
     [self.aView setNeedsDisplay];
-
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSString stringWithFormat:@"%d",self.polygonModel.numberOfSides] forKey:@"numberOfSides"];
+    NSData *insideColorData = [NSKeyedArchiver archivedDataWithRootObject:self.polygonModel.insideColor];
+    NSData *borderColorData = [NSKeyedArchiver archivedDataWithRootObject:self.polygonModel.borderColor];
+    [defaults setObject:insideColorData forKey:@"insideColor"];
+    [defaults setObject:borderColorData forKey:@"borderColor"];
+    
 }
 
 - (BOOL)textField:(UITextField *) textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -198,11 +242,6 @@
     [self.numOfSides resignFirstResponder];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 - (IBAction)cancelColorChange:(UIButton *)sender {
     self.myScrollView.hidden = YES;
 }
@@ -231,3 +270,4 @@
     [self updatePreviewColorView];
 }
 @end
+

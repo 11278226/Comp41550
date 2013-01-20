@@ -2,7 +2,7 @@
 //  DOKAppDelegate.m
 //  HelloPoly
 //
-//  Created by Diarmuid O'Keeffe on 15/01/2013.
+//  Created by Diarmuid O'Keeffe on 20/01/2013.
 //  Copyright (c) 2013 dermo. All rights reserved.
 //
 
@@ -12,15 +12,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.myVC = [[DOKViewController alloc] init];
-    self.window.rootViewController = self.myVC;
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
     return YES;
 }
-
+							
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -29,13 +24,12 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSString stringWithFormat:@"%d",self.myVC.polygonModel.numberOfSides] forKey:@"numberOfSides"];
-    NSData *insideColorData = [NSKeyedArchiver archivedDataWithRootObject:self.myVC.polygonModel.insideColor];
-    NSData *borderColorData = [NSKeyedArchiver archivedDataWithRootObject:self.myVC.polygonModel.borderColor];
-    [defaults setObject:insideColorData forKey:@"insideColor"];
-    [defaults setObject:borderColorData forKey:@"borderColor"];    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    //    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    [defaults setObject:[NSString stringWithFormat:@"%d",self.myVC.polygonModel.numberOfSides] forKey:@"numberOfSides"];
+//    NSData *insideColorData = [NSKeyedArchiver archivedDataWithRootObject:self.myVC.polygonModel.insideColor];
+//    NSData *borderColorData = [NSKeyedArchiver archivedDataWithRootObject:self.myVC.polygonModel.borderColor];
+//    [defaults setObject:insideColorData forKey:@"insideColor"];
+//    [defaults setObject:borderColorData forKey:@"borderColor"];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
