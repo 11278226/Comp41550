@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DOKCalcModel.h"
 
-@interface DOKViewController : UIViewController
+@interface DOKViewController : UIViewController <UIAlertViewDelegate, UISplitViewControllerDelegate>
 
 @property (nonatomic,weak) IBOutlet UILabel *calcDisplay;
 @property (nonatomic,strong) IBOutlet DOKCalcModel *calcModel;

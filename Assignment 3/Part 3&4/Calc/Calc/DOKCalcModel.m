@@ -10,11 +10,6 @@
 
 @interface DOKCalcModel () 
     
-@property (nonatomic) double a;
-@property (nonatomic) double b;
-@property (nonatomic) double x;
-
-
 @end
 
 @implementation DOKCalcModel

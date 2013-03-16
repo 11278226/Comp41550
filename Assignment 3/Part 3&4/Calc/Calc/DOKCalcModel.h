@@ -16,7 +16,10 @@
 @property (nonatomic,strong) NSString *waitingOperation;
 @property (readonly,strong) id expression;
 @property (nonatomic) id propertyList;
-@property (nonatomic) NSMutableDictionary *variableValues;
+@property (nonatomic, strong) NSMutableDictionary *variableValues;
+@property (nonatomic) double a;
+@property (nonatomic) double b;
+@property (nonatomic) double x;
 
 - (double)performOperation:(NSString *)operation;
 - (void)digitPressed:(NSString *)operation inMiddleOfDigit:(bool)inMiddleOfDigit;

@@ -19,17 +19,21 @@
 		7E0F5C1B16B400D30021707C /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E0F5C1916B400D30021707C /* MainStoryboard.storyboard */; };
 		7E0F5C1E16B400D30021707C /* DOKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E0F5C1D16B400D30021707C /* DOKViewController.m */; };
 		7E0F5C2716B4011E0021707C /* DOKCalcModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E0F5C2616B4011E0021707C /* DOKCalcModel.m */; };
+		7E44258416EE24D4003EBE48 /* AxesDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E44258116EE24D4003EBE48 /* AxesDrawer.m */; };
+		7E44258516EE24D4003EBE48 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E44258316EE24D4003EBE48 /* GraphView.m */; };
+		7E44258816EE2AEE003EBE48 /* DOKGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E44258716EE2AEE003EBE48 /* DOKGraphViewController.m */; };
+		7EA6951B16EF88F3009203C1 /* MainStoryboardiPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EA6951A16EF88F3009203C1 /* MainStoryboardiPad.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		7E0F5BFD16B400D30021707C /* Calc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calc.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E0F5BFD16B400D30021707C /* GraphCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GraphCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E0F5C0116B400D30021707C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7E0F5C0316B400D30021707C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7E0F5C0516B400D30021707C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		7E0F5C0916B400D30021707C /* Calc-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Calc-Info.plist"; sourceTree = "<group>"; };
+		7E0F5C0916B400D30021707C /* GraphCalc-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GraphCalc-Info.plist"; sourceTree = "<group>"; };
 		7E0F5C0B16B400D30021707C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7E0F5C0D16B400D30021707C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		7E0F5C0F16B400D30021707C /* Calc-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Calc-Prefix.pch"; sourceTree = "<group>"; };
+		7E0F5C0F16B400D30021707C /* GraphCalc-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GraphCalc-Prefix.pch"; sourceTree = "<group>"; };
 		7E0F5C1016B400D30021707C /* DOKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DOKAppDelegate.h; sourceTree = "<group>"; };
 		7E0F5C1116B400D30021707C /* DOKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DOKAppDelegate.m; sourceTree = "<group>"; };
 		7E0F5C1316B400D30021707C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -40,6 +44,14 @@
 		7E0F5C1D16B400D30021707C /* DOKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DOKViewController.m; sourceTree = "<group>"; };
 		7E0F5C2616B4011E0021707C /* DOKCalcModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKCalcModel.m; sourceTree = "<group>"; };
 		7E0F5C2816B401B60021707C /* DOKCalcModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKCalcModel.h; sourceTree = "<group>"; };
+		7E42684A16F0BA66006ED39C /* SplitViewBarButtonItemPresenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitViewBarButtonItemPresenter.h; sourceTree = "<group>"; };
+		7E44258016EE24D4003EBE48 /* AxesDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxesDrawer.h; sourceTree = "<group>"; };
+		7E44258116EE24D4003EBE48 /* AxesDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AxesDrawer.m; sourceTree = "<group>"; };
+		7E44258216EE24D4003EBE48 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
+		7E44258316EE24D4003EBE48 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
+		7E44258616EE2AEE003EBE48 /* DOKGraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKGraphViewController.h; sourceTree = "<group>"; };
+		7E44258716EE2AEE003EBE48 /* DOKGraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKGraphViewController.m; sourceTree = "<group>"; };
+		7EA6951A16EF88F3009203C1 /* MainStoryboardiPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboardiPad.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +80,7 @@
 		7E0F5BFE16B400D30021707C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7E0F5BFD16B400D30021707C /* Calc.app */,
+				7E0F5BFD16B400D30021707C /* GraphCalc.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,8 +102,16 @@
 				7E0F5C1016B400D30021707C /* DOKAppDelegate.h */,
 				7E0F5C1116B400D30021707C /* DOKAppDelegate.m */,
 				7E0F5C1916B400D30021707C /* MainStoryboard.storyboard */,
+				7EA6951A16EF88F3009203C1 /* MainStoryboardiPad.storyboard */,
 				7E0F5C1C16B400D30021707C /* DOKViewController.h */,
 				7E0F5C1D16B400D30021707C /* DOKViewController.m */,
+				7E42684A16F0BA66006ED39C /* SplitViewBarButtonItemPresenter.h */,
+				7E44258616EE2AEE003EBE48 /* DOKGraphViewController.h */,
+				7E44258716EE2AEE003EBE48 /* DOKGraphViewController.m */,
+				7E44258016EE24D4003EBE48 /* AxesDrawer.h */,
+				7E44258116EE24D4003EBE48 /* AxesDrawer.m */,
+				7E44258216EE24D4003EBE48 /* GraphView.h */,
+				7E44258316EE24D4003EBE48 /* GraphView.m */,
 				7E0F5C0816B400D30021707C /* Supporting Files */,
 			);
 			path = Calc;
@@ -100,10 +120,10 @@
 		7E0F5C0816B400D30021707C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7E0F5C0916B400D30021707C /* Calc-Info.plist */,
+				7E0F5C0916B400D30021707C /* GraphCalc-Info.plist */,
 				7E0F5C0A16B400D30021707C /* InfoPlist.strings */,
 				7E0F5C0D16B400D30021707C /* main.m */,
-				7E0F5C0F16B400D30021707C /* Calc-Prefix.pch */,
+				7E0F5C0F16B400D30021707C /* GraphCalc-Prefix.pch */,
 				7E0F5C1316B400D30021707C /* Default.png */,
 				7E0F5C1516B400D30021707C /* Default@2x.png */,
 				7E0F5C1716B400D30021707C /* Default-568h@2x.png */,
@@ -123,9 +143,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		7E0F5BFC16B400D30021707C /* Calc */ = {
+		7E0F5BFC16B400D30021707C /* GraphCalc */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7E0F5C2116B400D30021707C /* Build configuration list for PBXNativeTarget "Calc" */;
+			buildConfigurationList = 7E0F5C2116B400D30021707C /* Build configuration list for PBXNativeTarget "GraphCalc" */;
 			buildPhases = (
 				7E0F5BF916B400D30021707C /* Sources */,
 				7E0F5BFA16B400D30021707C /* Frameworks */,
@@ -135,9 +155,9 @@
 			);
 			dependencies = (
 			);
-			name = Calc;
+			name = GraphCalc;
 			productName = Calc;
-			productReference = 7E0F5BFD16B400D30021707C /* Calc.app */;
+			productReference = 7E0F5BFD16B400D30021707C /* GraphCalc.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -150,7 +170,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = dermo;
 			};
-			buildConfigurationList = 7E0F5BF716B400D30021707C /* Build configuration list for PBXProject "Calc" */;
+			buildConfigurationList = 7E0F5BF716B400D30021707C /* Build configuration list for PBXProject "GraphCalc" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -162,7 +182,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7E0F5BFC16B400D30021707C /* Calc */,
+				7E0F5BFC16B400D30021707C /* GraphCalc */,
 			);
 		};
 /* End PBXProject section */
@@ -177,6 +197,7 @@
 				7E0F5C1616B400D30021707C /* Default@2x.png in Resources */,
 				7E0F5C1816B400D30021707C /* Default-568h@2x.png in Resources */,
 				7E0F5C1B16B400D30021707C /* MainStoryboard.storyboard in Resources */,
+				7EA6951B16EF88F3009203C1 /* MainStoryboardiPad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +212,9 @@
 				7E0F5C1216B400D30021707C /* DOKAppDelegate.m in Sources */,
 				7E0F5C1E16B400D30021707C /* DOKViewController.m in Sources */,
 				7E0F5C2716B4011E0021707C /* DOKCalcModel.m in Sources */,
+				7E44258416EE24D4003EBE48 /* AxesDrawer.m in Sources */,
+				7E44258516EE24D4003EBE48 /* GraphView.m in Sources */,
+				7E44258816EE2AEE003EBE48 /* DOKGraphViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,9 +294,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Calc/Calc-Prefix.pch";
-				INFOPLIST_FILE = "Calc/Calc-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Calc/GraphCalc-Prefix.pch";
+				INFOPLIST_FILE = "Calc/GraphCalc-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				PRODUCT_NAME = GraphCalc;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -281,9 +307,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Calc/Calc-Prefix.pch";
-				INFOPLIST_FILE = "Calc/Calc-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "Calc/GraphCalc-Prefix.pch";
+				INFOPLIST_FILE = "Calc/GraphCalc-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				PRODUCT_NAME = GraphCalc;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -291,7 +319,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7E0F5BF716B400D30021707C /* Build configuration list for PBXProject "Calc" */ = {
+		7E0F5BF716B400D30021707C /* Build configuration list for PBXProject "GraphCalc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7E0F5C1F16B400D30021707C /* Debug */,
@@ -300,7 +328,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7E0F5C2116B400D30021707C /* Build configuration list for PBXNativeTarget "Calc" */ = {
+		7E0F5C2116B400D30021707C /* Build configuration list for PBXNativeTarget "GraphCalc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7E0F5C2216B400D30021707C /* Debug */,

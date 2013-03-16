@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "7E0F5BFC16B400D30021707C"
-               BuildableName = "Calc.app"
-               BlueprintName = "Calc"
-               ReferencedContainer = "container:Calc.xcodeproj">
+               BuildableName = "GraphCalc.app"
+               BlueprintName = "GraphCalc"
+               ReferencedContainer = "container:GraphCalc.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7E0F5BFC16B400D30021707C"
-            BuildableName = "Calc.app"
-            BlueprintName = "Calc"
-            ReferencedContainer = "container:Calc.xcodeproj">
+            BuildableName = "GraphCalc.app"
+            BlueprintName = "GraphCalc"
+            ReferencedContainer = "container:GraphCalc.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -52,9 +52,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7E0F5BFC16B400D30021707C"
-            BuildableName = "Calc.app"
-            BlueprintName = "Calc"
-            ReferencedContainer = "container:Calc.xcodeproj">
+            BuildableName = "GraphCalc.app"
+            BlueprintName = "GraphCalc"
+            ReferencedContainer = "container:GraphCalc.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -70,9 +70,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "7E0F5BFC16B400D30021707C"
-            BuildableName = "Calc.app"
-            BlueprintName = "Calc"
-            ReferencedContainer = "container:Calc.xcodeproj">
+            BuildableName = "GraphCalc.app"
+            BlueprintName = "GraphCalc"
+            ReferencedContainer = "container:GraphCalc.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
