@@ -8,12 +8,7 @@
 
 #import "DOKCalcModel.h"
 
-@interface DOKCalcModel () 
-    
-@property (nonatomic) double a;
-@property (nonatomic) double b;
-@property (nonatomic) double x;
-
+@interface DOKCalcModel ()
 
 @end
 
@@ -95,9 +90,6 @@
 }
 
 - (void)setVariableAsOperand:(NSString *)variableName value:(NSString *)value {
-//    NSMutableArray *currExpression = [[NSMutableArray alloc] initWithArray:_expression];
-//    [currExpression addObject:variableName];
-//    _expression = currExpression;
     if ([variableName isEqualToString:@"a"]) {
         self.a = [value doubleValue];
     } else if ([variableName isEqualToString:@"b"]) {
@@ -131,13 +123,11 @@
     NSMutableArray *evaluationArray = [[NSMutableArray alloc] init];
     NSNumberFormatter * numberFormat = [[NSNumberFormatter alloc] init];
     [numberFormat setNumberStyle:NSNumberFormatterDecimalStyle];
-    //DOKCalcModel *myCalcModel = [[DOKCalcModel alloc] init];
     for (NSString *part in expressionArray) {
         NSCharacterSet* notDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
         if ([part rangeOfCharacterFromSet:notDigits].location == NSNotFound)
         {
             [evaluationArray addObject:[numberFormat numberFromString:part]];
-            //currentNumber = myCalcModel.operand = [part doubleValue];
         } else if ([part isEqualToString:@"x"]) {
             [evaluationArray addObject:[numberFormat numberFromString:[variables objectForKey:@"x"]]];
         } else if ([part isEqualToString:@"a"]) {
@@ -168,7 +158,7 @@
                 }
                 else if([@"*" isEqualToString:waitingOp]) {
                     totalNumber = totalNumber * currentNumber;
-                waitingOp =nil;
+                    waitingOp =nil;
                 }
                 else if([@"/" isEqualToString:waitingOp]) {
                     totalNumber = totalNumber / currentNumber;
@@ -191,14 +181,14 @@
                 [myMutableSet addObject:myID];
             }
         }
-    
+        
     }
     if ([myMutableSet count] > 0) {
         return myMutableSet;
     }
     return nil;
 }
-+ (NSString *)descriptionOfExpression:(id)anExpression {
+- (NSString *)descriptionOfExpression:(id)anExpression {
     NSString *stringDescription = @"";
     for (NSString *myString in anExpression) {
         stringDescription = [stringDescription stringByAppendingString:[NSString stringWithFormat:@"%@ ",myString]];
@@ -206,7 +196,7 @@
     return stringDescription;
 }
 
-- (id)propertyList
++ (id)propertyList
 {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(
                                                          NSDocumentDirectory, NSUserDomainMask, YES);
@@ -216,16 +206,11 @@
 }
 
 
-- (id)propertyListForExpression:(id)anExpression {
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    [defaults setObject:firstName forKey:@"firstName"];
-//    [defaults setObject:lastName forKey:@"lastname"];
-//    [defaults setInteger:age forKey:@"age"];
++ (id)propertyListForExpression:(id)anExpression {
     NSArray *myExpression = (NSArray *)anExpression;
     NSString *expressionPlistDirectory = self.propertyList;
     [myExpression writeToFile:expressionPlistDirectory atomically:YES];
     return expressionPlistDirectory;
-//    return nil;
 }
 
 - (id)expressionForPropertyList:(id)propertyList {
@@ -233,9 +218,7 @@
     if ([[NSFileManager defaultManager] fileExistsAtPath:propertyList]) {
         array = [[NSArray alloc] initWithContentsOfFile:propertyList];
     }
-    
     return array;
-//    return nil;
 }
 
 @end

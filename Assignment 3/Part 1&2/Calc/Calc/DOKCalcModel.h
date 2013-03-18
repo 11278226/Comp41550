@@ -17,6 +17,9 @@
 @property (readonly,strong) id expression;
 @property (nonatomic) id propertyList;
 @property (nonatomic) NSMutableDictionary *variableValues;
+@property (nonatomic) double a;
+@property (nonatomic) double b;
+@property (nonatomic) double x;
 
 - (double)performOperation:(NSString *)operation;
 - (void)digitPressed:(NSString *)operation inMiddleOfDigit:(bool)inMiddleOfDigit;
@@ -25,7 +28,7 @@
 + (double)evaluateExpression:(id)anExpression
          usingVariableValues:(NSDictionary *)variables;
 + (NSSet *)variablesInExpression:(id)anExpression;
-+ (NSString *)descriptionOfExpression:(id)anExpression;
-- (id)propertyListForExpression:(id)anExpression;
+- (NSString *)descriptionOfExpression:(id)anExpression;
++ (id)propertyListForExpression:(id)anExpression;
 - (id)expressionForPropertyList:(id)propertyList;
 @end

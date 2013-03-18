@@ -1,4 +1,4 @@
-//
+    //
 //  DOKViewController.m
 //  Calc
 //
@@ -71,10 +71,9 @@
         if (![operation isEqualToString:@"C"]) {
             NSMutableArray *array = [[NSMutableArray alloc] initWithArray:self.calcModel.expression];
             [array addObject:operation];
-            //self.propertyList = [self.calcModel propertyListForExpression:array];
         }
     }
-    NSLog(@"%@",[DOKCalcModel descriptionOfExpression:[self.calcModel expressionForPropertyList:self.propertyList]]);
+    NSLog(@"%@",[self.calcModel descriptionOfExpression:[self.calcModel expressionForPropertyList:self.propertyList]]);
     
 }
 
@@ -112,7 +111,6 @@
     [self.calcModel setVariableAsOperand:sender.titleLabel.text];
     NSMutableArray *array = [[NSMutableArray alloc] initWithArray:self.calcModel.expression];
     [array addObject:sender.titleLabel.text];
-    //self.propertyList = [self.calcModel propertyListForExpression:array];
 }
 
 - (IBAction)evaluateExpressionUsingVariableValues:(UIButton *)sender {
@@ -143,7 +141,57 @@
 }
 
 - (IBAction)setVariableValues:(UIButton *)sender {
-    self.variablesView.hidden = NO;
+    UIAlertView *variableValuesAlertView = [[UIAlertView alloc] initWithTitle:@"Variables" message:@"\n  \n  \n " delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    
+    UILabel *aLabelField = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 45.0, 100.0, 25.0)];
+    aLabelField.text= [NSString stringWithFormat:@"a:"];
+    aLabelField.backgroundColor = [UIColor clearColor];
+    aLabelField.textColor = [UIColor whiteColor];
+    [variableValuesAlertView addSubview:aLabelField];
+    
+    UITextField *aTextField = [[UITextField alloc] initWithFrame:CGRectMake(125.0, 45.0, 140.0, 25.0)];
+    if (self.calcModel.a != 0) {
+        aTextField.text= [NSString stringWithFormat:@"%.2f", self.calcModel.a];
+    }
+    aTextField.backgroundColor = [UIColor whiteColor];
+    aTextField.tag = 100;
+    aTextField.keyboardType = UIKeyboardTypeDecimalPad;
+    [variableValuesAlertView addSubview:aTextField];
+    
+    
+    UILabel *bLabel = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 75.0, 145.0, 25.0)];
+    
+    bLabel.text=[NSString stringWithFormat:@"b:"];
+    bLabel.backgroundColor = [UIColor clearColor];
+    bLabel.textColor = [UIColor whiteColor];
+    [variableValuesAlertView addSubview:bLabel];
+    
+    UITextField *bTextField = [[UITextField alloc] initWithFrame:CGRectMake(125.0, 75.0, 140.0, 25.0)];
+    if (self.calcModel.b != 0) {
+        bTextField.text= [NSString stringWithFormat:@"%.2f", self.calcModel.b];
+    }
+    bTextField.backgroundColor = [UIColor whiteColor];
+    bTextField.tag = 200;
+    bTextField.keyboardType = UIKeyboardTypeDecimalPad;
+    [variableValuesAlertView addSubview:bTextField];
+    
+    UILabel *xLabel = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 105.0, 145.0, 25.0)];
+    xLabel.text=[NSString stringWithFormat:@"x:"];
+    xLabel.backgroundColor = [UIColor clearColor];
+    xLabel.textColor = [UIColor whiteColor];
+    [variableValuesAlertView addSubview:xLabel];
+    
+    UITextField *xTextField = [[UITextField alloc] initWithFrame:CGRectMake(125.0, 105.0, 140.0, 25.0)];
+    if (self.calcModel.x != 0) {
+        xTextField.text= [NSString stringWithFormat:@"%.2f", self.calcModel.x];
+    }
+    xTextField.backgroundColor = [UIColor whiteColor];
+    xTextField.tag = 300;
+    xTextField.keyboardType = UIKeyboardTypeDecimalPad;
+    [variableValuesAlertView addSubview:xTextField];
+    
+    
+    [variableValuesAlertView show];
 }
 
 - (IBAction)saveVariableValues:(UIButton *)sender {
@@ -157,28 +205,39 @@
 }
 
 - (IBAction)showExpression:(UIButton *)sender {
-//    NSString *expressionString = [NSString stringWithFormat:@"Local: %@ ... Stored: %@", [DOKCalcModel descriptionOfExpression:self.calcModel.expression], [DOKCalcModel descriptionOfExpression:[self.calcModel expressionForPropertyList:self.propertyList]]];
-    UIAlertView *expressionAlertView = [[UIAlertView alloc] initWithTitle:@"Expressions" message:@"\n  \n  \n " delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [DOKCalcModel variablesInExpression:self.calcModel.expression];
+    UIAlertView *expressionAlertView = [[UIAlertView alloc] initWithTitle:@"Expressions" message:@"\n  \n" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
     
     UILabel *userNameTextField = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 45.0, 245.0, 25.0)];
-    userNameTextField.text= [NSString stringWithFormat:@"Local: %@",[DOKCalcModel descriptionOfExpression:self.calcModel.expression] ];
+    userNameTextField.text= [NSString stringWithFormat:@"Local: %@",[self.calcModel descriptionOfExpression:self.calcModel.expression] ];
     userNameTextField.backgroundColor = [UIColor clearColor];
     userNameTextField.textColor = [UIColor whiteColor];
     [expressionAlertView addSubview:userNameTextField];
     
     
     UILabel *passwordTextField = [[UILabel alloc] initWithFrame:CGRectMake(20.0, 75.0, 245.0, 25.0)];
-    passwordTextField.text=[NSString stringWithFormat:@"Stored: %@",[DOKCalcModel descriptionOfExpression:[self.calcModel expressionForPropertyList:self.propertyList]]];
+    passwordTextField.text=[NSString stringWithFormat:@"Stored: %@",[self.calcModel descriptionOfExpression:[self.calcModel expressionForPropertyList:self.propertyList]]];
     passwordTextField.backgroundColor = [UIColor clearColor];
     passwordTextField.textColor = [UIColor whiteColor];
     [expressionAlertView addSubview:passwordTextField];
-//    expressionAlertView.frame= CGRectMake(5, 100, 320, 300);
     
     [expressionAlertView show];
     
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([alertView.title isEqualToString:@"Variables"]) {
+        UITextField *aTextField = (UITextField*)[alertView viewWithTag:100];
+        UITextField *bTextField = (UITextField*)[alertView viewWithTag:200];
+        UITextField *xTextField = (UITextField*)[alertView viewWithTag:300];
+        [self.calcModel setVariableAsOperand:@"a" value:aTextField.text];
+        [self.calcModel setVariableAsOperand:@"b" value:bTextField.text];
+        [self.calcModel setVariableAsOperand:@"x" value:xTextField.text];
+    }
+}
+
 - (IBAction)storeExpression:(UIButton *)sender {
-    self.propertyList = [self.calcModel propertyListForExpression:self.calcModel.expression];
+    self.propertyList = [DOKCalcModel propertyListForExpression:self.calcModel.expression];
 }
 @end
