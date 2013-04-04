@@ -145,6 +145,7 @@
 
 - (IBAction)doubleTapGestureAction:(UITapGestureRecognizer *)gesture {
     if (gesture.state == UIGestureRecognizerStateRecognized) {
+        self.scale = self.previousScale = 1.0;
         CGPoint nilPoint = CGPointMake(0.0, 0.0);
         [self setOrigin:nilPoint];
         [self.view setNeedsDisplay];
@@ -176,7 +177,7 @@
     NSDictionary *myDictionary = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
     
     double ans2 = [DOKCalcModel evaluateExpression:self.expression usingVariableValues:myDictionary];
-    CGPoint lineEnd = CGPointMake(self.view.bounds.size.width - 0.0,-ans2*self.scale+self.origin.y);
+    CGPoint lineEnd = CGPointMake(self.view.bounds.size.width,-ans2*self.scale+self.origin.y);
     return lineEnd;
 }
 

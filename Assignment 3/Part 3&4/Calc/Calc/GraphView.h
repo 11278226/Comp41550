@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol ExpressionPoints
-@optional
+@required
 - (CGPoint) startPoint;
 - (CGPoint) endPoint;
 - (double) getScale;

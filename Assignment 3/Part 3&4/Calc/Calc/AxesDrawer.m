@@ -132,30 +132,16 @@
 	CGContextStrokePath(context);
 }
 
-+ (void)drawAxesInRect:(CGRect)bounds originAtPoint:(CGPoint)axisOrigin scale:(CGFloat)pointsPerUnit lineOrigin:(CGPoint)lineOrigin lineEnd:(CGPoint)lineEnd
++ (void)drawAxesInRect:(CGRect)bounds originAtPoint:(CGPoint)axisOrigin scale:(CGFloat)pointsPerUnit context:(CGContextRef)context
 {
-    
-	CGContextRef context = UIGraphicsGetCurrentContext();
-    
-	UIGraphicsPushContext(context);
-    
 	CGContextBeginPath(context);
 	CGContextMoveToPoint(context, bounds.origin.x, axisOrigin.y);
 	CGContextAddLineToPoint(context, bounds.origin.x+bounds.size.width, axisOrigin.y);
 	CGContextMoveToPoint(context, axisOrigin.x, bounds.origin.y);
 	CGContextAddLineToPoint(context, axisOrigin.x, bounds.origin.y+bounds.size.height);
-    
-    // My Line
-
-    CGContextMoveToPoint(context, lineOrigin.x, lineOrigin.y);
-    CGContextAddLineToPoint(context, lineEnd.x, lineEnd.y);
-	CGContextStrokePath(context);
-        
+    CGContextStrokePath(context);
     
 	[self drawHashMarksInRect:bounds originAtPoint:axisOrigin scale:pointsPerUnit];
-    
-	
-	UIGraphicsPopContext();
 }
 
 @end

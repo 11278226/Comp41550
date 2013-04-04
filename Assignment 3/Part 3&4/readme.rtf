@@ -1,0 +1,60 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf510
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\qc
+
+\f0\b\fs24 \cf0 \ul \ulc0 Assignment 3\
+\
+Diarmuid O'Keeffe\
+11278226
+\b0 \ulnone \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\b \cf0 Objective 3:\
+
+\b0 \
+1. Use UINavigationController - Called GraphCalc\
+2. Only 1 variable button x\
+3. 	\
+	a) Graph Button which pushes UIViewController on UINavigationController Stack\
+	b) UIViewControllers view contains graph view of expression\
+4. Two Buttons Zoom In and Zoom Out - Hidden for Objective 4, used gestures instead\
+5. View must display expression and axes of graph\
+6. Graphing view must be generic and reusable. Use a protocol\
+7. \
+	a) Make UI as clean as possible\
+	b) Set titles of UIViewControllers\
+\
+Extra Marks\
+\
+1. Make User Interface usable\
+2. Have your app work in any orientation\
+\
+
+\b Objective 4:
+\b0 \
+\
+1. Make app work on iPad and iPhone (I used iOS 6.0 SDK)\
+2. \
+	a) Use SplitView for iPad\
+	b) In landscape your UI should appear with your graph on the right and the calculator on the left\
+	c) In portrait your graph should fill the entire screen and there should be a bar button which brings up a popover(doesn't appear as a popover in iOS 6.0)\
+	d) The Graph button should update the graph no matter where the graph is in the UI\
+3. \
+	a) Remove the Zoom In and Zoom Out buttons \
+	b) Translate origin when the user pans around with a single touch\
+	c) Zoom in and out when the user pinches in and out\
+	d) Double Tap on the graph view to bring the origin back to centre(also brings back to default scale.\
+4. Create UI of your graph view controller programmatically \
+5. Whenever your calculator appears in a popover, the popover should be sized appropriately to fit the calculator - not possible in iOS 6 as the popover for the split view doesn't show as a popover.\
+6. When the application exits and restarts its graph view should be showing the same scale and origin.\
+\
+Extra marks\
+\
+1. Preserving more UI states on launches -\
+2. Get your app to run on a physical device. - Runs on my iPhone 5\
+3. Make your UI work in landscape on an iPhone - Landscape mode works on iPhone and iPad\
+4. Preserve state after turning off app  - Preserves state(scale, origin) but not local expression\
+\
+All parts completed apart from preserving more UI states (more than scale and origin)}

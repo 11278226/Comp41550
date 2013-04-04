@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface AxesDrawer : NSObject
-+ (void)drawAxesInRect:(CGRect)bounds originAtPoint:(CGPoint)axisOrigin scale:(CGFloat)pointsPerUnit lineOrigin:(CGPoint)lineOrigin lineEnd:(CGPoint)lineEnd;
++ (void)drawAxesInRect:(CGRect)bounds originAtPoint:(CGPoint)axisOrigin scale:(CGFloat)pointsPerUnit context:(CGContextRef)context;
 @end
