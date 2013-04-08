@@ -656,7 +656,6 @@
                 <relationship kind="action" name="digitPressed:" candidateClass="UIButton"/>
                 <relationship kind="action" name="evaluateExpressionUsingVariableValues:" candidateClass="UIButton"/>
                 <relationship kind="action" name="operationPressed:" candidateClass="UIButton"/>
-                <relationship kind="action" name="piPressed:" candidateClass="UIButton"/>
                 <relationship kind="action" name="saveVariableValues:" candidateClass="UIButton"/>
                 <relationship kind="action" name="setAndShowGraph:" candidateClass="UIButton"/>
                 <relationship kind="action" name="setVariableAsOperand:" candidateClass="UIButton"/>

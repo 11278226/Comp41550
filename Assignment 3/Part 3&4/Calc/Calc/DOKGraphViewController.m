@@ -32,7 +32,6 @@
 @synthesize previousScale = _previousScale;
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 @synthesize toolbar = _toolbar;
-//@synthesize view = _view;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
