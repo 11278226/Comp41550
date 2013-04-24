@@ -15,7 +15,19 @@
 
 @implementation DOKPlayerDetailViewController
 
-@synthesize player=_player;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+    }
+    return self;
+}
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.navigationItem.title = [self.player name];
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     // Update the view with current data before it is displayed.
@@ -26,10 +38,8 @@
     [self.tableView setContentOffset:CGPointZero animated:NO];
     self.title = self.player.name;
     
-    int overall = [DOKPlayerModel overallForPlayer:self.player];//[self.player.offensivePositioning intValue] + [self.player.defensivePositioning intValue] +[self.player.strength intValue] +[self.player.stamina intValue] +[self.player.speed intValue] +[self.player.tackling intValue] +[self.player.goalkeeping intValue] +[self.player.shooting intValue] +[self.player.passing intValue] +[self.player.dribbling intValue] +[self.player.composure intValue];
-    
-//    UIImageView *stars = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"2StarSmall"]];
-//    [self.view addSubview:stars];
+//    int overall = [[self.player overall] intValue];
+    int overall = [DOKPlayerModel overallForPlayer:self.player];
     if (overall < 98) {
         NSLog(@"One Star");
     } else if (overall < 122) {
@@ -87,6 +97,7 @@
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
     // Set the text in the cell for the section/row.

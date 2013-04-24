@@ -10,7 +10,7 @@
 #import "DOKPickPlayerTableViewController.h"
 
 
-@interface DOKCareerMainScreenViewController : UIViewController <UIGestureRecognizerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, PickPlayerDelegate>
+@interface DOKCareerMainScreenViewController : UIViewController <UIGestureRecognizerDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, PickPlayerDelegate, UIScrollViewDelegate>
 
 
 

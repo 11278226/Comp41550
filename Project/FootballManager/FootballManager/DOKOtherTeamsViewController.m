@@ -31,7 +31,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"grid_pattern.png"]];
     self.teams = [[NSMutableArray alloc] init];
     NSError *error;
     NSFetchRequest *fetchRequestImages = [[NSFetchRequest alloc] init];
@@ -68,8 +68,16 @@
     static NSString *CellIdentifier = @"TeamCell";
 	
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (((UIImageView *)[cell viewWithTag:1]).image == nil) {
+        ((UIImageView *)[cell viewWithTag:1]).image = [UIImage imageNamed:@"arrow_right.png"];
+    }
     
     cell.textLabel.text = [[self.teams objectAtIndex:indexPath.row] teamName];
+    if ([cell.textLabel.text isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:@"teamName"]]) 
+        cell.textLabel.textColor = [UIColor yellowColor];
+    else
+        cell.textLabel.textColor = [UIColor whiteColor];
+    cell.textLabel.backgroundColor = [UIColor clearColor];
     
     return cell;
 }

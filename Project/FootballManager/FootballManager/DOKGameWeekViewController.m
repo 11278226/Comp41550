@@ -11,12 +11,14 @@
 #import "DOKMatchModel.h"
 #import "DOKMatch.h"
 #import <QuartzCore/QuartzCore.h>
+#import "DOKMatchTabBarController.h"
 
 @interface DOKGameWeekViewController () {
     NSNumber *gameWeek;
     NSNumber *showingGameWeek;
     NSString *myTeam;
-    
+    UINavigationItem *navigItem;
+    UINavigationBar *naviBarObj;
 }
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property (weak, nonatomic) IBOutlet UIButton *playMatchesButton;
@@ -38,6 +40,13 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    if(orientation == 0 || orientation == UIInterfaceOrientationPortrait) {
+        naviBarObj.frame = CGRectMake(0, 0, 320, 44);
+    } else if(orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
+        naviBarObj.frame = CGRectMake(0, 0, self.view.bounds.size.width, 32);
+    }
+    self.myTableView.frame =CGRectMake(0, naviBarObj.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - naviBarObj.bounds.size.height - 64);
     [self tableView:self.myTableView viewForHeaderInSection:0];
     [self.myTableView reloadData];
 }
@@ -45,9 +54,17 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    naviBarObj = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    [self.view addSubview:naviBarObj];
+    naviBarObj.tintColor = [UIColor colorWithRed:21.0/255.0 green:112.0/255.0 blue:35.0/255.0 alpha:1.0];
+    
     self.defaults = [NSUserDefaults standardUserDefaults];
     gameWeek = [self.defaults objectForKey:@"gameWeek"];
     showingGameWeek = gameWeek;
+    
+    navigItem = [[UINavigationItem alloc] initWithTitle:[NSString stringWithFormat:@"Gameweek %@",showingGameWeek]];
+    naviBarObj.items = [NSArray arrayWithObjects: navigItem,nil];
+    
     [self reloadAll];
 }
 
@@ -62,8 +79,12 @@
 
 - (void)reloadAll
 {
+    
+    
     self.matches = [NSMutableArray array];
     self.teams = [NSMutableArray array];
+    
+    
     
     
     myTeam = [self.defaults objectForKey:@"teamName"];
@@ -81,6 +102,7 @@
         self.matches = [[[[DOKAppDelegate sharedAppDelegate] managedObjectContext] executeFetchRequest:request error:&error] mutableCopy];
     }
     [self checkGameweek];
+    navigItem.title = [NSString stringWithFormat:@"Gameweek %@",showingGameWeek];
     NSError *saveError;
     if (![[[DOKAppDelegate sharedAppDelegate] managedObjectContext] save:&saveError]) {
         NSLog(@"Saving changes to book book two failed: %@", saveError);
@@ -113,14 +135,14 @@
     ((UILabel *)[cell viewWithTag:3]).text = [NSString stringWithFormat:@"%@",currMatch.homeGoals];
     ((UILabel *)[cell viewWithTag:4]).text = [NSString stringWithFormat:@"%@",currMatch.awayGoals];
     if ([currMatch.homeTeam isEqualToString:myTeam]) {
-        ((UILabel *)[cell viewWithTag:1]).textColor = [UIColor blueColor];
-        ((UILabel *)[cell viewWithTag:2]).textColor = [UIColor darkTextColor];
+        ((UILabel *)[cell viewWithTag:1]).textColor = [UIColor yellowColor];
+        ((UILabel *)[cell viewWithTag:2]).textColor = [UIColor whiteColor];
     } else if ([currMatch.awayTeam isEqualToString:myTeam]) {
-        ((UILabel *)[cell viewWithTag:2]).textColor = [UIColor blueColor];
-        ((UILabel *)[cell viewWithTag:1]).textColor = [UIColor darkTextColor];
+        ((UILabel *)[cell viewWithTag:2]).textColor = [UIColor yellowColor];
+        ((UILabel *)[cell viewWithTag:1]).textColor = [UIColor whiteColor];
     } else {
-        ((UILabel *)[cell viewWithTag:1]).textColor = [UIColor darkTextColor];
-        ((UILabel *)[cell viewWithTag:2]).textColor = [UIColor darkTextColor];
+        ((UILabel *)[cell viewWithTag:1]).textColor = [UIColor whiteColor];
+        ((UILabel *)[cell viewWithTag:2]).textColor = [UIColor whiteColor];
     }
     return cell;
 }
@@ -146,7 +168,7 @@
     headerLabel.backgroundColor = [UIColor clearColor];
     headerLabel.font= [UIFont boldSystemFontOfSize:19.0f];
     headerLabel.shadowOffset = CGSizeMake(1, 1);
-    headerLabel.textColor = [UIColor lightTextColor];
+    headerLabel.textColor = [UIColor whiteColor];
     headerLabel.textAlignment = NSTextAlignmentCenter;
     headerLabel.shadowColor = [UIColor darkGrayColor];
     NSString *title = [self tableView:tableView titleForHeaderInSection:section];
@@ -156,17 +178,17 @@
     [prevButton addTarget:self
                action:@selector(previousGameWeek:)
      forControlEvents:UIControlEventTouchDown];
-    [prevButton setBackgroundImage:[UIImage imageNamed:@"nav-primary-arrow-left.jpg"] forState:UIControlStateNormal];
-    [prevButton setBackgroundImage:[UIImage imageNamed:@"nav-primary-arrow-left.jpg"] forState:UIControlStateHighlighted];
-    prevButton.frame = CGRectMake(10, 2, 26, 26);
+    [prevButton setBackgroundImage:[UIImage imageNamed:@"yellowarrowleft.png"] forState:UIControlStateNormal];
+    [prevButton setBackgroundImage:[UIImage imageNamed:@"yellowarrowleft.png"] forState:UIControlStateHighlighted];
+    prevButton.frame = CGRectMake(10, 5, 35, 35);
     
     UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [nextButton addTarget:self
                    action:@selector(nextGameWeek:)
          forControlEvents:UIControlEventTouchDown];
-    [nextButton setBackgroundImage:[UIImage imageNamed:@"nav-primary-arrow-right.jpg"] forState:UIControlStateNormal];
-    [nextButton setBackgroundImage:[UIImage imageNamed:@"nav-primary-arrow-right.jpg"] forState:UIControlStateHighlighted];
-    nextButton.frame = CGRectMake(width - 36, 2, 26, 26);
+    [nextButton setBackgroundImage:[UIImage imageNamed:@"yellowarrowright.png"] forState:UIControlStateNormal];
+    [nextButton setBackgroundImage:[UIImage imageNamed:@"yellowarrowright.png"] forState:UIControlStateHighlighted];
+    nextButton.frame = CGRectMake(width - 45, 5, 35, 35);
     
     [container addSubview:headerLabel];
     [container addSubview:prevButton];
@@ -199,12 +221,12 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 30.0;
+    return 44.0;
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [NSString stringWithFormat:@"Gameweek %d",[showingGameWeek intValue]];
+    return [NSString stringWithFormat:@"Matches"];
 }
 
 
@@ -218,6 +240,14 @@
             DOKMatchViewController *detailViewController = [segue destinationViewController];
         
         detailViewController.myDelegate = self;
+        detailViewController.matches = [NSMutableArray array];
+        detailViewController.teams = [NSMutableArray array];
+        detailViewController.teams = self.teams;
+        detailViewController.matches = self.matches;
+    } else if ([[segue identifier] isEqualToString:@"PlayMatchesThroughTab"]) {
+        DOKMatchTabBarController *detailViewController = [segue destinationViewController];
+        
+        detailViewController.exitMatchDelegate = self;
         detailViewController.matches = [NSMutableArray array];
         detailViewController.teams = [NSMutableArray array];
         detailViewController.teams = self.teams;
@@ -252,7 +282,24 @@
 
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
+    
+//    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    
+    if(toInterfaceOrientation == 0 || toInterfaceOrientation == UIInterfaceOrientationPortrait) {
+        naviBarObj.frame = CGRectMake(0, 0, 320, 44);
+    } else if(toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft || toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+        naviBarObj.frame = CGRectMake(0, 0, self.view.bounds.size.height+50, 32);
+    }
+    self.myTableView.frame =CGRectMake(0, naviBarObj.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height - naviBarObj.bounds.size.height - 64);
+    [self tableView:self.myTableView viewForHeaderInSection:0];
     [self.myTableView reloadData];
 }
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    
+}
+
+
 
 @end

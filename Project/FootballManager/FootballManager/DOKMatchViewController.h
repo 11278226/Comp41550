@@ -13,10 +13,11 @@
 -(void) secondViewControllerDismissedWithoutPlaying;
 @end
 
-@interface DOKMatchViewController : UIViewController
+@interface DOKMatchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, retain) NSMutableArray *matches;
 @property (nonatomic, retain) NSMutableArray *teams;
-@property (nonatomic, assign) id<SecondDelegate>    myDelegate;
+@property (nonatomic, assign) id<SecondDelegate> myDelegate;
+@property (nonatomic, retain) UITableView IBOutlet *myTableView;
 
 @end

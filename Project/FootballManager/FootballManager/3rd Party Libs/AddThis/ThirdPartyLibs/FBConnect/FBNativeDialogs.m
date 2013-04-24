@@ -92,7 +92,7 @@
         }
     }];
     
-    [viewController presentModalViewController:composeViewController animated:YES];
+    [viewController presentViewController:composeViewController animated:YES completion:nil];
         
     return YES;
 }

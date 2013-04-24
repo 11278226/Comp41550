@@ -145,7 +145,9 @@
 
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-    
+    DOKPlayerDetailViewController *detailViewController = [[DOKPlayerDetailViewController alloc] init];
+    detailViewController.player = [self.players objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:detailViewController animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -18,6 +18,7 @@
     NSNumber *pickerRow;
     UIPickerView *pickerView2;
 }
+@property (weak, nonatomic) IBOutlet UIScrollView *myScrollView;
 @property (weak, nonatomic) IBOutlet UIView *playerSeven;
 @property (weak, nonatomic) IBOutlet UIView *playerSix;
 @property (weak, nonatomic) IBOutlet UIView *playerFive;
@@ -29,6 +30,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *playersTableView;
 @property (strong, nonatomic) NSMutableArray *playersInTeam;
 @property (strong, nonatomic) NSMutableArray *formations;
+@property (strong, nonatomic) NSMutableArray *passing;
+@property (strong, nonatomic) NSMutableArray *tackling;
 @property (strong, nonatomic) NSUserDefaults *userDefaults;
 //@property (strong, nonatomic) NSMutableDictionary *myTeam;
 - (IBAction)pickPlayer:(UIButton *)sender;
@@ -39,6 +42,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *selectionWingTwo;
 @property (weak, nonatomic) IBOutlet UILabel *selectionMid;
 @property (weak, nonatomic) IBOutlet UILabel *selectionStriker;
+@property (weak, nonatomic) IBOutlet UIButton *tacklingButton;
+@property (weak, nonatomic) IBOutlet UIButton *passingButton;
+- (IBAction)passingButtonPressed:(UIButton *)sender;
+- (IBAction)tacklingButtonPressed:(UIButton *)sender;
 
 //@property (retain, nonatomic) DOKPlayerModel *playerToJoinTeam;
 //@property (retain, nonatomic) DOKPlayerModel *playerToLeaveTeam;
@@ -62,9 +69,64 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+    [self setFormationImagesForFormation:[self.userDefaults objectForKey:@"Formation"]];
+    
+    if ([self.userDefaults objectForKey:@"myTeam"]) {
+        NSMutableDictionary *myTeam = [[self.userDefaults objectForKey:@"myTeam"] mutableCopy];
+        self.selectionKeeper.text = [myTeam objectForKey:@"playerOne"];
+        self.selectionDefence.text = [myTeam objectForKey:@"playerTwo"];
+        self.selectionDefenceTwo.text = [myTeam objectForKey:@"playerThree"];
+        self.selectionWing.text = [myTeam objectForKey:@"playerFour"];
+        self.selectionMid.text = [myTeam objectForKey:@"playerFive"];
+        self.selectionWingTwo.text = [myTeam objectForKey:@"playerSix"];
+        self.selectionStriker.text = [myTeam objectForKey:@"playerSeven"];
+        
+    }
+    [self.passingButton setTitle:[self.userDefaults objectForKey:@"Passing"] forState:UIControlStateNormal];
+    [self.passingButton setTitle:[self.userDefaults objectForKey:@"Passing"] forState:UIControlStateHighlighted];
+    [self.tacklingButton setTitle:[self.userDefaults objectForKey:@"Tackling"] forState:UIControlStateNormal];
+    [self.tacklingButton setTitle:[self.userDefaults objectForKey:@"Tackling"] forState:UIControlStateHighlighted];
+    
+}
+
+-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    if(fromInterfaceOrientation == 0 || fromInterfaceOrientation == UIInterfaceOrientationPortrait) {
+        self.myScrollView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width - 32 - 50);
+    } else if(fromInterfaceOrientation == UIInterfaceOrientationLandscapeLeft || fromInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+        
+        self.myScrollView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 44 - 50);
+    }
+}
+
+-(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    if(toInterfaceOrientation == 0 || toInterfaceOrientation == UIInterfaceOrientationPortrait) {
+        self.myScrollView.frame = CGRectMake(0, 0, 800, [UIScreen mainScreen].bounds.size.height - 44 - 50);
+    } else if(toInterfaceOrientation == UIInterfaceOrientationLandscapeLeft || toInterfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+        self.myScrollView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width - 32 - 50);
+    }
+//    [self.myScrollView setContentSize:(CGSizeMake(320,500))];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.myScrollView.delegate = self;
+    [self.myScrollView setScrollEnabled:YES];
+    [self.myScrollView setClipsToBounds:YES];
+    [self.myScrollView setUserInteractionEnabled:YES];
+    [self.myScrollView setContentSize:(CGSizeMake(320,440))];
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+    if(orientation == 0 || orientation == UIInterfaceOrientationPortrait) {
+        self.myScrollView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 44 - 50);
+    } else if(orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
+        self.myScrollView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width - 32 - 50);
+        
+    }
     
     CAGradientLayer *gradientSelected = [CAGradientLayer layer];
     gradientSelected.frame = self.selectionDefence.frame;
@@ -88,6 +150,9 @@
     [self.formations addObject:@"3-2-1"];
     [self.formations addObject:@"3-3-0"];
     [self.formations addObject:@"3-1-2"];
+    
+    self.passing = [[NSMutableArray alloc] initWithObjects:@"Short",@"Medium",@"Long", nil];
+    self.tackling = [[NSMutableArray alloc] initWithObjects:@"Weak",@"Medium",@"Strong", nil];
     
     UIImage *buttonImage = [UIImage imageNamed:@"back.png"];
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -123,13 +188,13 @@
     
     if ([self.userDefaults objectForKey:@"myTeam"]) {
         NSMutableDictionary *myTeam = [[self.userDefaults objectForKey:@"myTeam"] mutableCopy];
-        self.selectionKeeper.text = [myTeam objectForKey:@"selectionKeeper"];
-        self.selectionDefence.text = [myTeam objectForKey:@"selectionDefence"];
-        self.selectionDefenceTwo.text = [myTeam objectForKey:@"selectionDefenceTwo"];
-        self.selectionMid.text = [myTeam objectForKey:@"selectionMid"];
-        self.selectionWing.text = [myTeam objectForKey:@"selectionWing"];
-        self.selectionWingTwo.text = [myTeam objectForKey:@"selectionWingTwo"];
-        self.selectionStriker.text = [myTeam objectForKey:@"selectionStriker"];
+        self.selectionKeeper.text = [myTeam objectForKey:@"playerOne"];
+        self.selectionDefence.text = [myTeam objectForKey:@"playerTwo"];
+        self.selectionDefenceTwo.text = [myTeam objectForKey:@"playerThree"];
+        self.selectionWing.text = [myTeam objectForKey:@"playerFour"];
+        self.selectionMid.text = [myTeam objectForKey:@"playerFive"];
+        self.selectionWingTwo.text = [myTeam objectForKey:@"playerSix"];
+        self.selectionStriker.text = [myTeam objectForKey:@"playerSeven"];
         
     } else {
         NSMutableDictionary *myTeam = [NSMutableDictionary dictionary];
@@ -148,8 +213,8 @@
         self.selectionKeeper.text = [[self.playersInTeam objectAtIndex:0] name];
         self.selectionDefence.text = [[self.playersInTeam objectAtIndex:1] name];
         self.selectionDefenceTwo.text = [[self.playersInTeam objectAtIndex:2] name];
-        self.selectionMid.text = [[self.playersInTeam objectAtIndex:3] name];
-        self.selectionWing.text = [[self.playersInTeam objectAtIndex:4] name];
+        self.selectionWing.text = [[self.playersInTeam objectAtIndex:3] name];
+        self.selectionMid.text = [[self.playersInTeam objectAtIndex:4] name];
         self.selectionWingTwo.text = [[self.playersInTeam objectAtIndex:5] name];
         self.selectionStriker.text = [[self.playersInTeam objectAtIndex:6] name];
     }
@@ -232,64 +297,75 @@
     
 }
 
+- (void)updateButtons
+{
+    [self.passingButton setTitle:[self.userDefaults objectForKey:@"Passing"] forState:UIControlStateNormal];
+    [self.passingButton setTitle:[self.userDefaults objectForKey:@"Passing"] forState:UIControlStateHighlighted];
+    [self.tacklingButton setTitle:[self.userDefaults objectForKey:@"Tackling"] forState:UIControlStateNormal];
+    [self.tacklingButton setTitle:[self.userDefaults objectForKey:@"Tackling"] forState:UIControlStateHighlighted];
+}
+
+
 - (void)setFormationImagesForFormation:(NSString *)currFormation
 {
+    [self.formationButton setTitle:[self.userDefaults objectForKey:@"Formation"] forState:UIControlStateNormal];
+    [self.formationButton setTitle:[self.userDefaults objectForKey:@"Formation"] forState:UIControlStateHighlighted];
     if ([currFormation isEqualToString:@"1-2-3"]) {
-        self.playerTwo.frame = CGRectMake(85, 74, 80, 50);
-        self.playerThree.frame = CGRectMake(37, 162, 80, 50);
-        self.playerFour.frame = CGRectMake(137, 162, 80, 50);
-        self.playerFive.frame = CGRectMake(0, 258, 80, 50);
-        self.playerSix.frame = CGRectMake(85, 258, 80, 50);
-        self.playerSeven.frame = CGRectMake(170, 258, 80, 50);
+        self.playerTwo.frame = CGRectMake(85+35, 74, 80, 50);
+        self.playerThree.frame = CGRectMake(37+35, 162, 80, 50);
+        self.playerFour.frame = CGRectMake(137+35, 162, 80, 50);
+        self.playerFive.frame = CGRectMake(0+35, 258, 80, 50);
+        self.playerSix.frame = CGRectMake(85+35, 258, 80, 50);
+        self.playerSeven.frame = CGRectMake(170+35, 258, 80, 50);
     } else if ([currFormation isEqualToString:@"1-3-2"]) {
-        self.playerTwo.frame = CGRectMake(85, 74, 80, 50);
-        self.playerThree.frame = CGRectMake(0, 162, 80, 50);
-        self.playerFour.frame = CGRectMake(85, 162, 80, 50);
-        self.playerFive.frame = CGRectMake(170, 162, 80, 50);
-        self.playerSix.frame = CGRectMake(37, 258, 80, 50);
-        self.playerSeven.frame = CGRectMake(137, 258, 80, 50);
+        self.playerTwo.frame = CGRectMake(85+35, 74, 80, 50);
+        self.playerThree.frame = CGRectMake(0+35, 162, 80, 50);
+        self.playerFour.frame = CGRectMake(85+35, 162, 80, 50);
+        self.playerFive.frame = CGRectMake(170+35, 162, 80, 50);
+        self.playerSix.frame = CGRectMake(37+35, 258, 80, 50);
+        self.playerSeven.frame = CGRectMake(137+35, 258, 80, 50);
     } else if ([currFormation isEqualToString:@"2-3-1"]) {
-        self.playerTwo.frame = CGRectMake(37, 74, 80, 50);
-        self.playerThree.frame = CGRectMake(137, 74, 80, 50);
-        self.playerFour.frame = CGRectMake(0, 162, 80, 50);
-        self.playerFive.frame = CGRectMake(85, 162, 80, 50);
-        self.playerSix.frame = CGRectMake(170, 162, 80, 50);
-        self.playerSeven.frame = CGRectMake(85, 258, 80, 50);
+        self.playerTwo.frame = CGRectMake(37+35, 74, 80, 50);
+        self.playerThree.frame = CGRectMake(137+35, 74, 80, 50);
+        self.playerFour.frame = CGRectMake(0+35, 162, 80, 50);
+        self.playerFive.frame = CGRectMake(85+35, 162, 80, 50);
+        self.playerSix.frame = CGRectMake(170+35, 162, 80, 50);
+        self.playerSeven.frame = CGRectMake(85+35, 258, 80, 50);
     } else if ([currFormation isEqualToString:@"2-1-3"]) {
-        self.playerTwo.frame = CGRectMake(37, 74, 80, 50);
-        self.playerThree.frame = CGRectMake(137, 74, 80, 50);
-        self.playerFour.frame = CGRectMake(85, 162, 80, 50);
-        self.playerFive.frame = CGRectMake(0, 258, 80, 50);
-        self.playerSix.frame = CGRectMake(85, 258, 80, 50);
-        self.playerSeven.frame = CGRectMake(170, 258, 80, 50);
+        self.playerTwo.frame = CGRectMake(37+35, 74, 80, 50);
+        self.playerThree.frame = CGRectMake(137+35, 74, 80, 50);
+        self.playerFour.frame = CGRectMake(85+35, 162, 80, 50);
+        self.playerFive.frame = CGRectMake(0+35, 258, 80, 50);
+        self.playerSix.frame = CGRectMake(85+35, 258, 80, 50);
+        self.playerSeven.frame = CGRectMake(170+35, 258, 80, 50);
     } else if ([currFormation isEqualToString:@"2-2-2"]) {
-        self.playerTwo.frame = CGRectMake(37, 74, 80, 50);
-        self.playerThree.frame = CGRectMake(137, 74, 80, 50);
-        self.playerFour.frame = CGRectMake(37, 162, 80, 50);
-        self.playerFive.frame = CGRectMake(137, 162, 80, 50);
-        self.playerSix.frame = CGRectMake(37, 258, 80, 50);
-        self.playerSeven.frame = CGRectMake(137, 258, 80, 50);
+        self.playerTwo.frame = CGRectMake(37+35, 74, 80, 50);
+        self.playerThree.frame = CGRectMake(137+35, 74, 80, 50);
+        self.playerFour.frame = CGRectMake(37+35, 162, 80, 50);
+        self.playerFive.frame = CGRectMake(137+35, 162, 80, 50);
+        self.playerSix.frame = CGRectMake(37+35, 258, 80, 50);
+        self.playerSeven.frame = CGRectMake(137+35, 258, 80, 50);
     } else if ([currFormation isEqualToString:@"3-2-1"]) {
-        self.playerTwo.frame = CGRectMake(0, 74, 80, 50);
-        self.playerThree.frame = CGRectMake(85, 74, 80, 50);
-        self.playerFour.frame = CGRectMake(170, 74, 80, 50);
-        self.playerFive.frame = CGRectMake(37, 162, 80, 50);
-        self.playerSix.frame = CGRectMake(137, 162, 80, 50);
-        self.playerSeven.frame = CGRectMake(85, 258, 80, 50);
+        self.playerTwo.frame = CGRectMake(0+35, 74, 80, 50);
+        self.playerThree.frame = CGRectMake(85+35, 74, 80, 50);
+        self.playerFour.frame = CGRectMake(170+35, 74, 80, 50);
+        self.playerFive.frame = CGRectMake(37+35, 162, 80, 50);
+        self.playerSix.frame = CGRectMake(137+35, 162, 80, 50);
+        self.playerSeven.frame = CGRectMake(85+35, 258, 80, 50);
     } else if ([currFormation isEqualToString:@"3-3-0"]) {
-        self.playerTwo.frame = CGRectMake(0, 74, 80, 50);
-        self.playerThree.frame = CGRectMake(85, 74, 80, 50);
-        self.playerFour.frame = CGRectMake(170, 74, 80, 50);
-        self.playerFive.frame = CGRectMake(0, 162, 80, 50);
-        self.playerSix.frame = CGRectMake(85, 162, 80, 50);
-        self.playerSeven.frame = CGRectMake(170, 162, 80, 50);
+        self.playerTwo.frame = CGRectMake(0+35, 74, 80, 50);
+        self.playerThree.frame = CGRectMake(85+35, 74, 80, 50);
+        self.playerFour.frame = CGRectMake(170+35, 74, 80, 50);
+        self.playerFive.frame = CGRectMake(0+35, 162, 80, 50);
+        self.playerSix.frame = CGRectMake(85+35, 162, 80, 50);
+        self.playerSeven.frame = CGRectMake(170+35, 162, 80, 50);
     } else if ([currFormation isEqualToString:@"3-1-2"]) {
-        self.playerTwo.frame = CGRectMake(0, 74, 80, 50);
-        self.playerThree.frame = CGRectMake(85, 74, 80, 50);
-        self.playerFour.frame = CGRectMake(170, 74, 80, 50);
-        self.playerFive.frame = CGRectMake(85, 162, 80, 50);
-        self.playerSix.frame = CGRectMake(37, 258, 80, 50);
-        self.playerSeven.frame = CGRectMake(137, 258, 80, 50);
+        self.playerTwo.frame = CGRectMake(0+35, 74, 80, 50);
+        self.playerThree.frame = CGRectMake(85+35, 74, 80, 50);
+        self.playerFour.frame = CGRectMake(170+35, 74, 80, 50);
+        self.playerFive.frame = CGRectMake(85+35, 162, 80, 50);
+        self.playerSix.frame = CGRectMake(37+35, 258, 80, 50);
+        self.playerSeven.frame = CGRectMake(137+35, 258, 80, 50);
     } 
 }
 
@@ -297,9 +373,15 @@
 	if (buttonIndex != myActionSheet.cancelButtonIndex && myActionSheet.tag == 1) {
         [self.userDefaults setValue:[myActionSheet buttonTitleAtIndex:buttonIndex] forKey:@"Formation"];
         [self.userDefaults synchronize];
-        [self.formationButton setTitle:[self.userDefaults objectForKey:@"Formation"] forState:UIControlStateNormal];
-        [self.formationButton setTitle:[self.userDefaults objectForKey:@"Formation"] forState:UIControlStateHighlighted];
         [self setFormationImagesForFormation:[self.userDefaults objectForKey:@"Formation"]];
+    } else if (buttonIndex != myActionSheet.cancelButtonIndex && myActionSheet.tag == 2) {
+        [self.userDefaults setValue:[myActionSheet buttonTitleAtIndex:buttonIndex] forKey:@"Passing"];
+        [self.userDefaults synchronize];
+        [self updateButtons];
+    } else if (buttonIndex != myActionSheet.cancelButtonIndex && myActionSheet.tag == 3) {
+        [self.userDefaults setValue:[myActionSheet buttonTitleAtIndex:buttonIndex] forKey:@"Tackling"];
+        [self.userDefaults synchronize];
+        [self updateButtons];
     }
 }
 
@@ -356,8 +438,6 @@
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
 {
-//    int overall = [[[self.filteredPlayersNotInTeam objectAtIndex:row] offensivePositioning] intValue] + [[[self.filteredPlayersNotInTeam objectAtIndex:row] defensivePositioning] intValue] +[[[self.filteredPlayersNotInTeam objectAtIndex:row] strength] intValue] +[[[self.filteredPlayersNotInTeam objectAtIndex:row] stamina] intValue] +[[[self.filteredPlayersNotInTeam objectAtIndex:row] tackling] intValue] +[[[self.filteredPlayersNotInTeam objectAtIndex:row] tackling] intValue] +[[[self.filteredPlayersNotInTeam objectAtIndex:row] goalkeeping] intValue] +[[[self.filteredPlayersNotInTeam objectAtIndex:row] shooting] intValue] +[[[self.filteredPlayersNotInTeam objectAtIndex:row] passing] intValue] +[[[self.filteredPlayersNotInTeam objectAtIndex:row] dribbling] intValue] +[[[self.filteredPlayersNotInTeam objectAtIndex:row] composure ]intValue];
-    
     view = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 280, 30)];
     UILabel *pickerLabel;
     pickerLabel.tag = 1;
@@ -382,20 +462,7 @@
     [view addSubview:pickerLabel];
     [view addSubview:strengthsLabel];
     
-//    pickerLabel.text = [[self.filteredPlayersNotInTeam objectAtIndex:row] name];
-//    strengthsLabel.text = [self findStrengthsOfPlayer:[self.filteredPlayersNotInTeam objectAtIndex:row]];
-//    
-//    if (overall < 98) {
-//        temp.image = [UIImage imageNamed:@"1StarSmall"];
-//    } else if (overall < 122) {
-//        temp.image = [UIImage imageNamed:@"2StarsSmall"];
-//    } else if (overall < 146) {
-//        temp.image = [UIImage imageNamed:@"3StarsSmall"];
-//    } else if (overall < 170) {
-//        temp.image = [UIImage imageNamed:@"4StarsSmall"];
-//    } else {
-//        temp.image = [UIImage imageNamed:@"5StarsSmall"];
-//    }
+
     
     return view;
 }
@@ -508,20 +575,6 @@
     [cell.textLabel.font fontWithSize:8];
     cell.textLabel.text = [[self.playersInTeam objectAtIndex:indexPath.row] name];
     
-    //    int overall = [[[self.playersInTeam objectAtIndex:indexPath.row] offensivePositioning] intValue] + [[[self.playersInTeam objectAtIndex:indexPath.row] defensivePositioning] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] strength] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] stamina] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] speed] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] tackling] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] goalkeeping] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] shooting] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] passing] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] dribbling] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] composure] intValue];
-    
-    //    if (overall < 98) {
-    //        self.starImage.image = [UIImage imageNamed:@"1StarSmall"];
-    //    } else if (overall < 122) {
-    //        self.starImage.image = [UIImage imageNamed:@"2StarSmall"];
-    //    } else if (overall < 146) {
-    //        self.starImage.image = [UIImage imageNamed:@"3StarSmall"];
-    //    } else if (overall < 170) {
-    //        self.starImage.image = [UIImage imageNamed:@"4StarSmall"];
-    //    } else {
-    //        self.starImage.image = [UIImage imageNamed:@"5StarSmall"];
-    //    }
-    
     return cell;
 }
 
@@ -529,6 +582,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    DOKPlayerDetailViewController *detailViewController = [[DOKPlayerDetailViewController alloc] init];
+    detailViewController.player = [self.playersInTeam objectAtIndex:indexPath.row];
+    [self.navigationController pushViewController:detailViewController animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -541,7 +597,7 @@
      When a row is selected, the segue creates the detail view controller as the destination.
      Set the detail view controller's detail item to the item associated with the selected row.
      */
-    if ([[segue identifier] isEqualToString:@"ShowSelectedPlayer"]) {
+    if ([[segue identifier] isEqualToString:@"ShowThisPlayer"]) {
         
         NSIndexPath *selectedRowIndex = [self.playersTableView indexPathForSelectedRow];
         DOKPlayerDetailViewController *detailViewController = [segue destinationViewController];
@@ -605,7 +661,7 @@
     buttonActionSheet.cancelButtonIndex = buttonActionSheet.numberOfButtons - 1;
     
     // show actionsheet
-    [buttonActionSheet showInView:self.view];
+    [buttonActionSheet showInView:self.tabBarController.view];
 
 }
 
@@ -637,5 +693,50 @@
     self.selectionWing.text = [[self.playersInTeam objectAtIndex:4] name];
     self.selectionWingTwo.text = [[self.playersInTeam objectAtIndex:5] name];
     self.selectionStriker.text = [[self.playersInTeam objectAtIndex:6] name];
+}
+- (IBAction)passingButtonPressed:(UIButton *)sender {
+    UIActionSheet *buttonActionSheet = [[UIActionSheet alloc] initWithTitle:@"Select a passing style:"
+                                                                   delegate:(id)self
+                                                          cancelButtonTitle:nil
+                                                     destructiveButtonTitle:nil
+                                                          otherButtonTitles:nil];
+    
+    buttonActionSheet.tag = 2;
+    buttonActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    
+    // add buttons
+    for (NSString *currFormation in self.passing) {
+        [buttonActionSheet addButtonWithTitle:currFormation];
+    }
+    
+    // add cancel button
+    [buttonActionSheet addButtonWithTitle:@"Cancel"];
+    buttonActionSheet.cancelButtonIndex = buttonActionSheet.numberOfButtons - 1;
+    
+    // show actionsheet
+    [buttonActionSheet showInView:self.tabBarController.view];
+}
+
+- (IBAction)tacklingButtonPressed:(UIButton *)sender {
+    UIActionSheet *buttonActionSheet = [[UIActionSheet alloc] initWithTitle:@"Select a tackling strength:"
+                                                                   delegate:(id)self
+                                                          cancelButtonTitle:nil
+                                                     destructiveButtonTitle:nil
+                                                          otherButtonTitles:nil];
+    
+    buttonActionSheet.tag = 3;
+    buttonActionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+    
+    // add buttons
+    for (NSString *currFormation in self.tackling) {
+        [buttonActionSheet addButtonWithTitle:currFormation];
+    }
+    
+    // add cancel button
+    [buttonActionSheet addButtonWithTitle:@"Cancel"];
+    buttonActionSheet.cancelButtonIndex = buttonActionSheet.numberOfButtons - 1;
+    
+    // show actionsheet
+    [buttonActionSheet showInView:self.tabBarController.view];
 }
 @end

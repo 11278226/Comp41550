@@ -40,4 +40,9 @@
     return team;
 }
 
+- (NSNumber *)goalDifference {
+    int overall = [self.goalsFor intValue] - [self.goalsAgainst intValue];
+    return [NSNumber numberWithInt:overall];
+}
+
 @end

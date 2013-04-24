@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E388F491722138C000A041C /* yellowarrowleft.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E388F471722138C000A041C /* yellowarrowleft.png */; };
+		7E388F4A1722138C000A041C /* yellowarrowright.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E388F481722138C000A041C /* yellowarrowright.png */; };
 		7E3D2EFA17171986006D4C60 /* DOKMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D2EF917171986006D4C60 /* DOKMatch.m */; };
 		7E3F210A171205CB00780F71 /* showCalGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E3F2109171205CB00780F71 /* showCalGradient.png */; };
 		7E3F210D1712312B00780F71 /* DOKTeamModel+LeagueTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E3F210C1712312B00780F71 /* DOKTeamModel+LeagueTable.m */; };
@@ -189,6 +191,11 @@
 		7EB3E0D6171ACDDF00842D37 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EB3E0D5171ACDDF00842D37 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7EB57463171CA928003C9E9D /* check-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EB57462171CA928003C9E9D /* check-mark.png */; };
 		7EB57466171CBA27003C9E9D /* DOKPlayerModel+Details.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EB57465171CBA27003C9E9D /* DOKPlayerModel+Details.m */; };
+		7EB718781721C845007970A5 /* grid_pattern.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EB718771721C845007970A5 /* grid_pattern.png */; };
+		7EB7187B1721C84D007970A5 /* grid_pattern@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EB718791721C84D007970A5 /* grid_pattern@2x.png */; };
+		7EB7187C1721C84D007970A5 /* grid_pattern@2x-568h.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EB7187A1721C84D007970A5 /* grid_pattern@2x-568h.png */; };
+		7EB7187E1721D2D8007970A5 /* Ballon_de_football.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EB7187D1721D2D8007970A5 /* Ballon_de_football.png */; };
+		7EB718811721DF57007970A5 /* arrow_right.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EB718801721DF57007970A5 /* arrow_right.png */; };
 		7EBB04B217173A4200250324 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EBB04B117173A4200250324 /* QuartzCore.framework */; };
 		7EBB04B5171742AB00250324 /* nav-primary-arrow-left.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7EBB04B4171742AB00250324 /* nav-primary-arrow-left.jpg */; };
 		7EBB04B7171742BC00250324 /* nav-primary-arrow-right.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7EBB04B6171742BC00250324 /* nav-primary-arrow-right.jpg */; };
@@ -198,22 +205,40 @@
 		7EC0D19216A9F0A700CF4CA7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7EC0D19016A9F0A700CF4CA7 /* InfoPlist.strings */; };
 		7EC0D19416A9F0A700CF4CA7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0D19316A9F0A700CF4CA7 /* main.m */; };
 		7EC0D19816A9F0A700CF4CA7 /* DOKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0D19716A9F0A700CF4CA7 /* DOKAppDelegate.m */; };
-		7EC0D19A16A9F0A700CF4CA7 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC0D19916A9F0A700CF4CA7 /* Default.png */; };
-		7EC0D19C16A9F0A700CF4CA7 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC0D19B16A9F0A700CF4CA7 /* Default@2x.png */; };
-		7EC0D19E16A9F0A700CF4CA7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC0D19D16A9F0A700CF4CA7 /* Default-568h@2x.png */; };
 		7EC0D1A116A9F0A700CF4CA7 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EC0D19F16A9F0A700CF4CA7 /* MainStoryboard.storyboard */; };
 		7EC0D1A416A9F0A700CF4CA7 /* DOKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0D1A316A9F0A700CF4CA7 /* DOKViewController.m */; };
 		7EC0D1EB16A9F5C000CF4CA7 /* DOKNewCareerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC0D1EA16A9F5C000CF4CA7 /* DOKNewCareerViewController.m */; };
+		7EC7512F1720868A0077926A /* 83-calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC7512E1720868A0077926A /* 83-calendar.png */; };
+		7EC7513317208EAA0077926A /* crown.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC7513217208EAA0077926A /* crown.png */; };
+		7EC7513517208ECA0077926A /* dollar-sign.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC7513417208ECA0077926A /* dollar-sign.png */; };
+		7EC7513717208EDD0077926A /* flag.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC7513617208EDD0077926A /* flag.png */; };
+		7EC7513917208EEC0077926A /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC7513817208EEC0077926A /* gear.png */; };
+		7EC7513B17208EF80077926A /* document.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC7513A17208EF80077926A /* document.png */; };
+		7EC7513D17208F0F0077926A /* hierarchy.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC7513C17208F0F0077926A /* hierarchy.png */; };
+		7EC7513F17208F1A0077926A /* house.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC7513E17208F1A0077926A /* house.png */; };
+		7EC7514117208F300077926A /* man.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC7514017208F300077926A /* man.png */; };
+		7EC7514317208F640077926A /* soccer.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC7514217208F640077926A /* soccer.png */; };
+		7EC75149172093980077926A /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC75148172093980077926A /* icon.png */; };
+		7EC7514B1720939A0077926A /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC7514A1720939A0077926A /* icon@2x.png */; };
+		7EC7514D172093E40077926A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC7514C172093E40077926A /* Default.png */; };
+		7EC7514F172093E60077926A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC7514E172093E60077926A /* Default@2x.png */; };
+		7EC75151172094370077926A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC75150172094370077926A /* Default-568h@2x.png */; };
+		7EC7C9341722AD480028B08E /* DOKPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC7C9331722AD480028B08E /* DOKPlayer.m */; };
+		7EC7C9371722C1490028B08E /* DOKStatsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC7C9361722C1490028B08E /* DOKStatsTableViewController.m */; };
 		7ED82C0F16BEDC8E0075C505 /* DOKOtherTeamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED82C0E16BEDC8E0075C505 /* DOKOtherTeamsViewController.m */; };
 		7EDFEE44171B5DEA002E06AB /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EDFEE42171B5DEA002E06AB /* close.png */; };
 		7EDFEE45171B5DEA002E06AB /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EDFEE43171B5DEA002E06AB /* close@2x.png */; };
-		7EDFEE48171B6627002E06AB /* DOKMatchPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFEE47171B6627002E06AB /* DOKMatchPageViewController.m */; };
+		7EDFEE48171B6627002E06AB /* DOKPlayerPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFEE47171B6627002E06AB /* DOKPlayerPageViewController.m */; };
 		7EDFEE4B171B6A0F002E06AB /* DOKPickPlayerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFEE4A171B6A0F002E06AB /* DOKPickPlayerTableViewController.m */; };
+		7EEE05361722F7680033C04B /* DOKGoalsLeaderBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EEE05351722F7680033C04B /* DOKGoalsLeaderBoardViewController.m */; };
+		7EF711CA171F44DB00881184 /* DOKMatchTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF711C9171F44DB00881184 /* DOKMatchTabBarController.m */; };
 		7EF8FEB516AAE19A00F756E5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EF8FEB416AAE19A00F756E5 /* CoreData.framework */; };
 		7EF95D5316BC7C310011D9CF /* DOKTeamModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF95D5216BC7C310011D9CF /* DOKTeamModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7E388F471722138C000A041C /* yellowarrowleft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowarrowleft.png; sourceTree = "<group>"; };
+		7E388F481722138C000A041C /* yellowarrowright.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowarrowright.png; sourceTree = "<group>"; };
 		7E3D2EF817171986006D4C60 /* DOKMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKMatch.h; sourceTree = "<group>"; };
 		7E3D2EF917171986006D4C60 /* DOKMatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKMatch.m; sourceTree = "<group>"; };
 		7E3F2109171205CB00780F71 /* showCalGradient.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = showCalGradient.png; sourceTree = "<group>"; };
@@ -577,6 +602,11 @@
 		7EB57462171CA928003C9E9D /* check-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-mark.png"; sourceTree = "<group>"; };
 		7EB57464171CBA27003C9E9D /* DOKPlayerModel+Details.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DOKPlayerModel+Details.h"; sourceTree = "<group>"; };
 		7EB57465171CBA27003C9E9D /* DOKPlayerModel+Details.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DOKPlayerModel+Details.m"; sourceTree = "<group>"; };
+		7EB718771721C845007970A5 /* grid_pattern.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grid_pattern.png; sourceTree = "<group>"; };
+		7EB718791721C84D007970A5 /* grid_pattern@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grid_pattern@2x.png"; sourceTree = "<group>"; };
+		7EB7187A1721C84D007970A5 /* grid_pattern@2x-568h.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "grid_pattern@2x-568h.png"; sourceTree = "<group>"; };
+		7EB7187D1721D2D8007970A5 /* Ballon_de_football.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ballon_de_football.png; sourceTree = "<group>"; };
+		7EB718801721DF57007970A5 /* arrow_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow_right.png; sourceTree = "<group>"; };
 		7EBB04B117173A4200250324 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7EBB04B4171742AB00250324 /* nav-primary-arrow-left.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "nav-primary-arrow-left.jpg"; sourceTree = "<group>"; };
 		7EBB04B6171742BC00250324 /* nav-primary-arrow-right.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "nav-primary-arrow-right.jpg"; sourceTree = "<group>"; };
@@ -590,22 +620,42 @@
 		7EC0D19516A9F0A700CF4CA7 /* FootballManager-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FootballManager-Prefix.pch"; sourceTree = "<group>"; };
 		7EC0D19616A9F0A700CF4CA7 /* DOKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DOKAppDelegate.h; sourceTree = "<group>"; };
 		7EC0D19716A9F0A700CF4CA7 /* DOKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DOKAppDelegate.m; sourceTree = "<group>"; };
-		7EC0D19916A9F0A700CF4CA7 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		7EC0D19B16A9F0A700CF4CA7 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		7EC0D19D16A9F0A700CF4CA7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		7EC0D1A016A9F0A700CF4CA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		7EC0D1A216A9F0A700CF4CA7 /* DOKViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DOKViewController.h; sourceTree = "<group>"; };
 		7EC0D1A316A9F0A700CF4CA7 /* DOKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DOKViewController.m; sourceTree = "<group>"; };
 		7EC0D1E916A9F5C000CF4CA7 /* DOKNewCareerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKNewCareerViewController.h; sourceTree = "<group>"; };
 		7EC0D1EA16A9F5C000CF4CA7 /* DOKNewCareerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKNewCareerViewController.m; sourceTree = "<group>"; };
+		7EC7512E1720868A0077926A /* 83-calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "83-calendar.png"; sourceTree = "<group>"; };
+		7EC7513217208EAA0077926A /* crown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crown.png; sourceTree = "<group>"; };
+		7EC7513417208ECA0077926A /* dollar-sign.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dollar-sign.png"; sourceTree = "<group>"; };
+		7EC7513617208EDD0077926A /* flag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag.png; sourceTree = "<group>"; };
+		7EC7513817208EEC0077926A /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
+		7EC7513A17208EF80077926A /* document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = document.png; sourceTree = "<group>"; };
+		7EC7513C17208F0F0077926A /* hierarchy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hierarchy.png; sourceTree = "<group>"; };
+		7EC7513E17208F1A0077926A /* house.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = house.png; sourceTree = "<group>"; };
+		7EC7514017208F300077926A /* man.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = man.png; sourceTree = "<group>"; };
+		7EC7514217208F640077926A /* soccer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = soccer.png; sourceTree = "<group>"; };
+		7EC75148172093980077926A /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../icon.png; sourceTree = "<group>"; };
+		7EC7514A1720939A0077926A /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon@2x.png"; path = "../icon@2x.png"; sourceTree = "<group>"; };
+		7EC7514C172093E40077926A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
+		7EC7514E172093E60077926A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
+		7EC75150172094370077926A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
+		7EC7C9321722AD480028B08E /* DOKPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKPlayer.h; sourceTree = "<group>"; };
+		7EC7C9331722AD480028B08E /* DOKPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKPlayer.m; sourceTree = "<group>"; };
+		7EC7C9351722C1490028B08E /* DOKStatsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKStatsTableViewController.h; sourceTree = "<group>"; };
+		7EC7C9361722C1490028B08E /* DOKStatsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKStatsTableViewController.m; sourceTree = "<group>"; };
 		7ED82C0D16BEDC8E0075C505 /* DOKOtherTeamsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKOtherTeamsViewController.h; sourceTree = "<group>"; };
 		7ED82C0E16BEDC8E0075C505 /* DOKOtherTeamsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKOtherTeamsViewController.m; sourceTree = "<group>"; };
 		7EDFEE42171B5DEA002E06AB /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
 		7EDFEE43171B5DEA002E06AB /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
-		7EDFEE46171B6627002E06AB /* DOKMatchPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKMatchPageViewController.h; sourceTree = "<group>"; };
-		7EDFEE47171B6627002E06AB /* DOKMatchPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKMatchPageViewController.m; sourceTree = "<group>"; };
+		7EDFEE46171B6627002E06AB /* DOKPlayerPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKPlayerPageViewController.h; sourceTree = "<group>"; };
+		7EDFEE47171B6627002E06AB /* DOKPlayerPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKPlayerPageViewController.m; sourceTree = "<group>"; };
 		7EDFEE49171B6A0F002E06AB /* DOKPickPlayerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKPickPlayerTableViewController.h; sourceTree = "<group>"; };
 		7EDFEE4A171B6A0F002E06AB /* DOKPickPlayerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKPickPlayerTableViewController.m; sourceTree = "<group>"; };
+		7EEE05341722F7680033C04B /* DOKGoalsLeaderBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKGoalsLeaderBoardViewController.h; sourceTree = "<group>"; };
+		7EEE05351722F7680033C04B /* DOKGoalsLeaderBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKGoalsLeaderBoardViewController.m; sourceTree = "<group>"; };
+		7EF711C8171F44DB00881184 /* DOKMatchTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKMatchTabBarController.h; sourceTree = "<group>"; };
+		7EF711C9171F44DB00881184 /* DOKMatchTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKMatchTabBarController.m; sourceTree = "<group>"; };
 		7EF8FEB416AAE19A00F756E5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		7EF95D5116BC7C310011D9CF /* DOKTeamModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKTeamModel.h; sourceTree = "<group>"; };
 		7EF95D5216BC7C310011D9CF /* DOKTeamModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKTeamModel.m; sourceTree = "<group>"; };
@@ -662,7 +712,29 @@
 		7E79550B16BD2F4F0097DBE9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				7E388F471722138C000A041C /* yellowarrowleft.png */,
+				7E388F481722138C000A041C /* yellowarrowright.png */,
+				7EB718801721DF57007970A5 /* arrow_right.png */,
+				7EB7187D1721D2D8007970A5 /* Ballon_de_football.png */,
+				7EB718791721C84D007970A5 /* grid_pattern@2x.png */,
+				7EB7187A1721C84D007970A5 /* grid_pattern@2x-568h.png */,
+				7EB718771721C845007970A5 /* grid_pattern.png */,
+				7EC75150172094370077926A /* Default-568h@2x.png */,
+				7EC7514E172093E60077926A /* Default@2x.png */,
+				7EC7514C172093E40077926A /* Default.png */,
+				7EC7514A1720939A0077926A /* icon@2x.png */,
+				7EC75148172093980077926A /* icon.png */,
+				7EC7514217208F640077926A /* soccer.png */,
+				7EC7514017208F300077926A /* man.png */,
+				7EC7513E17208F1A0077926A /* house.png */,
+				7EC7513C17208F0F0077926A /* hierarchy.png */,
+				7EC7513A17208EF80077926A /* document.png */,
+				7EC7513817208EEC0077926A /* gear.png */,
+				7EC7513617208EDD0077926A /* flag.png */,
+				7EC7513417208ECA0077926A /* dollar-sign.png */,
 				7EB57462171CA928003C9E9D /* check-mark.png */,
+				7EC7513217208EAA0077926A /* crown.png */,
+				7EC7512E1720868A0077926A /* 83-calendar.png */,
 				7EDFEE42171B5DEA002E06AB /* close.png */,
 				7EDFEE43171B5DEA002E06AB /* close@2x.png */,
 				7EA4E8171719D494003C9596 /* twitterButton.png */,
@@ -670,9 +742,6 @@
 				7EBB04B6171742BC00250324 /* nav-primary-arrow-right.jpg */,
 				7EBB04B4171742AB00250324 /* nav-primary-arrow-left.jpg */,
 				7E79551816BD8E350097DBE9 /* Stars */,
-				7EC0D19916A9F0A700CF4CA7 /* Default.png */,
-				7EC0D19B16A9F0A700CF4CA7 /* Default@2x.png */,
-				7EC0D19D16A9F0A700CF4CA7 /* Default-568h@2x.png */,
 				7E977E5816AAEADB00048A11 /* soccer_field.jpg */,
 				7E977E6316AAF67400048A11 /* blankface.jpeg */,
 				7E3F2109171205CB00780F71 /* showCalGradient.png */,
@@ -952,10 +1021,16 @@
 				7EA4E59C17196790003C9596 /* DOKSettingsViewController.m */,
 				7EA4E59F171976F9003C9596 /* DOKTabBarViewController.h */,
 				7EA4E5A0171976F9003C9596 /* DOKTabBarViewController.m */,
-				7EDFEE46171B6627002E06AB /* DOKMatchPageViewController.h */,
-				7EDFEE47171B6627002E06AB /* DOKMatchPageViewController.m */,
+				7EDFEE46171B6627002E06AB /* DOKPlayerPageViewController.h */,
+				7EDFEE47171B6627002E06AB /* DOKPlayerPageViewController.m */,
 				7EDFEE49171B6A0F002E06AB /* DOKPickPlayerTableViewController.h */,
 				7EDFEE4A171B6A0F002E06AB /* DOKPickPlayerTableViewController.m */,
+				7EF711C8171F44DB00881184 /* DOKMatchTabBarController.h */,
+				7EF711C9171F44DB00881184 /* DOKMatchTabBarController.m */,
+				7EC7C9351722C1490028B08E /* DOKStatsTableViewController.h */,
+				7EC7C9361722C1490028B08E /* DOKStatsTableViewController.m */,
+				7EEE05341722F7680033C04B /* DOKGoalsLeaderBoardViewController.h */,
+				7EEE05351722F7680033C04B /* DOKGoalsLeaderBoardViewController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -973,6 +1048,8 @@
 				7E3D2EF917171986006D4C60 /* DOKMatch.m */,
 				7EB57464171CBA27003C9E9D /* DOKPlayerModel+Details.h */,
 				7EB57465171CBA27003C9E9D /* DOKPlayerModel+Details.m */,
+				7EC7C9321722AD480028B08E /* DOKPlayer.h */,
+				7EC7C9331722AD480028B08E /* DOKPlayer.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1462,9 +1539,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7EC0D19216A9F0A700CF4CA7 /* InfoPlist.strings in Resources */,
-				7EC0D19A16A9F0A700CF4CA7 /* Default.png in Resources */,
-				7EC0D19C16A9F0A700CF4CA7 /* Default@2x.png in Resources */,
-				7EC0D19E16A9F0A700CF4CA7 /* Default-568h@2x.png in Resources */,
 				7EC0D1A116A9F0A700CF4CA7 /* MainStoryboard.storyboard in Resources */,
 				7E977E5916AAEADB00048A11 /* soccer_field.jpg in Resources */,
 				7E977E6416AAF67400048A11 /* blankface.jpeg in Resources */,
@@ -1536,6 +1610,28 @@
 				7EDFEE44171B5DEA002E06AB /* close.png in Resources */,
 				7EDFEE45171B5DEA002E06AB /* close@2x.png in Resources */,
 				7EB57463171CA928003C9E9D /* check-mark.png in Resources */,
+				7EC7512F1720868A0077926A /* 83-calendar.png in Resources */,
+				7EC7513317208EAA0077926A /* crown.png in Resources */,
+				7EC7513517208ECA0077926A /* dollar-sign.png in Resources */,
+				7EC7513717208EDD0077926A /* flag.png in Resources */,
+				7EC7513917208EEC0077926A /* gear.png in Resources */,
+				7EC7513B17208EF80077926A /* document.png in Resources */,
+				7EC7513D17208F0F0077926A /* hierarchy.png in Resources */,
+				7EC7513F17208F1A0077926A /* house.png in Resources */,
+				7EC7514117208F300077926A /* man.png in Resources */,
+				7EC7514317208F640077926A /* soccer.png in Resources */,
+				7EC75149172093980077926A /* icon.png in Resources */,
+				7EC7514B1720939A0077926A /* icon@2x.png in Resources */,
+				7EC7514D172093E40077926A /* Default.png in Resources */,
+				7EC7514F172093E60077926A /* Default@2x.png in Resources */,
+				7EC75151172094370077926A /* Default-568h@2x.png in Resources */,
+				7EB718781721C845007970A5 /* grid_pattern.png in Resources */,
+				7EB7187B1721C84D007970A5 /* grid_pattern@2x.png in Resources */,
+				7EB7187C1721C84D007970A5 /* grid_pattern@2x-568h.png in Resources */,
+				7EB7187E1721D2D8007970A5 /* Ballon_de_football.png in Resources */,
+				7EB718811721DF57007970A5 /* arrow_right.png in Resources */,
+				7E388F491722138C000A041C /* yellowarrowleft.png in Resources */,
+				7E388F4A1722138C000A041C /* yellowarrowright.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1648,9 +1744,13 @@
 				7E890F231719F006000A32FA /* OAToken.m in Sources */,
 				7E890F241719F006000A32FA /* Reachability.m in Sources */,
 				7E890F271719F246000A32FA /* FBSession.m in Sources */,
-				7EDFEE48171B6627002E06AB /* DOKMatchPageViewController.m in Sources */,
+				7EDFEE48171B6627002E06AB /* DOKPlayerPageViewController.m in Sources */,
 				7EDFEE4B171B6A0F002E06AB /* DOKPickPlayerTableViewController.m in Sources */,
 				7EB57466171CBA27003C9E9D /* DOKPlayerModel+Details.m in Sources */,
+				7EF711CA171F44DB00881184 /* DOKMatchTabBarController.m in Sources */,
+				7EC7C9341722AD480028B08E /* DOKPlayer.m in Sources */,
+				7EC7C9371722C1490028B08E /* DOKStatsTableViewController.m in Sources */,
+				7EEE05361722F7680033C04B /* DOKGoalsLeaderBoardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

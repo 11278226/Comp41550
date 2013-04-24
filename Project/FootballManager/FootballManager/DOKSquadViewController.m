@@ -7,9 +7,10 @@
 //
 
 #import "DOKSquadViewController.h"
-#import "DOKPlayerModel.h"
+#import "DOKPlayerModel+Details.h"
 #import "DOKAppDelegate.h"
 #import "DOKPlayerDetailViewController.h"
+#import "DOKPlayerPageViewController.h"
 
 @interface DOKSquadViewController ()
 
@@ -31,6 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationItem.title = self.teamName;
     self.playersInTeam = [[NSMutableArray alloc] init];
     NSError *error;
     
@@ -75,9 +77,10 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    cell.textLabel.text = [[self.playersInTeam objectAtIndex:indexPath.row] name];
+    DOKPlayerModel *currPlayer = [self.playersInTeam objectAtIndex:indexPath.row];
+    cell.textLabel.text = [currPlayer name];
     
-    int overall = [[[self.playersInTeam objectAtIndex:indexPath.row] offensivePositioning] intValue] + [[[self.playersInTeam objectAtIndex:indexPath.row] defensivePositioning] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] strength] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] stamina] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] speed] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] tackling] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] goalkeeping] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] shooting] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] passing] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] dribbling] intValue] +[[[self.playersInTeam objectAtIndex:indexPath.row] composure] intValue];
+    int overall = [DOKPlayerModel overallForPlayer:currPlayer];
     
     if (overall < 98) {
         cell.imageView.image = [UIImage imageNamed:@"1StarSmall"];
@@ -90,9 +93,7 @@
     } else {
         cell.imageView.image = [UIImage imageNamed:@"5StarsSmall"];
     }
-    
-    //[cell addSubview:self.starImage];
-    
+        
     return cell;
 }
 
@@ -100,9 +101,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DOKPlayerDetailViewController *detailViewController = [[DOKPlayerDetailViewController alloc] init];
+    DOKPlayerPageViewController *detailViewController = [[DOKPlayerPageViewController alloc] init];
     detailViewController.player = [self.playersInTeam objectAtIndex:indexPath.row];
+    detailViewController.playerArray = self.playersInTeam;
     [self.navigationController pushViewController:detailViewController animated:YES];
+    
+//    DOKPlayerDetailViewController *detailViewController = [[DOKPlayerDetailViewController alloc] init];
+//    detailViewController.player = [self.playersInTeam objectAtIndex:indexPath.row];
+//    [self.navigationController pushViewController:detailViewController animated:YES];
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -115,12 +122,12 @@
      When a row is selected, the segue creates the detail view controller as the destination.
      Set the detail view controller's detail item to the item associated with the selected row.
      */
-    if ([[segue identifier] isEqualToString:@"ShowSelectedPlayer"]) {
-        
-        NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
-        DOKPlayerDetailViewController *detailViewController = [segue destinationViewController];
-        detailViewController.player = [self.playersInTeam objectAtIndex:selectedRowIndex.row];
-    }
+//    if ([[segue identifier] isEqualToString:@"ShowSelectedPlayer"]) {
+//        
+//        NSIndexPath *selectedRowIndex = [self.tableView indexPathForSelectedRow];
+//        DOKPlayerDetailViewController *detailViewController = [segue destinationViewController];
+//        detailViewController.player = [self.playersInTeam objectAtIndex:selectedRowIndex.row];
+//    }
 }
 
 

@@ -59,6 +59,8 @@
     [AddThisSDK setAddThisPubId:@"ra-51699ad6080e9b2f"];
     [AddThisSDK setAddThisApplicationId:@"5169a6573d8d2734"];
     
+    [Flurry startSession:@"HSFQS9FS2GN69PG8MMYY"];
+    
     return YES;
 }
 
@@ -85,12 +87,6 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-}
-
-- (void)applicationDidFinishLaunching:(UIApplication *)application
-{
-    [Flurry startSession:@"HSFQS9FS2GN69PG8MMYY"];
-    //your code
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application

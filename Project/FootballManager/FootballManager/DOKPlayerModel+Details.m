@@ -16,12 +16,17 @@
     return overall;
 }
 
+- (NSNumber *)overall {
+    int overall = [self.offensivePositioning intValue] + [self.defensivePositioning intValue] +[self.strength intValue] +[self.stamina intValue] +[self.tackling intValue] +[self.speed intValue] +[self.goalkeeping intValue] +[self.shooting intValue] +[self.passing intValue] +[self.dribbling intValue] +[self.composure intValue];
+    return [NSNumber numberWithInt:overall];
+}
+
 + (NSString *)preferredPosition:(DOKPlayerModel *)player {
     int goalie;
     int def;
     int mid;
     int fwd;
-    goalie = ([[player goalkeeping] intValue] + [[player passing] intValue]/2)*(10/3);
+    goalie = ([[player goalkeeping] intValue] + [[player passing] intValue]/2)*(10/4);
     def = ([[player defensivePositioning] intValue] + [[player tackling] intValue] + [[player passing] intValue]/2 + [[player strength] intValue])*(10/7);
     mid = ([[player passing] intValue] + [[player strength] intValue] + [[player dribbling] intValue]/2 + [[player speed] intValue]/2)*(10/6);
     fwd = ([[player shooting] intValue] + [[player offensivePositioning] intValue]/2 + [[player strength] intValue] + [[player dribbling] intValue]/2 + [[player passing] intValue]/2)*(10/7);

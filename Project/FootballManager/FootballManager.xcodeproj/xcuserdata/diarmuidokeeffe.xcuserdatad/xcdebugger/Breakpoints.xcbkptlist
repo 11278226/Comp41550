@@ -7,26 +7,91 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "FootballManager/DOKCareerMainScreenViewController.m"
-         timestampString = "387763317.388585"
+         filePath = "FootballManager/DOKMatchPageViewController.m"
+         timestampString = "387847569.000099"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "614"
-         endingLineNumber = "614"
-         landmarkName = "-pickPlayerViewControllerPlayerPicked:playerRemoved:forTag:"
+         startingLineNumber = "174"
+         endingLineNumber = "174"
+         landmarkName = "-willRotateToInterfaceOrientation:duration:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "FootballManager/DOKCareerMainScreenViewController.m"
-         timestampString = "387763317.388585"
+         filePath = "FootballManager/DOKMatchPageViewController.m"
+         timestampString = "387847569.000099"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "619"
-         endingLineNumber = "619"
-         landmarkName = "-updatePlayerLabels"
+         startingLineNumber = "184"
+         endingLineNumber = "184"
+         landmarkName = "-didRotateFromInterfaceOrientation:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "FootballManager/DOKMatchViewController.m"
+         timestampString = "388172519.054508"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "398"
+         endingLineNumber = "398"
+         landmarkName = "-setupGameForMatch:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "FootballManager/DOKOtherTeamsViewController.m"
+         timestampString = "388096367.905181"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "71"
+         endingLineNumber = "71"
+         landmarkName = "-tableView:cellForRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "FootballManager/DOKGoalsLeaderBoardViewController.m"
+         timestampString = "388173389.163083"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "180"
+         endingLineNumber = "180"
+         landmarkName = "-tableView:cellForRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "FootballManager/DOKMatchViewController.m"
+         timestampString = "388175049.75884"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1063"
+         endingLineNumber = "1063"
+         landmarkName = "-findAssistForTeam:withPassingValue:andPlayers:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "FootballManager/DOKMatchViewController.m"
+         timestampString = "388175049.75884"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1106"
+         endingLineNumber = "1106"
+         landmarkName = "-findScorerWithAssistFromPlayer:forTeam:withScoringValue:withPlayers:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

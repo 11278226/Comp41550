@@ -10,4 +10,5 @@
 
 @interface DOKTeamModel (LeagueTable)
 + (DOKTeamModel *)teamWithTableInfo:(NSDictionary *)flickrInfo inManagedObjectContext:(NSManagedObjectContext *)context;
+- (NSNumber *)goalDifference;
 @end

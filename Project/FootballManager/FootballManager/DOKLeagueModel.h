@@ -10,8 +10,9 @@
 
 @interface DOKLeagueModel : NSObject
 
-@property (nonatomic) int numberOfDivisions;
-@property (nonatomic) int teamDivision;
+@property (nonatomic) NSNumber *numberOfDivisions;
+@property (nonatomic) NSNumber *teamDivision;
 @property (nonatomic) NSString *leagueName;
+@property (nonatomic) NSNumber *leagueID;
 
 @end

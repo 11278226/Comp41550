@@ -8,7 +8,7 @@
 
 #import "DOKPlayerPickerViewController.h"
 #import "DOKAppDelegate.h"
-#import "DOKPlayerModel.h"
+#import "DOKPlayerModel+Details.h"
 #import "DOKTeamModel.h"
 
 @interface DOKPlayerPickerViewController ()
@@ -68,7 +68,7 @@
 
 - (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
 {
-    int overall = [[[self.myTeamPlayers objectAtIndex:row] offensivePositioning] intValue] + [[[self.myTeamPlayers objectAtIndex:row] defensivePositioning] intValue] +[[[self.myTeamPlayers objectAtIndex:row] strength] intValue] +[[[self.myTeamPlayers objectAtIndex:row] stamina] intValue] +[[[self.myTeamPlayers objectAtIndex:row] speed] intValue] +[[[self.myTeamPlayers objectAtIndex:row] tackling] intValue] +[[[self.myTeamPlayers objectAtIndex:row] goalkeeping] intValue] +[[[self.myTeamPlayers objectAtIndex:row] shooting] intValue] +[[[self.myTeamPlayers objectAtIndex:row] passing] intValue] +[[[self.myTeamPlayers objectAtIndex:row] dribbling] intValue] +[[[self.myTeamPlayers objectAtIndex:row] composure ]intValue];
+    int overall = [DOKPlayerModel overallForPlayer:[self.myTeamPlayers objectAtIndex:row]];//[[[self.myTeamPlayers objectAtIndex:row] overall] intValue];
     view =nil;
     UIView *myView = view;
     if (myView == nil) {

@@ -8,7 +8,7 @@
 
 #import "DOKLeagueTableViewController.h"
 #import "DOKAppDelegate.h"
-#import "DOKTeamModel.h"
+#import "DOKTeamModel+LeagueTable.h"
 
 @interface DOKLeagueTableViewController ()
 
@@ -28,6 +28,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"grid_pattern.png"]];
     [self setupFetchedResultsController];
     [self fetchTeamData];
 }
@@ -71,6 +75,13 @@
     [self.tableView reloadData];
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    
+    return 22;
+    
+}
+
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 22)];
     
@@ -95,7 +106,7 @@
         label.text = @"Team";
         [headerView addSubview:label];
         
-        frame = CGRectMake(tableView.bounds.size.width - 150, 0, 30, 22);
+        frame = CGRectMake(tableView.bounds.size.width - 150,0, 30, 22);
         label = [[UILabel alloc]initWithFrame:frame];
         label.numberOfLines = 1;
         label.textAlignment = NSTextAlignmentRight;
@@ -104,7 +115,7 @@
         label.text = @"PLD";
         [headerView addSubview:label];
         
-        frame = CGRectMake(tableView.bounds.size.width - 120, 0, 30, 22);
+        frame = CGRectMake(tableView.bounds.size.width - 120,0, 30, 22);
         label = [[UILabel alloc]initWithFrame:frame];
         label.numberOfLines = 1;
         label.textAlignment = NSTextAlignmentRight;
@@ -141,7 +152,7 @@
         [headerView addSubview:label];
         
     } else if(orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight) {
-        frame = CGRectMake(30, 0, tableView.bounds.size.width - 220 - 40, 22);
+        frame = CGRectMake(30,0, tableView.bounds.size.width - 220 - 40, 22);
         label = [[UILabel alloc]initWithFrame:frame];
         label.numberOfLines = 1;
         label.textAlignment = NSTextAlignmentCenter;
@@ -323,27 +334,27 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *teamName = [defaults objectForKey:@"teamName"];
     if ([team.teamName isEqualToString:teamName]) {
-        ((UILabel *)[cell viewWithTag:positionTag]).textColor = [UIColor blueColor];
-        ((UILabel *)[cell viewWithTag:titleTag]).textColor = [UIColor blueColor];
-        ((UILabel *)[cell viewWithTag:playTag]).textColor = [UIColor blueColor];
-        ((UILabel *)[cell viewWithTag:wonTag]).textColor = [UIColor blueColor];
-        ((UILabel *)[cell viewWithTag:drewTag]).textColor = [UIColor blueColor];
-        ((UILabel *)[cell viewWithTag:loseTag]).textColor = [UIColor blueColor];
-        ((UILabel *)[cell viewWithTag:goalsForTag]).textColor = [UIColor blueColor];
-        ((UILabel *)[cell viewWithTag:goalsAgainstTag]).textColor = [UIColor blueColor];
-        ((UILabel *)[cell viewWithTag:goalDifferenceTag]).textColor = [UIColor blueColor];
-        ((UILabel *)[cell viewWithTag:pointsTag]).textColor = [UIColor blueColor];
+        ((UILabel *)[cell viewWithTag:positionTag]).textColor = [UIColor yellowColor];
+        ((UILabel *)[cell viewWithTag:titleTag]).textColor = [UIColor yellowColor];
+        ((UILabel *)[cell viewWithTag:playTag]).textColor = [UIColor yellowColor];
+        ((UILabel *)[cell viewWithTag:wonTag]).textColor = [UIColor yellowColor];
+        ((UILabel *)[cell viewWithTag:drewTag]).textColor = [UIColor yellowColor];
+        ((UILabel *)[cell viewWithTag:loseTag]).textColor = [UIColor yellowColor];
+        ((UILabel *)[cell viewWithTag:goalsForTag]).textColor = [UIColor yellowColor];
+        ((UILabel *)[cell viewWithTag:goalsAgainstTag]).textColor = [UIColor yellowColor];
+        ((UILabel *)[cell viewWithTag:goalDifferenceTag]).textColor = [UIColor yellowColor];
+        ((UILabel *)[cell viewWithTag:pointsTag]).textColor = [UIColor yellowColor];
     } else {
-        ((UILabel *)[cell viewWithTag:positionTag]).textColor = [UIColor darkTextColor];
-        ((UILabel *)[cell viewWithTag:titleTag]).textColor = [UIColor darkTextColor];
-        ((UILabel *)[cell viewWithTag:playTag]).textColor = [UIColor darkTextColor];
-        ((UILabel *)[cell viewWithTag:wonTag]).textColor = [UIColor darkTextColor];
-        ((UILabel *)[cell viewWithTag:drewTag]).textColor = [UIColor darkTextColor];
-        ((UILabel *)[cell viewWithTag:loseTag]).textColor = [UIColor darkTextColor];
-        ((UILabel *)[cell viewWithTag:goalsForTag]).textColor = [UIColor darkTextColor];
-        ((UILabel *)[cell viewWithTag:goalsAgainstTag]).textColor = [UIColor darkTextColor];
-        ((UILabel *)[cell viewWithTag:goalDifferenceTag]).textColor = [UIColor darkTextColor];
-        ((UILabel *)[cell viewWithTag:pointsTag]).textColor = [UIColor darkTextColor];
+        ((UILabel *)[cell viewWithTag:positionTag]).textColor = [UIColor whiteColor];
+        ((UILabel *)[cell viewWithTag:titleTag]).textColor = [UIColor whiteColor];
+        ((UILabel *)[cell viewWithTag:playTag]).textColor = [UIColor whiteColor];
+        ((UILabel *)[cell viewWithTag:wonTag]).textColor = [UIColor whiteColor];
+        ((UILabel *)[cell viewWithTag:drewTag]).textColor = [UIColor whiteColor];
+        ((UILabel *)[cell viewWithTag:loseTag]).textColor = [UIColor whiteColor];
+        ((UILabel *)[cell viewWithTag:goalsForTag]).textColor = [UIColor whiteColor];
+        ((UILabel *)[cell viewWithTag:goalsAgainstTag]).textColor = [UIColor whiteColor];
+        ((UILabel *)[cell viewWithTag:goalDifferenceTag]).textColor = [UIColor whiteColor];
+        ((UILabel *)[cell viewWithTag:pointsTag]).textColor = [UIColor whiteColor];
     }
     return cell;
 }

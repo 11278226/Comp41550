@@ -24,5 +24,7 @@
 @dynamic stamina;
 @dynamic composure;
 @dynamic teamID;
+@dynamic goals;
+@dynamic assists;
 
 @end

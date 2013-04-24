@@ -12,6 +12,7 @@
 #import "DOKAppDelegate.h"
 #import "DOKMatchModel.h"
 #import "DOKMatch.h"
+#import "DOKPlayer.h"
 #import "Flurry.h"
 #include <stdlib.h>
 
@@ -22,16 +23,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *homeTeamLabel;
 @property (weak, nonatomic) IBOutlet UILabel *homeScore;
 @property (weak, nonatomic) IBOutlet UILabel *awayScore;
-
-@property (nonatomic) NSMutableArray *homeTeam;
-@property (nonatomic) NSMutableArray *awayTeam;
-@property (nonatomic) NSMutableArray *filteredHomeTeam;
-@property (nonatomic) NSMutableArray *filteredAwayTeam;
 @property (nonatomic, strong) NSString *myTeamName;
 @property (nonatomic) int *pausedGamePlays;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property  BOOL matchesFinished;
 @property  BOOL instantMatches;
+@property  BOOL isNotFirstTimeViewLoaded;
 @property  BOOL *pauseGame;
 @property (strong, nonatomic) DOKMatch *savedMatch;
 @property (strong, nonatomic) NSMutableArray *savedMatchDetails;
@@ -53,7 +50,11 @@
 @property (weak, nonatomic) IBOutlet UIImageView *territoryImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *avgTerritoryView;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
+@property (strong, nonatomic) NSMutableArray *goalsAndAssists;
+@property (strong, nonatomic) NSMutableArray *allGoalscorers;
+@property (strong, nonatomic) NSMutableArray *allAssists;
 - (IBAction)closeButtonPressed:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 
 
 
@@ -81,25 +82,11 @@
     [self.playButton setTitle:@"Play" forState:UIControlStateNormal];
     [self.playButton setTitle:@"Play" forState:UIControlStateHighlighted];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *teamName = [defaults objectForKey:@"teamName"];
-    DOKMatch *myMatch = [[DOKMatch alloc] init];
-    for (DOKMatch *thisMatch in self.matches) {
-        if ([teamName isEqualToString:thisMatch.homeTeam] || [teamName isEqualToString:thisMatch.awayTeam]) {
-            myMatch = thisMatch;
-        }
-        else {
-            
-        }
-    }
+    self.myTeamName = [defaults objectForKey:@"teamName"];
+    self.goalsAndAssists = [NSMutableArray array];
     
-    self.homeTeamLabel.text = myMatch.homeTeam;
-    self.awayTeamLabel.text = myMatch.awayTeam;
-    
-    self.homeTeam = [[NSMutableArray alloc] init];
-    self.awayTeam = [[NSMutableArray alloc] init];
-    self.filteredHomeTeam = [[NSMutableArray alloc] init];
-    self.filteredAwayTeam = [[NSMutableArray alloc] init];
-    
+    self.allAssists = [NSMutableArray array];
+    self.allGoalscorers = [NSMutableArray array];
     
     self.possessionImageView.backgroundColor = [UIColor redColor];
     self.homePossessionView.backgroundColor = [UIColor blueColor];
@@ -110,12 +97,32 @@
     [self.territoryImageView addSubview:self.avgTerritoryView];
     self.avgTerritoryView.frame = CGRectMake(0, 0, self.territoryImageView.bounds.size.width/2, self.territoryImageView.bounds.size.height);
     
-    self.instantMatches = [[NSUserDefaults standardUserDefaults] boolForKey:@"Instant Matches"];
-    self.myTeamName = [[NSUserDefaults standardUserDefaults] stringForKey:@"teamName"];
-    
+    self.instantMatches = [defaults boolForKey:@"Instant Matches"];
     self.savedMatchDetails = [NSMutableArray array];
-
     
+    
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (!self.isNotFirstTimeViewLoaded) {
+        DOKMatch *myMatch = [[DOKMatch alloc] init];
+        for (DOKMatch *thisMatch in self.matches) {
+            if ([self.myTeamName isEqualToString:thisMatch.homeTeam] || [self.myTeamName isEqualToString:thisMatch.awayTeam]) {
+                myMatch = thisMatch;
+            }
+            else {
+                
+            }
+        }
+        
+        self.navBar.topItem.title = [NSString stringWithFormat:@"%@ vs %@",myMatch.homeTeam,myMatch.awayTeam];
+        self.homeTeamLabel.text = myMatch.homeTeam;
+        self.awayTeamLabel.text = myMatch.awayTeam;
+        self.isNotFirstTimeViewLoaded = YES;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -130,61 +137,64 @@
     
     NSError *error = nil;
     
-    self.homeTeam = [[[[DOKAppDelegate sharedAppDelegate] managedObjectContext] executeFetchRequest:request error:&error] mutableCopy];
+    NSMutableArray *homeTeam = [[[[DOKAppDelegate sharedAppDelegate] managedObjectContext] executeFetchRequest:request error:&error] mutableCopy];
     
     request.predicate = [NSPredicate predicateWithFormat:@"teamName = %@",currMatch.awayTeam];
-    self.awayTeam = [[[[DOKAppDelegate sharedAppDelegate] managedObjectContext] executeFetchRequest:request error:&error] mutableCopy];
+    NSMutableArray *awayTeam = [[[[DOKAppDelegate sharedAppDelegate] managedObjectContext] executeFetchRequest:request error:&error] mutableCopy];
+    
+    NSMutableArray *filteredHomeTeam = [NSMutableArray array];
+    NSMutableArray *filteredAwayTeam = [NSMutableArray array];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     NSMutableDictionary *myTeam = [defaults objectForKey:@"myTeam"];
     if ([currMatch.homeTeam isEqualToString:self.myTeamName]) {
         NSMutableArray *myTeamArray = [NSMutableArray array];
-        NSString *keeper = [myTeam objectForKey:@"selectionKeeper"];
+        NSString *keeper = [myTeam objectForKey:@"playerOne"];
         [myTeamArray addObject:keeper];
-        NSString *defenceOne = [myTeam objectForKey:@"selectionDefence"];
+        NSString *defenceOne = [myTeam objectForKey:@"playerTwo"];
         [myTeamArray addObject:defenceOne];
-        NSString *defenceTwo = [myTeam objectForKey:@"selectionDefenceTwo"];
+        NSString *defenceTwo = [myTeam objectForKey:@"playerThree"];
         [myTeamArray addObject:defenceTwo];
-        NSString *mid = [myTeam objectForKey:@"selectionMid"];
-        [myTeamArray addObject:mid];
-        NSString *wingOne = [myTeam objectForKey:@"selectionWing"];
+        NSString *wingOne = [myTeam objectForKey:@"playerFour"];
         [myTeamArray addObject:wingOne];
-        NSString *wingTwo = [myTeam objectForKey:@"selectionWingTwo"];
+        NSString *mid = [myTeam objectForKey:@"playerFive"];
+        [myTeamArray addObject:mid];
+        NSString *wingTwo = [myTeam objectForKey:@"playerSix"];
         [myTeamArray addObject:wingTwo];
-        NSString *striker = [myTeam objectForKey:@"selectionStriker"];
+        NSString *striker = [myTeam objectForKey:@"playerSeven"];
         [myTeamArray addObject:striker];
         
         for (NSString *playerName in myTeamArray) {
             //        NSString *playerName = [myTeam objectForKey:playerPos];
-            for (DOKPlayerModel *player in self.homeTeam) {
+            for (DOKPlayer *player in homeTeam) {
                 if ([player.name isEqualToString:playerName]) {
-                    [self.filteredHomeTeam addObject:player];
+                    [filteredHomeTeam addObject:player];
                 }
             }
         }
     } else if ([currMatch.awayTeam isEqualToString:self.myTeamName]) {
         NSMutableArray *myTeamArray = [NSMutableArray array];
-        NSString *keeper = [myTeam objectForKey:@"selectionKeeper"];
+        NSString *keeper = [myTeam objectForKey:@"playerOne"];
         [myTeamArray addObject:keeper];
-        NSString *defenceOne = [myTeam objectForKey:@"selectionDefence"];
+        NSString *defenceOne = [myTeam objectForKey:@"playerTwo"];
         [myTeamArray addObject:defenceOne];
-        NSString *defenceTwo = [myTeam objectForKey:@"selectionDefenceTwo"];
+        NSString *defenceTwo = [myTeam objectForKey:@"playerThree"];
         [myTeamArray addObject:defenceTwo];
-        NSString *mid = [myTeam objectForKey:@"selectionMid"];
-        [myTeamArray addObject:mid];
-        NSString *wingOne = [myTeam objectForKey:@"selectionWing"];
+        NSString *wingOne = [myTeam objectForKey:@"playerFour"];
         [myTeamArray addObject:wingOne];
-        NSString *wingTwo = [myTeam objectForKey:@"selectionWingTwo"];
+        NSString *mid = [myTeam objectForKey:@"playerFive"];
+        [myTeamArray addObject:mid];
+        NSString *wingTwo = [myTeam objectForKey:@"playerSix"];
         [myTeamArray addObject:wingTwo];
-        NSString *striker = [myTeam objectForKey:@"selectionStriker"];
+        NSString *striker = [myTeam objectForKey:@"playerSeven"];
         [myTeamArray addObject:striker];
         
         for (NSString *playerName in myTeamArray) {
             //        NSString *playerName = [myTeam objectForKey:playerPos];
-            for (DOKPlayerModel *player in self.awayTeam) {
+            for (DOKPlayer *player in awayTeam) {
                 if ([player.name isEqualToString:playerName]) {
-                    [self.filteredAwayTeam addObject:player];
+                    [filteredAwayTeam addObject:player];
                 }
             }
         }
@@ -194,107 +204,457 @@
     NSMutableDictionary *myAwayDictionary = [[NSMutableDictionary
                                               alloc] init];
     for (int j = 0; j<7; j++) {
-        DOKPlayerModel *myPlayer;
-        DOKPlayerModel *awayPlayer;
+        DOKPlayer *myPlayer;
+        DOKPlayer *awayPlayer;
         if ([currMatch.homeTeam isEqualToString:self.myTeamName]) {
-            myPlayer = [self.filteredHomeTeam objectAtIndex:j];
-            awayPlayer = [self.awayTeam objectAtIndex:j];
+            myPlayer = [filteredHomeTeam objectAtIndex:j];
+            awayPlayer = [awayTeam objectAtIndex:j];
         } else if ([currMatch.awayTeam isEqualToString:self.myTeamName]) {
-            myPlayer = [self.homeTeam objectAtIndex:j];
-            awayPlayer = [self.filteredAwayTeam objectAtIndex:j];
+            myPlayer = [homeTeam objectAtIndex:j];
+            awayPlayer = [filteredAwayTeam objectAtIndex:j];
         } else {
-            myPlayer = [self.homeTeam objectAtIndex:j];
-            awayPlayer = [self.awayTeam objectAtIndex:j];
+            myPlayer = [homeTeam objectAtIndex:j];
+            awayPlayer = [awayTeam objectAtIndex:j];
         }
-        
-        if (j==0) {
-            [myHomeDictionary setValue:myPlayer.goalkeeping forKey:@"goalie"];
-            [myHomeDictionary setValue:myPlayer.passing forKey:@"passingGoalie"];
-            [myAwayDictionary setValue:awayPlayer.goalkeeping forKey:@"goalie"];
-            [myAwayDictionary setValue:awayPlayer.passing forKey:@"passingGoalie"];
-        } else if (j==1||j==2) {
-            NSNumber *defPos = [myHomeDictionary valueForKey:@"defPos"];
-            defPos = [NSNumber numberWithInt:[defPos intValue] + [myPlayer.defensivePositioning intValue]];
-            [myHomeDictionary setValue:defPos forKey:@"defPos"];
-            NSNumber *tackling = [myHomeDictionary valueForKey:@"tackling"];
-            tackling = [NSNumber numberWithInt:[tackling intValue] + [myPlayer.tackling intValue]];
-            [myHomeDictionary setValue:tackling forKey:@"tackling"];
-            NSNumber *passing = [myHomeDictionary valueForKey:@"passingDef"];
-            passing = [NSNumber numberWithInt:[passing intValue] + [myPlayer.passing intValue]];
-            [myHomeDictionary setValue:passing forKey:@"passingDef"];
-            NSNumber *strength = [myHomeDictionary valueForKey:@"strengthDef"];
-            strength = [NSNumber numberWithInt:[strength intValue] + [myPlayer.strength intValue]];
-            [myHomeDictionary setValue:strength forKey:@"strengthDef"];
-            
-            NSNumber *defPosAway = [myAwayDictionary valueForKey:@"defPos"];
-            defPosAway = [NSNumber numberWithInt:[defPosAway intValue] + [awayPlayer.defensivePositioning intValue]];
-            [myAwayDictionary setValue:defPosAway forKey:@"defPos"];
-            NSNumber *tacklingAway = [myAwayDictionary valueForKey:@"tackling"];
-            tacklingAway = [NSNumber numberWithInt:[tacklingAway intValue] + [awayPlayer.tackling intValue]];
-            [myAwayDictionary setValue:tacklingAway forKey:@"tackling"];
-            NSNumber *passingAway = [myAwayDictionary valueForKey:@"passingDef"];
-            passingAway = [NSNumber numberWithInt:[passingAway intValue] + [awayPlayer.passing intValue]];
-            [myAwayDictionary setValue:passingAway forKey:@"passingDef"];
-            NSNumber *strengthAway = [myAwayDictionary valueForKey:@"strengthDef"];
-            strengthAway = [NSNumber numberWithInt:[strengthAway intValue] + [awayPlayer.strength intValue]];
-            [myAwayDictionary setValue:strengthAway forKey:@"strengthDef"];
-        } else if (j==3||j==4||j==5) {
-            NSNumber *passing = [myHomeDictionary valueForKey:@"passing"];
-            passing = [NSNumber numberWithInt:[passing intValue] + [myPlayer.passing intValue]];
-            [myHomeDictionary setValue:passing forKey:@"passing"];
-            NSNumber *strength = [myHomeDictionary valueForKey:@"strength"];
-            strength = [NSNumber numberWithInt:[strength intValue] + [myPlayer.strength intValue]];
-            [myHomeDictionary setValue:strength forKey:@"strength"];
-            NSNumber *dribbling = [myHomeDictionary valueForKey:@"dribbling"];
-            dribbling = [NSNumber numberWithInt:[dribbling intValue] + [myPlayer.dribbling intValue]];
-            [myHomeDictionary setValue:dribbling forKey:@"dribbling"];
-            
-            NSNumber *passingAway = [myAwayDictionary valueForKey:@"passing"];
-            passingAway = [NSNumber numberWithInt:[passingAway intValue] + [awayPlayer.passing intValue]];
-            [myAwayDictionary setValue:passingAway forKey:@"passing"];
-            NSNumber *strengthAway = [myAwayDictionary valueForKey:@"strength"];
-            strengthAway = [NSNumber numberWithInt:[strengthAway intValue] + [awayPlayer.strength intValue]];
-            [myAwayDictionary setValue:strengthAway forKey:@"strength"];
-            NSNumber *dribblingAway = [myAwayDictionary valueForKey:@"dribbling"];
-            dribblingAway = [NSNumber numberWithInt:[dribblingAway intValue] + [awayPlayer.dribbling intValue]];
-            [myAwayDictionary setValue:dribblingAway forKey:@"dribbling"];
-        } else if (j==6) {
-            NSNumber *shooting = [myHomeDictionary valueForKey:@"shooting"];
-            shooting = [NSNumber numberWithInt:[shooting intValue] + [myPlayer.shooting intValue]];
-            [myHomeDictionary setValue:shooting forKey:@"shooting"];
-            NSNumber *offPos = [myHomeDictionary valueForKey:@"offPos"];
-            offPos = [NSNumber numberWithInt:[offPos intValue] + [myPlayer.offensivePositioning intValue]];
-            [myHomeDictionary setValue:offPos forKey:@"offPos"];
-            NSNumber *dribbling = [myHomeDictionary valueForKey:@"dribblingFwd"];
-            dribbling = [NSNumber numberWithInt:[dribbling intValue] + [myPlayer.dribbling intValue]];
-            [myHomeDictionary setValue:dribbling forKey:@"dribblingFwd"];
-            NSNumber *strength = [myHomeDictionary valueForKey:@"strengthFwd"];
-            strength = [NSNumber numberWithInt:[strength intValue] + [myPlayer.strength intValue]];
-            [myHomeDictionary setValue:strength forKey:@"strengthFwd"];
-            
-            NSNumber *shootingAway = [myAwayDictionary valueForKey:@"shooting"];
-            shootingAway = [NSNumber numberWithInt:[shootingAway intValue] + [awayPlayer.shooting intValue]];
-            [myAwayDictionary setValue:shootingAway forKey:@"shooting"];
-            NSNumber *offPosAway = [myAwayDictionary valueForKey:@"offPos"];
-            offPosAway = [NSNumber numberWithInt:[offPosAway intValue] + [awayPlayer.offensivePositioning intValue]];
-            [myAwayDictionary setValue:offPosAway forKey:@"offPos"];
-            NSNumber *dribblingAway = [myAwayDictionary valueForKey:@"dribblingFwd"];
-            dribblingAway = [NSNumber numberWithInt:[dribblingAway intValue] + [awayPlayer.dribbling intValue]];
-            [myAwayDictionary setValue:dribblingAway forKey:@"dribblingFwd"];
-            NSNumber *strengthAway = [myAwayDictionary valueForKey:@"strengthFwd"];
-            strengthAway = [NSNumber numberWithInt:[strengthAway intValue] + [awayPlayer.strength intValue]];
-            [myAwayDictionary setValue:strengthAway forKey:@"strengthFwd"];
+        NSString *thisTeamFormation;
+        if ([self.myTeamName isEqualToString:currMatch.homeTeam]) {
+            thisTeamFormation = [[NSUserDefaults standardUserDefaults] valueForKey:@"Formation"];
+        } else {
+            thisTeamFormation = @"2-3-1";
+        }
+        switch (j) {
+            case 0:
+                [myHomeDictionary setValue:myPlayer.goalkeeping forKey:@"goalie"];
+                [myHomeDictionary setValue:myPlayer.passing forKey:@"passingGoalie"];
+                break;
+            case 1:
+            {
+                NSNumber *defPos = [myHomeDictionary valueForKey:@"defPos"];
+                defPos = [NSNumber numberWithInt:[defPos intValue] + [myPlayer.defensivePositioning intValue]];
+                [myHomeDictionary setValue:defPos forKey:@"defPos"];
+                NSNumber *tackling = [myHomeDictionary valueForKey:@"tackling"];
+                tackling = [NSNumber numberWithInt:[tackling intValue] + [myPlayer.tackling intValue]];
+                [myHomeDictionary setValue:tackling forKey:@"tackling"];
+                NSNumber *passing = [myHomeDictionary valueForKey:@"passingDef"];
+                passing = [NSNumber numberWithInt:[passing intValue] + [myPlayer.passing intValue]];
+                [myHomeDictionary setValue:passing forKey:@"passingDef"];
+                NSNumber *strength = [myHomeDictionary valueForKey:@"strengthDef"];
+                strength = [NSNumber numberWithInt:[strength intValue] + [myPlayer.strength intValue]];
+                [myHomeDictionary setValue:strength forKey:@"strengthDef"];
+                break;
+            }
+            case 2:
+            {
+                if (![thisTeamFormation isEqualToString:@"1-2-3"] && ![thisTeamFormation isEqualToString:@"1-3-2"]) {
+                    NSNumber *defPos = [myHomeDictionary valueForKey:@"defPos"];
+                    defPos = [NSNumber numberWithInt:[defPos intValue] + [myPlayer.defensivePositioning intValue]];
+                    [myHomeDictionary setValue:defPos forKey:@"defPos"];
+                    NSNumber *tackling = [myHomeDictionary valueForKey:@"tackling"];
+                    tackling = [NSNumber numberWithInt:[tackling intValue] + [myPlayer.tackling intValue]];
+                    [myHomeDictionary setValue:tackling forKey:@"tackling"];
+                    NSNumber *passing = [myHomeDictionary valueForKey:@"passingDef"];
+                    passing = [NSNumber numberWithInt:[passing intValue] + [myPlayer.passing intValue]];
+                    [myHomeDictionary setValue:passing forKey:@"passingDef"];
+                    NSNumber *strength = [myHomeDictionary valueForKey:@"strengthDef"];
+                    strength = [NSNumber numberWithInt:[strength intValue] + [myPlayer.strength intValue]];
+                    [myHomeDictionary setValue:strength forKey:@"strengthDef"];
+                } else {
+                    NSNumber *passing = [myHomeDictionary valueForKey:@"passing"];
+                    passing = [NSNumber numberWithInt:[passing intValue] + [myPlayer.passing intValue]];
+                    [myHomeDictionary setValue:passing forKey:@"passing"];
+                    NSNumber *strength = [myHomeDictionary valueForKey:@"strength"];
+                    strength = [NSNumber numberWithInt:[strength intValue] + [myPlayer.strength intValue]];
+                    [myHomeDictionary setValue:strength forKey:@"strength"];
+                    NSNumber *dribbling = [myHomeDictionary valueForKey:@"dribbling"];
+                    dribbling = [NSNumber numberWithInt:[dribbling intValue] + [myPlayer.dribbling intValue]];
+                    [myHomeDictionary setValue:dribbling forKey:@"dribbling"];
+                    NSNumber *offPos = [myHomeDictionary valueForKey:@"offPosMid"];
+                    offPos = [NSNumber numberWithInt:[offPos intValue] + [myPlayer.offensivePositioning intValue]];
+                    [myHomeDictionary setValue:offPos forKey:@"offPosMid"];
+                    NSNumber *defPos = [myHomeDictionary valueForKey:@"defPosMid"];
+                    defPos = [NSNumber numberWithInt:[defPos intValue] + [myPlayer.defensivePositioning intValue]];
+                    [myHomeDictionary setValue:defPos forKey:@"defPosMid"];
+                    NSNumber *shooting = [myHomeDictionary valueForKey:@"shootingMid"];
+                    shooting = [NSNumber numberWithInt:[shooting intValue] + [myPlayer.shooting intValue]];
+                    [myHomeDictionary setValue:shooting forKey:@"shootingMid"];
+                }
+                
+                break;
+            }
+            case 3:
+            {
+                if (![thisTeamFormation isEqualToString:@"3-2-1"] && ![thisTeamFormation isEqualToString:@"3-3-0"] && ![thisTeamFormation isEqualToString:@"3-1-2"]) {
+                    NSNumber *passing = [myHomeDictionary valueForKey:@"passing"];
+                    passing = [NSNumber numberWithInt:[passing intValue] + [myPlayer.passing intValue]];
+                    [myHomeDictionary setValue:passing forKey:@"passing"];
+                    NSNumber *strength = [myHomeDictionary valueForKey:@"strength"];
+                    strength = [NSNumber numberWithInt:[strength intValue] + [myPlayer.strength intValue]];
+                    [myHomeDictionary setValue:strength forKey:@"strength"];
+                    NSNumber *dribbling = [myHomeDictionary valueForKey:@"dribbling"];
+                    dribbling = [NSNumber numberWithInt:[dribbling intValue] + [myPlayer.dribbling intValue]];
+                    [myHomeDictionary setValue:dribbling forKey:@"dribbling"];
+                    NSNumber *offPos = [myHomeDictionary valueForKey:@"offPosMid"];
+                    offPos = [NSNumber numberWithInt:[offPos intValue] + [myPlayer.offensivePositioning intValue]];
+                    [myHomeDictionary setValue:offPos forKey:@"offPosMid"];
+                    NSNumber *defPos = [myHomeDictionary valueForKey:@"defPosMid"];
+                    defPos = [NSNumber numberWithInt:[defPos intValue] + [myPlayer.defensivePositioning intValue]];
+                    [myHomeDictionary setValue:defPos forKey:@"defPosMid"];
+                    NSNumber *shooting = [myHomeDictionary valueForKey:@"shootingMid"];
+                    shooting = [NSNumber numberWithInt:[shooting intValue] + [myPlayer.shooting intValue]];
+                    [myHomeDictionary setValue:shooting forKey:@"shootingMid"];
+                } else {
+                    NSNumber *defPos = [myHomeDictionary valueForKey:@"defPos"];
+                    defPos = [NSNumber numberWithInt:[defPos intValue] + [myPlayer.defensivePositioning intValue]];
+                    [myHomeDictionary setValue:defPos forKey:@"defPos"];
+                    NSNumber *tackling = [myHomeDictionary valueForKey:@"tackling"];
+                    tackling = [NSNumber numberWithInt:[tackling intValue] + [myPlayer.tackling intValue]];
+                    [myHomeDictionary setValue:tackling forKey:@"tackling"];
+                    NSNumber *passing = [myHomeDictionary valueForKey:@"passingDef"];
+                    passing = [NSNumber numberWithInt:[passing intValue] + [myPlayer.passing intValue]];
+                    [myHomeDictionary setValue:passing forKey:@"passingDef"];
+                    NSNumber *strength = [myHomeDictionary valueForKey:@"strengthDef"];
+                    strength = [NSNumber numberWithInt:[strength intValue] + [myPlayer.strength intValue]];
+                    [myHomeDictionary setValue:strength forKey:@"strengthDef"];
+                }
+                break;
+            }
+            case 4:
+            {
+                if (![thisTeamFormation isEqualToString:@"1-2-3"] && ![thisTeamFormation isEqualToString:@"2-1-3"]) {
+                    NSNumber *passing = [myHomeDictionary valueForKey:@"passing"];
+                    passing = [NSNumber numberWithInt:[passing intValue] + [myPlayer.passing intValue]];
+                    [myHomeDictionary setValue:passing forKey:@"passing"];
+                    NSNumber *strength = [myHomeDictionary valueForKey:@"strength"];
+                    strength = [NSNumber numberWithInt:[strength intValue] + [myPlayer.strength intValue]];
+                    [myHomeDictionary setValue:strength forKey:@"strength"];
+                    NSNumber *dribbling = [myHomeDictionary valueForKey:@"dribbling"];
+                    dribbling = [NSNumber numberWithInt:[dribbling intValue] + [myPlayer.dribbling intValue]];
+                    [myHomeDictionary setValue:dribbling forKey:@"dribbling"];
+                    NSNumber *offPos = [myHomeDictionary valueForKey:@"offPosMid"];
+                    offPos = [NSNumber numberWithInt:[offPos intValue] + [myPlayer.offensivePositioning intValue]];
+                    [myHomeDictionary setValue:offPos forKey:@"offPosMid"];
+                    NSNumber *defPos = [myHomeDictionary valueForKey:@"defPosMid"];
+                    defPos = [NSNumber numberWithInt:[defPos intValue] + [myPlayer.defensivePositioning intValue]];
+                    [myHomeDictionary setValue:defPos forKey:@"defPosMid"];
+                    NSNumber *shooting = [myHomeDictionary valueForKey:@"shootingMid"];
+                    shooting = [NSNumber numberWithInt:[shooting intValue] + [myPlayer.shooting intValue]];
+                    [myHomeDictionary setValue:shooting forKey:@"shootingMid"];
+                } else {
+                    NSNumber *shooting = [myHomeDictionary valueForKey:@"shooting"];
+                    shooting = [NSNumber numberWithInt:[shooting intValue] + [myPlayer.shooting intValue]];
+                    [myHomeDictionary setValue:shooting forKey:@"shooting"];
+                    NSNumber *offPos = [myHomeDictionary valueForKey:@"offPos"];
+                    offPos = [NSNumber numberWithInt:[offPos intValue] + [myPlayer.offensivePositioning intValue]];
+                    [myHomeDictionary setValue:offPos forKey:@"offPos"];
+                    NSNumber *dribbling = [myHomeDictionary valueForKey:@"dribblingFwd"];
+                    dribbling = [NSNumber numberWithInt:[dribbling intValue] + [myPlayer.dribbling intValue]];
+                    [myHomeDictionary setValue:dribbling forKey:@"dribblingFwd"];
+                    NSNumber *strength = [myHomeDictionary valueForKey:@"strengthFwd"];
+                    strength = [NSNumber numberWithInt:[strength intValue] + [myPlayer.strength intValue]];
+                    [myHomeDictionary setValue:strength forKey:@"strengthFwd"];
+                }
+                break;
+            }
+            case 5:
+            {
+                if (![thisTeamFormation isEqualToString:@"2-3-1"] && ![thisTeamFormation isEqualToString:@"3-2-1"] && ![thisTeamFormation isEqualToString:@"3-3-0"]) {
+                    NSNumber *shooting = [myHomeDictionary valueForKey:@"shooting"];
+                    shooting = [NSNumber numberWithInt:[shooting intValue] + [myPlayer.shooting intValue]];
+                    [myHomeDictionary setValue:shooting forKey:@"shooting"];
+                    NSNumber *offPos = [myHomeDictionary valueForKey:@"offPos"];
+                    offPos = [NSNumber numberWithInt:[offPos intValue] + [myPlayer.offensivePositioning intValue]];
+                    [myHomeDictionary setValue:offPos forKey:@"offPos"];
+                    NSNumber *dribbling = [myHomeDictionary valueForKey:@"dribblingFwd"];
+                    dribbling = [NSNumber numberWithInt:[dribbling intValue] + [myPlayer.dribbling intValue]];
+                    [myHomeDictionary setValue:dribbling forKey:@"dribblingFwd"];
+                    NSNumber *strength = [myHomeDictionary valueForKey:@"strengthFwd"];
+                    strength = [NSNumber numberWithInt:[strength intValue] + [myPlayer.strength intValue]];
+                    [myHomeDictionary setValue:strength forKey:@"strengthFwd"];
+                } else {
+                    NSNumber *passing = [myHomeDictionary valueForKey:@"passing"];
+                    passing = [NSNumber numberWithInt:[passing intValue] + [myPlayer.passing intValue]];
+                    [myHomeDictionary setValue:passing forKey:@"passing"];
+                    NSNumber *strength = [myHomeDictionary valueForKey:@"strength"];
+                    strength = [NSNumber numberWithInt:[strength intValue] + [myPlayer.strength intValue]];
+                    [myHomeDictionary setValue:strength forKey:@"strength"];
+                    NSNumber *dribbling = [myHomeDictionary valueForKey:@"dribbling"];
+                    dribbling = [NSNumber numberWithInt:[dribbling intValue] + [myPlayer.dribbling intValue]];
+                    [myHomeDictionary setValue:dribbling forKey:@"dribbling"];
+                    NSNumber *offPos = [myHomeDictionary valueForKey:@"offPosMid"];
+                    offPos = [NSNumber numberWithInt:[offPos intValue] + [myPlayer.offensivePositioning intValue]];
+                    [myHomeDictionary setValue:offPos forKey:@"offPosMid"];
+                    NSNumber *defPos = [myHomeDictionary valueForKey:@"defPosMid"];
+                    defPos = [NSNumber numberWithInt:[defPos intValue] + [myPlayer.defensivePositioning intValue]];
+                    [myHomeDictionary setValue:defPos forKey:@"defPosMid"];
+                    NSNumber *shooting = [myHomeDictionary valueForKey:@"shootingMid"];
+                    shooting = [NSNumber numberWithInt:[shooting intValue] + [myPlayer.shooting intValue]];
+                    [myHomeDictionary setValue:shooting forKey:@"shootingMid"];
+                }
+                break;
+            }
+            case 6:
+            {
+                if (![thisTeamFormation isEqualToString:@"3-3-0"]) {
+                    NSNumber *shooting = [myHomeDictionary valueForKey:@"shooting"];
+                    shooting = [NSNumber numberWithInt:[shooting intValue] + [myPlayer.shooting intValue]];
+                    [myHomeDictionary setValue:shooting forKey:@"shooting"];
+                    NSNumber *offPos = [myHomeDictionary valueForKey:@"offPos"];
+                    offPos = [NSNumber numberWithInt:[offPos intValue] + [myPlayer.offensivePositioning intValue]];
+                    [myHomeDictionary setValue:offPos forKey:@"offPos"];
+                    NSNumber *dribbling = [myHomeDictionary valueForKey:@"dribblingFwd"];
+                    dribbling = [NSNumber numberWithInt:[dribbling intValue] + [myPlayer.dribbling intValue]];
+                    [myHomeDictionary setValue:dribbling forKey:@"dribblingFwd"];
+                    NSNumber *strength = [myHomeDictionary valueForKey:@"strengthFwd"];
+                    strength = [NSNumber numberWithInt:[strength intValue] + [myPlayer.strength intValue]];
+                    [myHomeDictionary setValue:strength forKey:@"strengthFwd"];
+                } else {
+                    NSNumber *passing = [myHomeDictionary valueForKey:@"passing"];
+                    passing = [NSNumber numberWithInt:[passing intValue] + [myPlayer.passing intValue]];
+                    [myHomeDictionary setValue:passing forKey:@"passing"];
+                    NSNumber *strength = [myHomeDictionary valueForKey:@"strength"];
+                    strength = [NSNumber numberWithInt:[strength intValue] + [myPlayer.strength intValue]];
+                    [myHomeDictionary setValue:strength forKey:@"strength"];
+                    NSNumber *dribbling = [myHomeDictionary valueForKey:@"dribbling"];
+                    dribbling = [NSNumber numberWithInt:[dribbling intValue] + [myPlayer.dribbling intValue]];
+                    [myHomeDictionary setValue:dribbling forKey:@"dribbling"];
+                    NSNumber *offPos = [myHomeDictionary valueForKey:@"offPosMid"];
+                    offPos = [NSNumber numberWithInt:[offPos intValue] + [myPlayer.offensivePositioning intValue]];
+                    [myHomeDictionary setValue:offPos forKey:@"offPosMid"];
+                    NSNumber *defPos = [myHomeDictionary valueForKey:@"defPosMid"];
+                    defPos = [NSNumber numberWithInt:[defPos intValue] + [myPlayer.defensivePositioning intValue]];
+                    [myHomeDictionary setValue:defPos forKey:@"defPosMid"];
+                    NSNumber *shooting = [myHomeDictionary valueForKey:@"shootingMid"];
+                    shooting = [NSNumber numberWithInt:[shooting intValue] + [myPlayer.shooting intValue]];
+                    [myHomeDictionary setValue:shooting forKey:@"shootingMid"];
+                }
+                break;
+            }
+            default:
+                break;
+        }
+        if ([self.myTeamName isEqualToString:currMatch.awayTeam]) {
+            thisTeamFormation = [[NSUserDefaults standardUserDefaults] valueForKey:@"Formation"];
+        } else {
+            thisTeamFormation = @"2-3-1";
+        }
+        switch (j) {
+            case 0:
+                [myAwayDictionary setValue:awayPlayer.goalkeeping forKey:@"goalie"];
+                [myAwayDictionary setValue:awayPlayer.passing forKey:@"passingGoalie"];
+                break;
+            case 1:
+            {
+                NSNumber *defPosAway = [myAwayDictionary valueForKey:@"defPos"];
+                defPosAway = [NSNumber numberWithInt:[defPosAway intValue] + [awayPlayer.defensivePositioning intValue]];
+                [myAwayDictionary setValue:defPosAway forKey:@"defPos"];
+                NSNumber *tacklingAway = [myAwayDictionary valueForKey:@"tackling"];
+                tacklingAway = [NSNumber numberWithInt:[tacklingAway intValue] + [awayPlayer.tackling intValue]];
+                [myAwayDictionary setValue:tacklingAway forKey:@"tackling"];
+                NSNumber *passingAway = [myAwayDictionary valueForKey:@"passingDef"];
+                passingAway = [NSNumber numberWithInt:[passingAway intValue] + [awayPlayer.passing intValue]];
+                [myAwayDictionary setValue:passingAway forKey:@"passingDef"];
+                NSNumber *strengthAway = [myAwayDictionary valueForKey:@"strengthDef"];
+                strengthAway = [NSNumber numberWithInt:[strengthAway intValue] + [awayPlayer.strength intValue]];
+                [myAwayDictionary setValue:strengthAway forKey:@"strengthDef"];
+                break;
+            }
+            case 2:
+            {
+                if (![thisTeamFormation isEqualToString:@"1-2-3"] && ![thisTeamFormation isEqualToString:@"1-3-2"]) {
+                    NSNumber *defPosAway = [myAwayDictionary valueForKey:@"defPos"];
+                    defPosAway = [NSNumber numberWithInt:[defPosAway intValue] + [awayPlayer.defensivePositioning intValue]];
+                    [myAwayDictionary setValue:defPosAway forKey:@"defPos"];
+                    NSNumber *tacklingAway = [myAwayDictionary valueForKey:@"tackling"];
+                    tacklingAway = [NSNumber numberWithInt:[tacklingAway intValue] + [awayPlayer.tackling intValue]];
+                    [myAwayDictionary setValue:tacklingAway forKey:@"tackling"];
+                    NSNumber *passingAway = [myAwayDictionary valueForKey:@"passingDef"];
+                    passingAway = [NSNumber numberWithInt:[passingAway intValue] + [awayPlayer.passing intValue]];
+                    [myAwayDictionary setValue:passingAway forKey:@"passingDef"];
+                    NSNumber *strengthAway = [myAwayDictionary valueForKey:@"strengthDef"];
+                    strengthAway = [NSNumber numberWithInt:[strengthAway intValue] + [awayPlayer.strength intValue]];
+                    [myAwayDictionary setValue:strengthAway forKey:@"strengthDef"];
+                } else {
+                    NSNumber *passingAway = [myAwayDictionary valueForKey:@"passing"];
+                    passingAway = [NSNumber numberWithInt:[passingAway intValue] + [awayPlayer.passing intValue]];
+                    [myAwayDictionary setValue:passingAway forKey:@"passing"];
+                    NSNumber *strengthAway = [myAwayDictionary valueForKey:@"strength"];
+                    strengthAway = [NSNumber numberWithInt:[strengthAway intValue] + [awayPlayer.strength intValue]];
+                    [myAwayDictionary setValue:strengthAway forKey:@"strength"];
+                    NSNumber *dribblingAway = [myAwayDictionary valueForKey:@"dribbling"];
+                    dribblingAway = [NSNumber numberWithInt:[dribblingAway intValue] + [awayPlayer.dribbling intValue]];
+                    [myAwayDictionary setValue:dribblingAway forKey:@"dribbling"];
+                    NSNumber *offPos = [myAwayDictionary valueForKey:@"offPosMid"];
+                    offPos = [NSNumber numberWithInt:[offPos intValue] + [awayPlayer.offensivePositioning intValue]];
+                    [myAwayDictionary setValue:offPos forKey:@"offPosMid"];
+                    NSNumber *defPos = [myAwayDictionary valueForKey:@"defPosMid"];
+                    defPos = [NSNumber numberWithInt:[defPos intValue] + [awayPlayer.defensivePositioning intValue]];
+                    [myAwayDictionary setValue:defPos forKey:@"defPosMid"];
+                    NSNumber *shooting = [myAwayDictionary valueForKey:@"shootingMid"];
+                    shooting = [NSNumber numberWithInt:[shooting intValue] + [awayPlayer.shooting intValue]];
+                    [myAwayDictionary setValue:shooting forKey:@"shootingMid"];
+                }
+                
+                break;
+            }
+            case 3:
+            {
+                if (![thisTeamFormation isEqualToString:@"3-2-1"] && ![thisTeamFormation isEqualToString:@"3-3-0"] && ![thisTeamFormation isEqualToString:@"3-1-2"]) {
+                    NSNumber *passingAway = [myAwayDictionary valueForKey:@"passing"];
+                    passingAway = [NSNumber numberWithInt:[passingAway intValue] + [awayPlayer.passing intValue]];
+                    [myAwayDictionary setValue:passingAway forKey:@"passing"];
+                    NSNumber *strengthAway = [myAwayDictionary valueForKey:@"strength"];
+                    strengthAway = [NSNumber numberWithInt:[strengthAway intValue] + [awayPlayer.strength intValue]];
+                    [myAwayDictionary setValue:strengthAway forKey:@"strength"];
+                    NSNumber *dribblingAway = [myAwayDictionary valueForKey:@"dribbling"];
+                    dribblingAway = [NSNumber numberWithInt:[dribblingAway intValue] + [awayPlayer.dribbling intValue]];
+                    [myAwayDictionary setValue:dribblingAway forKey:@"dribbling"];
+                    NSNumber *offPos = [myAwayDictionary valueForKey:@"offPosMid"];
+                    offPos = [NSNumber numberWithInt:[offPos intValue] + [awayPlayer.offensivePositioning intValue]];
+                    [myAwayDictionary setValue:offPos forKey:@"offPosMid"];
+                    NSNumber *defPos = [myAwayDictionary valueForKey:@"defPosMid"];
+                    defPos = [NSNumber numberWithInt:[defPos intValue] + [awayPlayer.defensivePositioning intValue]];
+                    [myAwayDictionary setValue:defPos forKey:@"defPosMid"];
+                    NSNumber *shooting = [myAwayDictionary valueForKey:@"shootingMid"];
+                    shooting = [NSNumber numberWithInt:[shooting intValue] + [awayPlayer.shooting intValue]];
+                    [myAwayDictionary setValue:shooting forKey:@"shootingMid"];
+                } else {
+                    NSNumber *defPosAway = [myAwayDictionary valueForKey:@"defPos"];
+                    defPosAway = [NSNumber numberWithInt:[defPosAway intValue] + [awayPlayer.defensivePositioning intValue]];
+                    [myAwayDictionary setValue:defPosAway forKey:@"defPos"];
+                    NSNumber *tacklingAway = [myAwayDictionary valueForKey:@"tackling"];
+                    tacklingAway = [NSNumber numberWithInt:[tacklingAway intValue] + [awayPlayer.tackling intValue]];
+                    [myAwayDictionary setValue:tacklingAway forKey:@"tackling"];
+                    NSNumber *passingAway = [myAwayDictionary valueForKey:@"passingDef"];
+                    passingAway = [NSNumber numberWithInt:[passingAway intValue] + [awayPlayer.passing intValue]];
+                    [myAwayDictionary setValue:passingAway forKey:@"passingDef"];
+                    NSNumber *strengthAway = [myAwayDictionary valueForKey:@"strengthDef"];
+                    strengthAway = [NSNumber numberWithInt:[strengthAway intValue] + [awayPlayer.strength intValue]];
+                    [myAwayDictionary setValue:strengthAway forKey:@"strengthDef"];
+                }
+                break;
+            }
+            case 4:
+            {
+                if (![thisTeamFormation isEqualToString:@"1-2-3"] && ![thisTeamFormation isEqualToString:@"2-1-3"]) {
+                    NSNumber *passingAway = [myAwayDictionary valueForKey:@"passing"];
+                    passingAway = [NSNumber numberWithInt:[passingAway intValue] + [awayPlayer.passing intValue]];
+                    [myAwayDictionary setValue:passingAway forKey:@"passing"];
+                    NSNumber *strengthAway = [myAwayDictionary valueForKey:@"strength"];
+                    strengthAway = [NSNumber numberWithInt:[strengthAway intValue] + [awayPlayer.strength intValue]];
+                    [myAwayDictionary setValue:strengthAway forKey:@"strength"];
+                    NSNumber *dribblingAway = [myAwayDictionary valueForKey:@"dribbling"];
+                    dribblingAway = [NSNumber numberWithInt:[dribblingAway intValue] + [awayPlayer.dribbling intValue]];
+                    [myAwayDictionary setValue:dribblingAway forKey:@"dribbling"];
+                    NSNumber *offPos = [myAwayDictionary valueForKey:@"offPosMid"];
+                    offPos = [NSNumber numberWithInt:[offPos intValue] + [awayPlayer.offensivePositioning intValue]];
+                    [myAwayDictionary setValue:offPos forKey:@"offPosMid"];
+                    NSNumber *defPos = [myAwayDictionary valueForKey:@"defPosMid"];
+                    defPos = [NSNumber numberWithInt:[defPos intValue] + [awayPlayer.defensivePositioning intValue]];
+                    [myAwayDictionary setValue:defPos forKey:@"defPosMid"];
+                    NSNumber *shooting = [myAwayDictionary valueForKey:@"shootingMid"];
+                    shooting = [NSNumber numberWithInt:[shooting intValue] + [awayPlayer.shooting intValue]];
+                    [myAwayDictionary setValue:shooting forKey:@"shootingMid"];
+                } else {
+                    NSNumber *shootingAway = [myAwayDictionary valueForKey:@"shooting"];
+                    shootingAway = [NSNumber numberWithInt:[shootingAway intValue] + [awayPlayer.shooting intValue]];
+                    [myAwayDictionary setValue:shootingAway forKey:@"shooting"];
+                    NSNumber *offPosAway = [myAwayDictionary valueForKey:@"offPos"];
+                    offPosAway = [NSNumber numberWithInt:[offPosAway intValue] + [awayPlayer.offensivePositioning intValue]];
+                    [myAwayDictionary setValue:offPosAway forKey:@"offPos"];
+                    NSNumber *dribblingAway = [myAwayDictionary valueForKey:@"dribblingFwd"];
+                    dribblingAway = [NSNumber numberWithInt:[dribblingAway intValue] + [awayPlayer.dribbling intValue]];
+                    [myAwayDictionary setValue:dribblingAway forKey:@"dribblingFwd"];
+                    NSNumber *strengthAway = [myAwayDictionary valueForKey:@"strengthFwd"];
+                    strengthAway = [NSNumber numberWithInt:[strengthAway intValue] + [awayPlayer.strength intValue]];
+                    [myAwayDictionary setValue:strengthAway forKey:@"strengthFwd"];
+                }
+                break;
+            }
+            case 5:
+            {
+                if (![thisTeamFormation isEqualToString:@"2-3-1"] && ![thisTeamFormation isEqualToString:@"3-2-1"] && ![thisTeamFormation isEqualToString:@"3-3-0"]) {
+                    NSNumber *shootingAway = [myAwayDictionary valueForKey:@"shooting"];
+                    shootingAway = [NSNumber numberWithInt:[shootingAway intValue] + [awayPlayer.shooting intValue]];
+                    [myAwayDictionary setValue:shootingAway forKey:@"shooting"];
+                    NSNumber *offPosAway = [myAwayDictionary valueForKey:@"offPos"];
+                    offPosAway = [NSNumber numberWithInt:[offPosAway intValue] + [awayPlayer.offensivePositioning intValue]];
+                    [myAwayDictionary setValue:offPosAway forKey:@"offPos"];
+                    NSNumber *dribblingAway = [myAwayDictionary valueForKey:@"dribblingFwd"];
+                    dribblingAway = [NSNumber numberWithInt:[dribblingAway intValue] + [awayPlayer.dribbling intValue]];
+                    [myAwayDictionary setValue:dribblingAway forKey:@"dribblingFwd"];
+                    NSNumber *strengthAway = [myAwayDictionary valueForKey:@"strengthFwd"];
+                    strengthAway = [NSNumber numberWithInt:[strengthAway intValue] + [awayPlayer.strength intValue]];
+                    [myAwayDictionary setValue:strengthAway forKey:@"strengthFwd"];
+                } else {
+                    NSNumber *passingAway = [myAwayDictionary valueForKey:@"passing"];
+                    passingAway = [NSNumber numberWithInt:[passingAway intValue] + [awayPlayer.passing intValue]];
+                    [myAwayDictionary setValue:passingAway forKey:@"passing"];
+                    NSNumber *strengthAway = [myAwayDictionary valueForKey:@"strength"];
+                    strengthAway = [NSNumber numberWithInt:[strengthAway intValue] + [awayPlayer.strength intValue]];
+                    [myAwayDictionary setValue:strengthAway forKey:@"strength"];
+                    NSNumber *dribblingAway = [myAwayDictionary valueForKey:@"dribbling"];
+                    dribblingAway = [NSNumber numberWithInt:[dribblingAway intValue] + [awayPlayer.dribbling intValue]];
+                    [myAwayDictionary setValue:dribblingAway forKey:@"dribbling"];
+                    NSNumber *offPos = [myAwayDictionary valueForKey:@"offPosMid"];
+                    offPos = [NSNumber numberWithInt:[offPos intValue] + [awayPlayer.offensivePositioning intValue]];
+                    [myAwayDictionary setValue:offPos forKey:@"offPosMid"];
+                    NSNumber *defPos = [myAwayDictionary valueForKey:@"defPosMid"];
+                    defPos = [NSNumber numberWithInt:[defPos intValue] + [awayPlayer.defensivePositioning intValue]];
+                    [myAwayDictionary setValue:defPos forKey:@"defPosMid"];
+                    NSNumber *shooting = [myAwayDictionary valueForKey:@"shootingMid"];
+                    shooting = [NSNumber numberWithInt:[shooting intValue] + [awayPlayer.shooting intValue]];
+                    [myAwayDictionary setValue:shooting forKey:@"shootingMid"];
+                }
+                break;
+            }
+            case 6:
+            {
+                if (![thisTeamFormation isEqualToString:@"3-3-0"]) {
+                    NSNumber *shootingAway = [myAwayDictionary valueForKey:@"shooting"];
+                    shootingAway = [NSNumber numberWithInt:[shootingAway intValue] + [awayPlayer.shooting intValue]];
+                    [myAwayDictionary setValue:shootingAway forKey:@"shooting"];
+                    NSNumber *offPosAway = [myAwayDictionary valueForKey:@"offPos"];
+                    offPosAway = [NSNumber numberWithInt:[offPosAway intValue] + [awayPlayer.offensivePositioning intValue]];
+                    [myAwayDictionary setValue:offPosAway forKey:@"offPos"];
+                    NSNumber *dribblingAway = [myAwayDictionary valueForKey:@"dribblingFwd"];
+                    dribblingAway = [NSNumber numberWithInt:[dribblingAway intValue] + [awayPlayer.dribbling intValue]];
+                    [myAwayDictionary setValue:dribblingAway forKey:@"dribblingFwd"];
+                    NSNumber *strengthAway = [myAwayDictionary valueForKey:@"strengthFwd"];
+                    strengthAway = [NSNumber numberWithInt:[strengthAway intValue] + [awayPlayer.strength intValue]];
+                    [myAwayDictionary setValue:strengthAway forKey:@"strengthFwd"];
+                } else {
+                    NSNumber *passingAway = [myAwayDictionary valueForKey:@"passing"];
+                    passingAway = [NSNumber numberWithInt:[passingAway intValue] + [awayPlayer.passing intValue]];
+                    [myAwayDictionary setValue:passingAway forKey:@"passing"];
+                    NSNumber *strengthAway = [myAwayDictionary valueForKey:@"strength"];
+                    strengthAway = [NSNumber numberWithInt:[strengthAway intValue] + [awayPlayer.strength intValue]];
+                    [myAwayDictionary setValue:strengthAway forKey:@"strength"];
+                    NSNumber *dribblingAway = [myAwayDictionary valueForKey:@"dribbling"];
+                    dribblingAway = [NSNumber numberWithInt:[dribblingAway intValue] + [awayPlayer.dribbling intValue]];
+                    [myAwayDictionary setValue:dribblingAway forKey:@"dribbling"];
+                    NSNumber *offPos = [myAwayDictionary valueForKey:@"offPosMid"];
+                    offPos = [NSNumber numberWithInt:[offPos intValue] + [awayPlayer.offensivePositioning intValue]];
+                    [myAwayDictionary setValue:offPos forKey:@"offPosMid"];
+                    NSNumber *defPos = [myAwayDictionary valueForKey:@"defPosMid"];
+                    defPos = [NSNumber numberWithInt:[defPos intValue] + [awayPlayer.defensivePositioning intValue]];
+                    [myAwayDictionary setValue:defPos forKey:@"defPosMid"];
+                    NSNumber *shooting = [myAwayDictionary valueForKey:@"shootingMid"];
+                    shooting = [NSNumber numberWithInt:[shooting intValue] + [awayPlayer.shooting intValue]];
+                    [myAwayDictionary setValue:shooting forKey:@"shootingMid"];
+                }
+                break;
+            }
+            default:
+                break;
         }
     }
     
-    NSArray *combinedTeams = [NSArray arrayWithObjects:myHomeDictionary,myAwayDictionary, nil];
+    NSArray *combinedTeams = [NSArray arrayWithObjects:myHomeDictionary,myAwayDictionary, homeTeam, awayTeam, filteredHomeTeam, filteredAwayTeam, nil];
     return combinedTeams;
 }
 
 - (DOKMatch *)playThisMatch:(DOKMatch *)currMatch atPoint:(NSMutableArray *)myMatchDetails
 {
-    self.homeTeam = nil;
-    self.awayTeam = nil;
     __block int homeGoals = 0;
     __block int awayGoals = 0;
     
@@ -303,6 +663,19 @@
     
     NSDictionary* myHomeDictionary = [homeAndAwayTeams objectAtIndex:0];
     NSDictionary* myAwayDictionary = [homeAndAwayTeams objectAtIndex:1];
+    NSMutableArray *thisHomeTeam;// = [homeAndAwayTeams objectAtIndex:2];
+    NSMutableArray *thisAwayTeam;// = [homeAndAwayTeams objectAtIndex:3];
+    if ([currMatch.homeTeam isEqualToString:self.myTeamName]) {
+        thisHomeTeam = [homeAndAwayTeams objectAtIndex:4];
+        thisAwayTeam = [homeAndAwayTeams objectAtIndex:3];
+    } else if ([currMatch.awayTeam isEqualToString:self.myTeamName]) {
+        thisHomeTeam = [homeAndAwayTeams objectAtIndex:2];
+        thisAwayTeam = [homeAndAwayTeams objectAtIndex:5];
+    } else {
+        thisHomeTeam = [homeAndAwayTeams objectAtIndex:2];
+        thisAwayTeam = [homeAndAwayTeams objectAtIndex:3];
+    }
+    
     
     dispatch_queue_t whileQ = dispatch_queue_create("match_queue", 0);
     dispatch_async(whileQ, ^{
@@ -425,8 +798,8 @@
                         }
                     }
                 } else {
-                    int awayStrengthAndDribbling = ([[myAwayDictionary objectForKey:@"strength"] intValue] + [[myAwayDictionary objectForKey:@"dribbling"] intValue]);
-                    int homeStrengthAndTackling = ([[myHomeDictionary objectForKey:@"strength"] intValue] + [[myHomeDictionary objectForKey:@"tackling"] intValue]);
+                    int awayStrengthAndDribbling = ([[myAwayDictionary objectForKey:@"strengthFwd"] intValue] + [[myAwayDictionary objectForKey:@"dribblingFwd"] intValue]);
+                    int homeStrengthAndTackling = ([[myHomeDictionary objectForKey:@"strengthDef"] intValue] + [[myHomeDictionary objectForKey:@"tackling"] intValue]);
                     int totalStrengthAndDribblingAndTackling = awayStrengthAndDribbling + homeStrengthAndTackling;
                     bool dribble = false;
                     if (arc4random_uniform(100)+1 >= 75) {
@@ -440,6 +813,16 @@
                             int keeper = ([[myHomeDictionary objectForKey:@"goalkeeping"] intValue]);
                             if (arc4random_uniform(shot + keeper)+1 < shot) {
                                 //goal
+                                DOKPlayer *goalMaker = [self findAssistForTeam:currTeam withPassingValue:[[myAwayDictionary objectForKey:@"passing"] intValue] + [[myAwayDictionary objectForKey:@"passingFwd"] intValue] andPlayers:thisAwayTeam];
+                                DOKPlayer *goalScorer = [self findScorerWithAssistFromPlayer:goalMaker forTeam:currTeam withScoringValue:[[myAwayDictionary objectForKey:@"shooting"] intValue] + [[myAwayDictionary objectForKey:@"offPos"] intValue] + [[myAwayDictionary objectForKey:@"shootingMid"] intValue] + [[myAwayDictionary objectForKey:@"offPosMid"] intValue] withPlayers:thisAwayTeam];
+                                [self.allAssists addObject:goalMaker];
+                                [self.allGoalscorers addObject:goalScorer];
+                                if ([currMatch.homeTeam isEqualToString:self.myTeamName] || [currMatch.awayTeam isEqualToString:self.myTeamName]) {
+                                    [self.goalsAndAssists addObject:goalMaker];
+                                    [self.goalsAndAssists addObject:goalScorer];
+                                }
+                                
+                                NSLog(@"%@ %@",[goalMaker name], [goalScorer name]);
                                 awayGoals += 1;
                                 //                                NSLog(@"Away 1");
                                 currTerritory = @"mid";
@@ -460,6 +843,15 @@
                         int keeper = ([[myHomeDictionary objectForKey:@"goalkeeping"] intValue]);
                         if (arc4random_uniform(shot + keeper + defPos)+1 < shot) {
                             //goal
+                            DOKPlayer *goalMaker = [self findAssistForTeam:currTeam withPassingValue:[[myAwayDictionary objectForKey:@"passing"] intValue] + [[myAwayDictionary objectForKey:@"passingFwd"] intValue] andPlayers:thisAwayTeam];
+                            DOKPlayer *goalScorer = [self findScorerWithAssistFromPlayer:goalMaker forTeam:currTeam withScoringValue:[[myAwayDictionary objectForKey:@"shooting"] intValue] + [[myAwayDictionary objectForKey:@"offPos"] intValue] + [[myAwayDictionary objectForKey:@"shootingMid"] intValue] + [[myAwayDictionary objectForKey:@"offPosMid"] intValue] withPlayers:thisAwayTeam];
+                            [self.allAssists addObject:goalMaker];
+                            [self.allGoalscorers addObject:goalScorer];
+                            NSLog(@"%@ %@",[goalMaker name], [goalScorer name]);
+                            if ([currMatch.homeTeam isEqualToString:self.myTeamName] || [currMatch.awayTeam isEqualToString:self.myTeamName]) {
+                                [self.goalsAndAssists addObject:goalMaker];
+                                [self.goalsAndAssists addObject:goalScorer];
+                            }
                             awayGoals += 1;
                             //                            NSLog(@"Away 2");
                             currTerritory = @"mid";
@@ -472,8 +864,8 @@
                 }
             } else if ([currTerritory isEqualToString:@"fwd"]) {
                 if ([currTeam isEqualToString:homeTeamName]) {
-                    int homeStrengthAndDribbling = ([[myHomeDictionary objectForKey:@"strength"] intValue] + [[myHomeDictionary objectForKey:@"dribbling"] intValue]);
-                    int awayStrengthAndTackling = ([[myAwayDictionary objectForKey:@"strength"] intValue] + [[myAwayDictionary objectForKey:@"tackling"] intValue]);
+                    int homeStrengthAndDribbling = ([[myHomeDictionary objectForKey:@"strengthFwd"] intValue] + [[myHomeDictionary objectForKey:@"dribblingFwd"] intValue]);
+                    int awayStrengthAndTackling = ([[myAwayDictionary objectForKey:@"strengthDef"] intValue] + [[myAwayDictionary objectForKey:@"tackling"] intValue]);
                     int totalStrengthAndDribblingAndTackling = homeStrengthAndDribbling + awayStrengthAndTackling;
                     bool dribble = false;
                     if (arc4random_uniform(100)+1 >= 75) {
@@ -487,8 +879,16 @@
                             int keeper = ([[myAwayDictionary objectForKey:@"goalkeeping"] intValue]);
                             if (arc4random_uniform(shot + keeper)+1 < shot) {
                                 //goal
+                                DOKPlayer *goalMaker = [self findAssistForTeam:currTeam withPassingValue:[[myHomeDictionary objectForKey:@"passing"] intValue] + [[myHomeDictionary objectForKey:@"passingFwd"] intValue] andPlayers:thisHomeTeam];
+                                DOKPlayer *goalScorer = [self findScorerWithAssistFromPlayer:goalMaker forTeam:currTeam withScoringValue:[[myHomeDictionary objectForKey:@"shooting"] intValue] + [[myHomeDictionary objectForKey:@"offPos"] intValue] + [[myHomeDictionary objectForKey:@"shootingMid"] intValue] + [[myHomeDictionary objectForKey:@"offPosMid"] intValue] withPlayers:thisHomeTeam];
+                                [self.allAssists addObject:goalMaker];
+                                [self.allGoalscorers addObject:goalScorer];
+                                NSLog(@"%@ %@",[goalMaker name], [goalScorer name]);
+                                if ([currMatch.homeTeam isEqualToString:self.myTeamName] || [currMatch.awayTeam isEqualToString:self.myTeamName]) {
+                                    [self.goalsAndAssists addObject:goalMaker];
+                                    [self.goalsAndAssists addObject:goalScorer];
+                                }
                                 homeGoals += 1;
-                                //                                NSLog(@"Home 1");
                                 currTerritory = @"mid";
                                 currTeam = awayTeamName;
                             } else {
@@ -507,8 +907,16 @@
                         int keeper = ([[myAwayDictionary objectForKey:@"goalkeeping"] intValue]);
                         if (arc4random_uniform(shot + keeper + defPos)+1 < shot) {
                             //goal
+                            DOKPlayer *goalMaker = [self findAssistForTeam:currTeam withPassingValue:[[myHomeDictionary objectForKey:@"passing"] intValue] + [[myHomeDictionary objectForKey:@"passingFwd"] intValue] andPlayers:thisHomeTeam];
+                            DOKPlayer *goalScorer = [self findScorerWithAssistFromPlayer:goalMaker forTeam:currTeam withScoringValue:[[myHomeDictionary objectForKey:@"shooting"] intValue] + [[myHomeDictionary objectForKey:@"offPos"] intValue] + [[myHomeDictionary objectForKey:@"shootingMid"] intValue] + [[myHomeDictionary objectForKey:@"offPosMid"] intValue] withPlayers:thisHomeTeam];
+                            [self.allAssists addObject:goalMaker];
+                            [self.allGoalscorers addObject:goalScorer];
+                            NSLog(@"%@ %@",[goalMaker name], [goalScorer name]);
+                            if ([currMatch.homeTeam isEqualToString:self.myTeamName] || [currMatch.awayTeam isEqualToString:self.myTeamName]) {
+                                [self.goalsAndAssists addObject:goalMaker];
+                                [self.goalsAndAssists addObject:goalScorer];
+                            }
                             homeGoals += 1;
-                            //                            NSLog(@"Home 2");
                             currTerritory = @"mid";
                             currTeam = awayTeamName;
                         } else {
@@ -577,6 +985,7 @@
                     self.fwdTerritory.text = [NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%.0f%%",(float)100*(fwdTerritory)/(plays+1)]];
                     float terrFloat = ((float)(midTerritory)/(2*(plays+1)) + (float)(fwdTerritory)/(plays+1));
                     self.avgTerritoryView.frame = CGRectMake(0, 0, self.possessionImageView.bounds.size.width*terrFloat, self.possessionImageView.bounds.size.height);
+                    [self.myTableView reloadData];
                     
                     self.homeShotsLabel.text = [NSString stringWithFormat:@"%d",homeShots];
                     self.awayShotsLabel.text = [NSString stringWithFormat:@"%d",awayShots];
@@ -606,16 +1015,99 @@
                 
                 self.pausedGamePlays = plays;
                 self.savedMatch = currMatch;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.playButton setTitle:@"Continue" forState:UIControlStateNormal];
+                    [self.playButton setTitle:@"Continue" forState:UIControlStateHighlighted];
+                });
             }
         }
         currMatch.homeGoals = [NSNumber numberWithInt:homeGoals];
         currMatch.awayGoals = [NSNumber numberWithInt:awayGoals];
-
+        
         if (([currMatch.homeTeam isEqualToString:self.myTeamName] || [currMatch.awayTeam isEqualToString:self.myTeamName]) && !self.pauseGame) {
             [self setMatchesDone];
         }
     });
     return currMatch;
+}
+
+- (DOKPlayer *) findAssistForTeam:(NSString *)team withPassingValue:(int)passing andPlayers:(NSMutableArray *)players {
+    NSString *thisTeamFormation;
+    int assistValue = arc4random_uniform(passing)+1;
+    if ([self.myTeamName isEqualToString:team]) {
+        thisTeamFormation = [[NSUserDefaults standardUserDefaults] valueForKey:@"Formation"];
+    } else {
+        thisTeamFormation = @"2-3-1";
+    }
+    DOKPlayer *goalMaker;
+    if ([team isEqualToString:self.homeTeamLabel.text]) {
+        for (int i = 3; i < 7; i++) {
+            DOKPlayer *thisPlayer = [players objectAtIndex:i];
+            if (assistValue > 0 && assistValue <= [thisPlayer.passing intValue]) {
+                goalMaker = thisPlayer;
+            }
+            assistValue -= [thisPlayer.passing intValue];
+        }
+    } else {
+        
+        for (int i = 3; i < 7; i++) {
+            DOKPlayer *thisPlayer = [players objectAtIndex:i];
+            if (assistValue > 0 && assistValue <= [thisPlayer.passing intValue]) {
+                goalMaker = thisPlayer;
+            }
+            assistValue -= [thisPlayer.passing intValue];
+        }
+        
+    }
+    if (goalMaker == nil) {
+        NSLog(@"Why nil");
+    }
+//    goalMaker.assists = [NSNumber numberWithInt:([goalMaker.assists intValue] + 1)];
+    return goalMaker;
+}
+
+- (DOKPlayer *) findScorerWithAssistFromPlayer:(DOKPlayer *)player forTeam:(NSString *)team withScoringValue:(int)scoring withPlayers:(NSMutableArray *)players{
+    NSString *thisTeamFormation;
+    scoring = scoring - [player.shooting intValue] - [player.offensivePositioning intValue];
+    int shootValue = arc4random_uniform(scoring)+1;
+    
+    
+    if ([self.myTeamName isEqualToString:team]) {
+        thisTeamFormation = [[NSUserDefaults standardUserDefaults] valueForKey:@"Formation"];
+    } else {
+        thisTeamFormation = @"2-3-1";
+    }
+    DOKPlayer *goalScorer;
+    if ([team isEqualToString:self.homeTeamLabel.text]) {
+        for (int i = 3; i < 7; i++) {
+            DOKPlayer *thisPlayer = [players objectAtIndex:i];
+            if (![thisPlayer isEqual:player]) {
+                
+                if (shootValue > 0 && shootValue <= [thisPlayer.shooting intValue] + [thisPlayer.offensivePositioning intValue]) {
+                    goalScorer = thisPlayer;
+                }
+                shootValue -= ([thisPlayer.shooting intValue] + [thisPlayer.offensivePositioning intValue]);
+            }
+        }
+    } else {
+        
+        for (int i = 3; i < 7; i++) {
+            DOKPlayer *thisPlayer = [players objectAtIndex:i];
+            if (![thisPlayer isEqual:player]) {
+                if (shootValue > 0 && shootValue <= [thisPlayer.shooting intValue]+ [thisPlayer.offensivePositioning intValue]) {
+                    goalScorer = thisPlayer;
+                }
+                shootValue -= ([thisPlayer.shooting intValue] + [thisPlayer.offensivePositioning intValue]);
+            }
+        }
+        
+    }
+    if (goalScorer == nil) {
+        NSLog(@"Why nil");
+    }
+    
+//    goalScorer.goals = [NSNumber numberWithInt:([goalScorer.goals intValue] + 1)];
+    return goalScorer;
 }
 
 - (void) saveContext {
@@ -630,12 +1122,15 @@
 - (void) setMatchesDone
 {
     self.matchesFinished = YES;
-    [self.playButton setTitle:@"Done" forState:UIControlStateNormal];
-    [self.playButton setTitle:@"Done" forState:UIControlStateHighlighted];
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *name = [defaults objectForKey:@"name"];
     NSString *teamName = [defaults objectForKey:@"teamName"];
     NSDictionary *myFlurryDict = [NSDictionary dictionaryWithObjectsAndKeys:name, @"Name", teamName, @"Team", nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.playButton setTitle:@"Done" forState:UIControlStateNormal];
+        [self.playButton setTitle:@"Done" forState:UIControlStateHighlighted];
+    });
     [Flurry logEvent:@"Match Played" withParameters:myFlurryDict];
 }
 
@@ -651,8 +1146,7 @@
     if (!self.matchesFinished) {
         if ([self.playButton.titleLabel.text isEqualToString:@"Pause"]) {
             self.pauseGame = YES;
-            [self.playButton setTitle:@"Continue" forState:UIControlStateNormal];
-            [self.playButton setTitle:@"Continue" forState:UIControlStateHighlighted];
+            
         } else if([self.playButton.titleLabel.text isEqualToString:@"Continue"]) {
             self.pauseGame = NO;
             [self playThisMatch:self.savedMatch atPoint:self.savedMatchDetails];
@@ -671,15 +1165,20 @@
                 } else
                     [self playThisMatch:currMatch atPoint:0];
             }
-//            plays = 0;
+            //            plays = 0;
             [self playThisMatch:myMatch atPoint:0];
         }
     } else {
         if([self.myDelegate respondsToSelector:@selector(secondViewControllerDismissed)])
         {
-            
+            for (DOKPlayerModel *myPlayer in self.allGoalscorers) {
+                myPlayer.goals = [NSNumber numberWithInt:([myPlayer.goals intValue] + 1)];
+            }
+            for (DOKPlayerModel *myPlayer in self.allAssists) {
+                myPlayer.assists = [NSNumber numberWithInt:([myPlayer.assists intValue] + 1)];
+            }
             for (DOKMatch *currMatch in self.matches) {
-//                NSLog(@"%@:%@ -- %@:%@",currMatch.homeTeam,currMatch.homeGoals,currMatch.awayGoals,currMatch.awayTeam);
+                NSLog(@"%@:%@ -- %@:%@",currMatch.homeTeam,currMatch.homeGoals,currMatch.awayGoals,currMatch.awayTeam);
                 for (DOKTeamModel *currTeam in self.teams) {
                     if ([currTeam.teamName isEqualToString:currMatch.homeTeam]) {
                         currTeam.goalsFor = [NSNumber numberWithInt:([currTeam.goalsFor intValue] + [currMatch.homeGoals intValue])];
@@ -718,5 +1217,41 @@
 - (IBAction)myBackButtonPressed {
     [self.parentViewController dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma TableView
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"GoalsAndAssists";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    NSInteger goalTag = 1;
+    NSInteger assistTag = 2;
+    
+    NSString *goalScorer = [[self.goalsAndAssists objectAtIndex:(indexPath.row*2)] name];
+    NSString *goalAssist = [[self.goalsAndAssists objectAtIndex:(indexPath.row*2 + 1)] name];
+    
+    ((UILabel *)[cell viewWithTag:goalTag]).text = goalScorer;
+    ((UILabel *)[cell viewWithTag:assistTag]).text = goalAssist;
+
+    
+    return cell;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.goalsAndAssists count]/2;
+}
+
 
 @end

@@ -8,7 +8,7 @@
 
 #import "DOKAppDelegate.h"
 #import "DOKTeamModel.h"
-#import "DOKPlayerModel.h"
+#import "DOKPlayerModel+Details.h"
 #import "DOKNewCareerViewController.h"
 #import "DOKMatchModel.h"
 #import "DOKMatch.h"
@@ -134,9 +134,11 @@
         [defaults setValue:self.division.text forKey:@"division"];
         [defaults setValue:nil forKey:@"myTeam"];
         [defaults setValue:[NSNumber numberWithInt:1] forKey:@"gameWeek"];
-        [defaults setBool:NO forKey:@"Instant Matches"];
+        [defaults setBool:YES forKey:@"Instant Matches"];
         [defaults setBool:YES forKey:@"Perfect Scouting"];
         [defaults setValue:@"2-3-1" forKey:@"Formation"];
+        [defaults setValue:@"Medium" forKey:@"Passing"];
+        [defaults setValue:@"Medium" forKey:@"Tackling"];
         [defaults synchronize];
         NSLog(@"Data saved");
         [self generateMatchesForTeams:self.fetchedTeams];
@@ -167,7 +169,24 @@
         thisTeam.wins = [NSNumber numberWithInt:0];
         thisTeam.draws = [NSNumber numberWithInt:0];
         thisTeam.losses = [NSNumber numberWithInt:0];
-        [[DOKAppDelegate sharedAppDelegate] managedObjectContext];
+    }
+    NSError *saveError = nil;
+    if (![[[DOKAppDelegate sharedAppDelegate] managedObjectContext] save:&saveError]) {
+        NSLog(@"Failed to remove all matches - error: %@", [error localizedDescription]);
+    }
+}
+
+- (void) resetPlayers {
+    NSFetchRequest * allTeams = [[NSFetchRequest alloc] init];
+    [allTeams setEntity:[NSEntityDescription entityForName:@"Players" inManagedObjectContext:[[DOKAppDelegate sharedAppDelegate] managedObjectContext]]];
+    //    [allTeams setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+    
+    NSError * error = nil;
+    NSArray * team = [[[DOKAppDelegate sharedAppDelegate] managedObjectContext] executeFetchRequest:allTeams error:&error];
+    //error handling goes here
+    for (DOKPlayerModel * thisTeam in team) {
+        thisTeam.goals = [NSNumber numberWithInt:0];
+        thisTeam.assists = [NSNumber numberWithInt:0];
     }
     NSError *saveError = nil;
     if (![[[DOKAppDelegate sharedAppDelegate] managedObjectContext] save:&saveError]) {
@@ -196,6 +215,7 @@
 {
     [self removeAllMatches];
     [self resetTeams];
+    [self resetPlayers];
     NSMutableArray *matches = [NSMutableArray array];
     NSMutableArray *filteredTeams = [NSMutableArray array];
     filteredTeams = [teams mutableCopy];

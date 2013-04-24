@@ -26,6 +26,8 @@
 @property (nonatomic,retain) NSNumber *stamina;
 @property (nonatomic,retain) NSNumber *composure;
 @property (nonatomic,retain) NSNumber *teamID;
+@property (nonatomic,retain) NSNumber *goals;
+@property (nonatomic,retain) NSNumber *assists;
 //@property (nonatomic, retain) IBOutlet UIImageView *ratingImageView;
 
 @end

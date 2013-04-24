@@ -143,7 +143,7 @@
                                                 containerView.frame.size.width,
                                                 20);
     self.connectedStateLabel.backgroundColor = [UIColor clearColor];
-    self.connectedStateLabel.textAlignment = UITextAlignmentCenter;
+    self.connectedStateLabel.textAlignment = NSTextAlignmentCenter;
     self.connectedStateLabel.numberOfLines = 0;
     self.connectedStateLabel.font = [UIFont boldSystemFontOfSize:16.0];
     self.connectedStateLabel.shadowColor = [UIColor blackColor];

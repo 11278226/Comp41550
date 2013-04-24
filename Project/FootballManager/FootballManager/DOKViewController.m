@@ -32,7 +32,7 @@
     [AddThisSDK setAddThisUserName:@"Dermo"];
     [AddThisSDK setAddThisPubId:@"ra-51699ad6080e9b2f"];
     [AddThisSDK setAddThisApplicationId:@"5169a6573d8d2734"];
-
+    
 //    self.navigationController.navigationBarHidden = YES;
     [self reloadView];
    
