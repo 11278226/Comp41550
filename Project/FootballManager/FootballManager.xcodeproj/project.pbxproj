@@ -14,6 +14,7 @@
 		7E3F210A171205CB00780F71 /* showCalGradient.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E3F2109171205CB00780F71 /* showCalGradient.png */; };
 		7E3F210D1712312B00780F71 /* DOKTeamModel+LeagueTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E3F210C1712312B00780F71 /* DOKTeamModel+LeagueTable.m */; };
 		7E5A9B5F171382A50068D077 /* DOKMatchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E5A9B5E171382A50068D077 /* DOKMatchModel.m */; };
+		7E6815471729EED80094B25E /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E6815461729EED80094B25E /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7E79551116BD52380097DBE9 /* football.db in Resources */ = {isa = PBXBuildFile; fileRef = 7E79551016BD52380097DBE9 /* football.db */; };
 		7E79551416BD66270097DBE9 /* DOKSquadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E79551316BD66270097DBE9 /* DOKSquadViewController.m */; };
 		7E79551716BD6F460097DBE9 /* DOKPlayerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E79551616BD6F460097DBE9 /* DOKPlayerDetailViewController.m */; };
@@ -101,7 +102,6 @@
 		7E890F211719F006000A32FA /* OARequestParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E890EDC1719F006000A32FA /* OARequestParameter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7E890F221719F006000A32FA /* OAServiceTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E890EDE1719F006000A32FA /* OAServiceTicket.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7E890F231719F006000A32FA /* OAToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E890EE11719F006000A32FA /* OAToken.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7E890F241719F006000A32FA /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E890EE41719F006000A32FA /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7E890F271719F246000A32FA /* FBSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E890F261719F246000A32FA /* FBSession.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7E977E5916AAEADB00048A11 /* soccer_field.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7E977E5816AAEADB00048A11 /* soccer_field.jpg */; };
 		7E977E6116AAF5B300048A11 /* DOKCareerMainScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E977E6016AAF5B300048A11 /* DOKCareerMainScreenViewController.m */; };
@@ -251,6 +251,8 @@
 		7E3F210C1712312B00780F71 /* DOKTeamModel+LeagueTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DOKTeamModel+LeagueTable.m"; sourceTree = "<group>"; };
 		7E5A9B5D171382A50068D077 /* DOKMatchModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKMatchModel.h; sourceTree = "<group>"; };
 		7E5A9B5E171382A50068D077 /* DOKMatchModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKMatchModel.m; sourceTree = "<group>"; };
+		7E6815451729EED80094B25E /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		7E6815461729EED80094B25E /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		7E79551016BD52380097DBE9 /* football.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = football.db; sourceTree = "<group>"; };
 		7E79551216BD66270097DBE9 /* DOKSquadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKSquadViewController.h; sourceTree = "<group>"; };
 		7E79551316BD66270097DBE9 /* DOKSquadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKSquadViewController.m; sourceTree = "<group>"; };
@@ -420,8 +422,6 @@
 		7E890EE01719F006000A32FA /* OAToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAToken.h; sourceTree = "<group>"; };
 		7E890EE11719F006000A32FA /* OAToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAToken.m; sourceTree = "<group>"; };
 		7E890EE21719F006000A32FA /* OAuthConsumer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuthConsumer.h; sourceTree = "<group>"; };
-		7E890EE31719F006000A32FA /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
-		7E890EE41719F006000A32FA /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		7E890F251719F246000A32FA /* FBSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBSession.h; sourceTree = "<group>"; };
 		7E890F261719F246000A32FA /* FBSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBSession.m; sourceTree = "<group>"; };
 		7E977E5816AAEADB00048A11 /* soccer_field.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = soccer_field.jpg; sourceTree = "<group>"; };
@@ -804,11 +804,11 @@
 		7E890E501719F006000A32FA /* ThirdPartyLibs */ = {
 			isa = PBXGroup;
 			children = (
+				7E6815451729EED80094B25E /* Reachability.h */,
+				7E6815461729EED80094B25E /* Reachability.m */,
 				7E890E511719F006000A32FA /* FBConnect */,
 				7E890EB31719F006000A32FA /* JSON */,
 				7E890EC11719F006000A32FA /* OAuth */,
-				7E890EE31719F006000A32FA /* Reachability.h */,
-				7E890EE41719F006000A32FA /* Reachability.m */,
 			);
 			path = ThirdPartyLibs;
 			sourceTree = "<group>";
@@ -1765,7 +1765,6 @@
 				7E890F211719F006000A32FA /* OARequestParameter.m in Sources */,
 				7E890F221719F006000A32FA /* OAServiceTicket.m in Sources */,
 				7E890F231719F006000A32FA /* OAToken.m in Sources */,
-				7E890F241719F006000A32FA /* Reachability.m in Sources */,
 				7E890F271719F246000A32FA /* FBSession.m in Sources */,
 				7EDFEE48171B6627002E06AB /* DOKPlayerPageViewController.m in Sources */,
 				7EDFEE4B171B6A0F002E06AB /* DOKPickPlayerTableViewController.m in Sources */,
@@ -1777,6 +1776,7 @@
 				7ED7DE85172886DF004D5351 /* DOKPickLeagueViewController.m in Sources */,
 				7E0C4CA01728AA4200A758CA /* DOKEndSeasonViewController.m in Sources */,
 				7EF538D61729BBD900A8C051 /* MBProgressHUD.m in Sources */,
+				7E6815471729EED80094B25E /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

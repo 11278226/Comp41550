@@ -45,9 +45,12 @@
     [[UAPush shared] handleNotification:[launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey]
                        applicationState:application.applicationState];
     
+    
+    [Flurry startSession:@"HSFQS9FS2GN69PG8MMYY"];
+    
 //    [AddThisSDK setFacebookAPIKey:@"512256612169894"];
 //    [AddThisSDK setFacebookAuthentication:ATFacebookAuthenticationTypeFBConnect];
-//
+//    
 //    
 //    [AddThisSDK setTwitterConsumerKey:@"nZjboIFoUMee7QyR9www"];
 //    [AddThisSDK setTwitterConsumerSecret:@"g4c9JEsBSldsDdvjfIe2Cq2GxSZHM2J8diogoG19CY"];
@@ -58,9 +61,6 @@
     [AddThisSDK setAddThisUserName:@"Dermo"];
     [AddThisSDK setAddThisPubId:@"ra-51699ad6080e9b2f"];
     [AddThisSDK setAddThisApplicationId:@"5169a6573d8d2734"];
-    
-    [Flurry startSession:@"HSFQS9FS2GN69PG8MMYY"];
-    
     return YES;
 }
 
