@@ -10,4 +10,6 @@
 
 @interface DOKStatsTableViewController : UITableViewController
 
+@property (nonatomic) int league;
+
 @end

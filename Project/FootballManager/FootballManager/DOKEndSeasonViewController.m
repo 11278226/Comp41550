@@ -1,41 +1,24 @@
 //
-//  DOKNewCareerViewController.m
+//  DOKEndSeasonViewController.m
 //  FootballManager
 //
-//  Created by Diarmuid O'Keeffe on 18/01/2013.
+//  Created by Diarmuid O'Keeffe on 25/04/2013.
 //  Copyright (c) 2013 dermo. All rights reserved.
 //
 
+#import "DOKEndSeasonViewController.h"
+#import "DOKTeamModel+LeagueTable.h"
 #import "DOKAppDelegate.h"
-#import "DOKTeamModel.h"
-#import "DOKPlayerModel+Details.h"
-#import "DOKNewCareerViewController.h"
-#import "DOKMatchModel.h"
-#import "DOKMatch.h"
-#import "DOKTabBarViewController.h"
 #import "Flurry.h"
-#import "MBProgressHUD.h"
+#import "DOKPlayerModel+Details.h"
+#import "DOKMatch.h"
 
-@interface DOKNewCareerViewController () {
-    UIActionSheet *actionSheet;
-}
-
-@property (nonatomic, weak) IBOutlet UITextField *division;
-@property (weak, nonatomic) IBOutlet UITextField *nameField;
-@property (weak, nonatomic) IBOutlet UITextField *teamNameField;
-@property (weak, nonatomic) IBOutlet UITextField *numberOfDivisions;
-- (IBAction)changeNumberOfDivisions:(UIStepper *)sender;
-@property (weak, nonatomic) IBOutlet UIStepper *divisionStepper;
-- (IBAction)changeTeamDivision:(UIStepper *)sender;
-- (IBAction)generateCareer:(UIButton *)sender;
+@interface DOKEndSeasonViewController ()
 @property (nonatomic) NSMutableArray *teams;
-- (IBAction)chooseTeam:(UIButton *)sender;
 @property (nonatomic) NSMutableArray *fetchedTeams;
-@property (weak, nonatomic) IBOutlet UIButton *chooseTeamButton;
-
 @end
 
-@implementation DOKNewCareerViewController
+@implementation DOKEndSeasonViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -60,55 +43,6 @@
     for (DOKTeamModel *info in self.fetchedTeams) {
         [self.teams addObject:info];
     }
-    
-    
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-                                   initWithTarget:self
-                                   action:@selector(dismissKeyboard)];
-    [self.view addGestureRecognizer:tap];
-}
-
-- (IBAction)changeNumberOfDivisions:(UIStepper *)sender {
-    int value = [sender value];
-    //[self.divisionModel setNumberOfSides:value];
-    
-    if(self.divisionStepper.maximumValue > value) {
-        
-        self.division.text = [NSString stringWithFormat:@"%d",value];
-    }
-    self.divisionStepper.maximumValue = value;
-    self.numberOfDivisions.text = [NSString stringWithFormat:@"%d",value];
-}
-
--(void)dismissActionSheet:(id)sender {
-    [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
-}
-
--(void)dismissKeyboard {
-    [self.division resignFirstResponder];
-    [self.nameField resignFirstResponder];
-    [self.teamNameField resignFirstResponder];
-}
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)thePickerView {
-    
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)thePickerView numberOfRowsInComponent:(NSInteger)component {
-    
-    return [self.teams count];
-}
-
-- (NSString *)pickerView:(UIPickerView *)thePickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return [[self.teams objectAtIndex:row] teamName];
-}
-
-- (void)pickerView:(UIPickerView *)thePickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    self.teamNameField.text = [[self.teams objectAtIndex:row] teamName];
-    [self.chooseTeamButton setTitle:[[self.teams objectAtIndex:row] teamName] forState:UIControlStateHighlighted];
-    [self.chooseTeamButton setTitle:[[self.teams objectAtIndex:row] teamName] forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning
@@ -117,19 +51,60 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)changeTeamDivision:(UIStepper *)sender {
-    int value = [sender value];
-    self.division.text = [NSString stringWithFormat:@"%d",value];
-}
-
-- (IBAction)generateCareer:(UIButton *)sender {
-}
-
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
 {
-    
-    if (self.nameField.text.length > 0 && self.teamNameField.text.length > 0) {
-        [self setupGame];
+    if (true) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setValue:[NSNumber numberWithInt:1] forKey:@"gameWeek"];
+        [defaults synchronize];
+        NSMutableArray *leagueOneTeams = [NSMutableArray array];
+        NSMutableArray *leagueTwoTeams = [NSMutableArray array];
+        NSMutableArray *leagueThreeTeams = [NSMutableArray array];
+        NSMutableArray *leagueFourTeams = [NSMutableArray array];
+        [self removeAllMatches];
+        [self resetTeams];
+        [self resetPlayers];
+        for (DOKTeamModel *currTeam in self.fetchedTeams) {
+            switch ([currTeam.league intValue]) {
+                case 1:
+                    [leagueOneTeams addObject:currTeam];
+                    break;
+                case 2:
+                    [leagueTwoTeams addObject:currTeam];
+                    break;
+                case 3:
+                    [leagueThreeTeams addObject:currTeam];
+                    break;
+                case 4:
+                    [leagueFourTeams addObject:currTeam];
+                    break;
+                default:
+                    break;
+            }
+        }
+        for (int i = 1; i < 5 ; i++) {
+            switch (i) {
+                case 1:
+                    [self generateMatchesForTeams:leagueOneTeams inLeague:i];
+                    break;
+                case 2:
+                    [self generateMatchesForTeams:leagueTwoTeams inLeague:i];
+                    break;
+                case 3:
+                    [self generateMatchesForTeams:leagueThreeTeams inLeague:i];
+                    break;
+                case 4:
+                    [self generateMatchesForTeams:leagueFourTeams inLeague:i];
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+        
+//        NSDictionary *myFlurryDict = [NSDictionary dictionaryWithObjectsAndKeys:self.nameField.text, @"Name", self.teamNameField.text, @"Team", nil];
+//        [Flurry logEvent:@"Started Career" withParameters:myFlurryDict];
+        
     } else {
         UIAlertView *noDataEntered = [[UIAlertView alloc] initWithTitle:@"Empty Text Fields" message:@"Please enter text into the fields" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [noDataEntered show];
@@ -139,78 +114,19 @@
     return YES;
 }
 
-- (void) setupGame {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setValue:self.nameField.text forKey:@"name"];
-    [defaults setValue:self.teamNameField.text forKey:@"teamName"];
-    [defaults setValue:self.numberOfDivisions.text forKey:@"numberOfDivisions"];
-    [defaults setValue:self.division.text forKey:@"division"];
-    [defaults setValue:nil forKey:@"myTeam"];
-    [defaults setValue:[NSNumber numberWithInt:1] forKey:@"gameWeek"];
-    [defaults setBool:YES forKey:@"Instant Matches"];
-    [defaults setBool:YES forKey:@"Perfect Scouting"];
-    [defaults setValue:@"2-3-1" forKey:@"Formation"];
-    [defaults setValue:@"Medium" forKey:@"Passing"];
-    [defaults setValue:@"Medium" forKey:@"Tackling"];
-    [defaults synchronize];
-    NSLog(@"Data saved");
-    NSMutableArray *leagueOneTeams = [NSMutableArray array];
-    NSMutableArray *leagueTwoTeams = [NSMutableArray array];
-    NSMutableArray *leagueThreeTeams = [NSMutableArray array];
-    NSMutableArray *leagueFourTeams = [NSMutableArray array];
-    [self removeAllMatches];
-    [self resetTeams];
-    [self resetPlayers];
-    for (DOKTeamModel *currTeam in self.fetchedTeams) {
-        switch ([currTeam.league intValue]) {
-            case 1:
-                [leagueOneTeams addObject:currTeam];
-                break;
-            case 2:
-                [leagueTwoTeams addObject:currTeam];
-                break;
-            case 3:
-                [leagueThreeTeams addObject:currTeam];
-                break;
-            case 4:
-                [leagueFourTeams addObject:currTeam];
-                break;
-            default:
-                break;
-        }
-    }
-    for (int i = 1; i < 5 ; i++) {
-        switch (i) {
-            case 1:
-                [self generateMatchesForTeams:leagueOneTeams inLeague:i];
-                break;
-            case 2:
-                [self generateMatchesForTeams:leagueTwoTeams inLeague:i];
-                break;
-            case 3:
-                [self generateMatchesForTeams:leagueThreeTeams inLeague:i];
-                break;
-            case 4:
-                [self generateMatchesForTeams:leagueFourTeams inLeague:i];
-                break;
-            default:
-                break;
-        }
-        
-    }
-    
-    NSDictionary *myFlurryDict = [NSDictionary dictionaryWithObjectsAndKeys:self.nameField.text, @"Name", self.teamNameField.text, @"Team", nil];
-    [Flurry logEvent:@"Started Career" withParameters:myFlurryDict];
-}
-
 - (void) resetTeams {
     NSFetchRequest * allTeams = [[NSFetchRequest alloc] init];
     [allTeams setEntity:[NSEntityDescription entityForName:@"Teams" inManagedObjectContext:[[DOKAppDelegate sharedAppDelegate] managedObjectContext]]];
-//    [allTeams setIncludesPropertyValues:NO]; //only fetch the managedObjectID
-    
+    //    [allTeams setIncludesPropertyValues:NO]; //only fetch the managedObjectID
+    allTeams.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"points"
+                                                                                      ascending:NO
+                                                                                       selector:nil],[NSSortDescriptor sortDescriptorWithKey:@"goalsFor"                                                          ascending:NO                                                        selector:nil], nil];
     NSError * error = nil;
     NSArray * team = [[[DOKAppDelegate sharedAppDelegate] managedObjectContext] executeFetchRequest:allTeams error:&error];
-    //error handling goes here
+    int leagueOneCount = 0;
+    int leagueTwoCount = 0;
+    int leagueThreeCount = 0;
+    int leagueFourCount = 0;
     for (DOKTeamModel * thisTeam in team) {
         thisTeam.goalsFor = [NSNumber numberWithInt:0];
         thisTeam.goalsAgainst = [NSNumber numberWithInt:0];
@@ -218,7 +134,34 @@
         thisTeam.wins = [NSNumber numberWithInt:0];
         thisTeam.draws = [NSNumber numberWithInt:0];
         thisTeam.losses = [NSNumber numberWithInt:0];
+        if ([thisTeam.league intValue] == 1) {
+            if (leagueOneCount == 7) {
+                thisTeam.league = [NSNumber numberWithInt:2];
+            }
+            leagueOneCount +=1;
+        } else if ([thisTeam.league intValue] == 2) {
+            if (leagueTwoCount == 0) {
+                thisTeam.league = [NSNumber numberWithInt:1];
+            } else if (leagueTwoCount == 7) {
+                thisTeam.league = [NSNumber numberWithInt:3];
+            }
+            leagueTwoCount +=1;
+        } else if ([thisTeam.league intValue] == 3) {
+            if (leagueThreeCount == 0) {
+                thisTeam.league = [NSNumber numberWithInt:2];
+            } else if (leagueThreeCount == 7) {
+                thisTeam.league = [NSNumber numberWithInt:4];
+            }
+            leagueThreeCount +=1;
+        } else if ([thisTeam.league intValue] == 4) {
+            if (leagueFourCount == 0) {
+                thisTeam.league = [NSNumber numberWithInt:3];
+            } 
+            leagueFourCount +=1;
+        }
     }
+    
+    
     NSError *saveError = nil;
     if (![[[DOKAppDelegate sharedAppDelegate] managedObjectContext] save:&saveError]) {
         NSLog(@"Failed to remove all matches - error: %@", [error localizedDescription]);
@@ -345,59 +288,5 @@
     }
     return nil;
 }
-
-- (IBAction)chooseTeam:(UIButton *)sender {
-    actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-                                              delegate:nil
-                                     cancelButtonTitle:nil
-                                destructiveButtonTitle:nil
-                                     otherButtonTitles:nil];
-    
-    [actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
-    
-    CGRect pickerFrame = CGRectMake(0, 40, 0, 0);
-    
-    UIPickerView *pickerView2 = [[UIPickerView alloc] initWithFrame:pickerFrame];
-    pickerView2.showsSelectionIndicator = YES;
-    pickerView2.dataSource = self;
-    pickerView2.delegate = self;
-    
-    [actionSheet addSubview:pickerView2];
-    
-    UISegmentedControl *closeButton = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObject:@"Close"]];
-    closeButton.momentary = YES;
-    closeButton.frame = CGRectMake(260, 7.0f, 50.0f, 30.0f);
-    closeButton.segmentedControlStyle = UISegmentedControlStyleBar;
-    closeButton.tintColor = [UIColor blackColor];
-    [closeButton addTarget:self action:@selector(dismissActionSheet:) forControlEvents:UIControlEventValueChanged];
-    [actionSheet addSubview:closeButton];
-    
-    [actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
-    
-    [actionSheet setBounds:CGRectMake(0, 0, 320, 485)];
-    
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    /*
-     When a row is selected, the segue creates the detail view controller as the destination.
-     Set the detail view controller's detail item to the item associated with the selected row.
-     */
-    if ([[segue identifier] isEqualToString:@"new"]) {
-        
-        DOKTabBarViewController *destinationVC = [segue destinationViewController];
-        destinationVC.futureDelegate = self;
-//
-//        [self.navigationController pushViewController:destinationVC animated:YES];
-    }
-}
-
-- (void)popToRootView
-{
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    [self.navigationController popToRootViewControllerAnimated:NO];
-}
-
 
 @end

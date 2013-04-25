@@ -822,9 +822,7 @@
                                     [self.goalsAndAssists addObject:goalScorer];
                                 }
                                 
-                                NSLog(@"%@ %@",[goalMaker name], [goalScorer name]);
                                 awayGoals += 1;
-                                //                                NSLog(@"Away 1");
                                 currTerritory = @"mid";
                                 currTeam = homeTeamName;
                             } else {
@@ -847,13 +845,11 @@
                             DOKPlayer *goalScorer = [self findScorerWithAssistFromPlayer:goalMaker forTeam:currTeam withScoringValue:[[myAwayDictionary objectForKey:@"shooting"] intValue] + [[myAwayDictionary objectForKey:@"offPos"] intValue] + [[myAwayDictionary objectForKey:@"shootingMid"] intValue] + [[myAwayDictionary objectForKey:@"offPosMid"] intValue] withPlayers:thisAwayTeam];
                             [self.allAssists addObject:goalMaker];
                             [self.allGoalscorers addObject:goalScorer];
-                            NSLog(@"%@ %@",[goalMaker name], [goalScorer name]);
                             if ([currMatch.homeTeam isEqualToString:self.myTeamName] || [currMatch.awayTeam isEqualToString:self.myTeamName]) {
                                 [self.goalsAndAssists addObject:goalMaker];
                                 [self.goalsAndAssists addObject:goalScorer];
                             }
                             awayGoals += 1;
-                            //                            NSLog(@"Away 2");
                             currTerritory = @"mid";
                             currTeam = homeTeamName;
                         } else {
@@ -883,7 +879,6 @@
                                 DOKPlayer *goalScorer = [self findScorerWithAssistFromPlayer:goalMaker forTeam:currTeam withScoringValue:[[myHomeDictionary objectForKey:@"shooting"] intValue] + [[myHomeDictionary objectForKey:@"offPos"] intValue] + [[myHomeDictionary objectForKey:@"shootingMid"] intValue] + [[myHomeDictionary objectForKey:@"offPosMid"] intValue] withPlayers:thisHomeTeam];
                                 [self.allAssists addObject:goalMaker];
                                 [self.allGoalscorers addObject:goalScorer];
-                                NSLog(@"%@ %@",[goalMaker name], [goalScorer name]);
                                 if ([currMatch.homeTeam isEqualToString:self.myTeamName] || [currMatch.awayTeam isEqualToString:self.myTeamName]) {
                                     [self.goalsAndAssists addObject:goalMaker];
                                     [self.goalsAndAssists addObject:goalScorer];
@@ -911,7 +906,6 @@
                             DOKPlayer *goalScorer = [self findScorerWithAssistFromPlayer:goalMaker forTeam:currTeam withScoringValue:[[myHomeDictionary objectForKey:@"shooting"] intValue] + [[myHomeDictionary objectForKey:@"offPos"] intValue] + [[myHomeDictionary objectForKey:@"shootingMid"] intValue] + [[myHomeDictionary objectForKey:@"offPosMid"] intValue] withPlayers:thisHomeTeam];
                             [self.allAssists addObject:goalMaker];
                             [self.allGoalscorers addObject:goalScorer];
-                            NSLog(@"%@ %@",[goalMaker name], [goalScorer name]);
                             if ([currMatch.homeTeam isEqualToString:self.myTeamName] || [currMatch.awayTeam isEqualToString:self.myTeamName]) {
                                 [self.goalsAndAssists addObject:goalMaker];
                                 [self.goalsAndAssists addObject:goalScorer];
@@ -1059,10 +1053,6 @@
         }
         
     }
-    if (goalMaker == nil) {
-        NSLog(@"Why nil");
-    }
-//    goalMaker.assists = [NSNumber numberWithInt:([goalMaker.assists intValue] + 1)];
     return goalMaker;
 }
 
@@ -1102,11 +1092,6 @@
         }
         
     }
-    if (goalScorer == nil) {
-        NSLog(@"Why nil");
-    }
-    
-//    goalScorer.goals = [NSNumber numberWithInt:([goalScorer.goals intValue] + 1)];
     return goalScorer;
 }
 

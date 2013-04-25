@@ -15,5 +15,6 @@
 @dynamic homeGoals;
 @dynamic awayGoals;
 @dynamic gameWeek;
+@dynamic league;
 
 @end

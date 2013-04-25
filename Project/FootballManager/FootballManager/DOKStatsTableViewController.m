@@ -135,11 +135,13 @@
     NSIndexPath *path = [self.tableView indexPathForSelectedRow];
     if ([[segue identifier] isEqualToString:@"leagueTableSegue"]) {
         
-//        DOKLeagueTableViewController *vc = [segue destinationViewController];
+        DOKLeagueTableViewController *vc = [segue destinationViewController];
+        vc.league = self.league;
         
         
     } else if ([[segue identifier] isEqualToString:@"playerLeaderBoardSegue"]) {
         DOKGoalsLeaderBoardViewController *vc = [segue destinationViewController];
+        vc.league = self.league;
         if (path.row == 2) {
             vc.isAssists = YES;
         }

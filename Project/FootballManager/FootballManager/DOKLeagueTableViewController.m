@@ -33,7 +33,6 @@
     
     self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"grid_pattern.png"]];
     [self setupFetchedResultsController];
-    [self fetchTeamData];
 }
 
 - (void)setupFetchedResultsController {
@@ -43,26 +42,12 @@
                                                                                        selector:nil],[NSSortDescriptor sortDescriptorWithKey:@"goalsFor"
                                                                                                                                    ascending:NO
                                                                                                                                     selector:nil], nil];
+    request.predicate = [NSPredicate predicateWithFormat:@"league = %d", self.league];
     
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:[[DOKAppDelegate sharedAppDelegate] managedObjectContext]
                                                                           sectionNameKeyPath:nil
                                                                                    cacheName:nil];
-}
-
-- (void)fetchTeamData
-{
-    dispatch_queue_t fetchQ = dispatch_queue_create("Flickr fetcher", NULL);
-    dispatch_async(fetchQ, ^{
-//        NSArray *photos = [FlickrFetcher recentGeoreferencedPhotos];
-//        dispatch_async(dispatch_get_main_queue(),^{
-//            for (NSDictionary *flickrInfo in photos) {
-//                [Photo photoWithFlickrInfo:flickrInfo inManagedObjectContext:self.managedObjectContext];
-//            }
-//            [((DOKAppDelegate *)[UIApplication sharedApplication].delegate) saveContext];
-        
-//        });
-    });
 }
 
 -(void)viewWillAppear:(BOOL)animated

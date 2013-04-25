@@ -98,7 +98,10 @@
         ((UIImageView *)[cell viewWithTag:1]).image = nil;
     
     ((UILabel *)[cell viewWithTag:2]).text = currPlayer.name;
-    ((UILabel *)[cell viewWithTag:3]).text = [DOKPlayerModel preferredPosition:currPlayer];
+    NSMutableArray *preferredPositions = [[DOKPlayerModel preferredPosition:currPlayer] mutableCopy];
+    ((UILabel *)[cell viewWithTag:3]).text = [preferredPositions objectAtIndex:0];
+    ((UILabel *)[cell viewWithTag:4]).text = [preferredPositions objectAtIndex:1];
+    ((UILabel *)[cell viewWithTag:5]).text = [NSString stringWithFormat:@"%d",([DOKPlayerModel overallForPlayer:currPlayer]*100/220)];
     return cell;
 }
 

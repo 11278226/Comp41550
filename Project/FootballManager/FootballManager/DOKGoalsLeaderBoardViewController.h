@@ -12,5 +12,6 @@
 @interface DOKGoalsLeaderBoardViewController : CoreDataTableViewController
 
 @property BOOL isAssists;
+@property (nonatomic, assign) int league;
 
 @end

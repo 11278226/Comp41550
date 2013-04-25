@@ -60,38 +60,116 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "FootballManager/DOKGoalsLeaderBoardViewController.m"
-         timestampString = "388173389.163083"
+         timestampString = "388533653.369772"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "180"
-         endingLineNumber = "180"
+         startingLineNumber = "182"
+         endingLineNumber = "182"
          landmarkName = "-tableView:cellForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "FootballManager/DOKMatchViewController.m"
-         timestampString = "388175049.75884"
+         filePath = "FootballManager/DOKGameWeekViewController.m"
+         timestampString = "388540779.277199"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1063"
-         endingLineNumber = "1063"
-         landmarkName = "-findAssistForTeam:withPassingValue:andPlayers:"
+         startingLineNumber = "118"
+         endingLineNumber = "118"
+         landmarkName = "-reloadAll"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "FootballManager/DOKMatchViewController.m"
-         timestampString = "388175049.75884"
+         filePath = "FootballManager/DOKGameWeekViewController.m"
+         timestampString = "388540779.277199"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1106"
-         endingLineNumber = "1106"
-         landmarkName = "-findScorerWithAssistFromPlayer:forTeam:withScoringValue:withPlayers:"
+         startingLineNumber = "78"
+         endingLineNumber = "78"
+         landmarkName = "-checkGameweek"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "FootballManager/DOKEndSeasonViewController.m"
+         timestampString = "388543113.055153"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "137"
+         endingLineNumber = "137"
+         landmarkName = "-resetTeams"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "FootballManager/DOKNewCareerViewController.m"
+         timestampString = "388614500.212808"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "131"
+         endingLineNumber = "131"
+         landmarkName = "-shouldPerformSegueWithIdentifier:sender:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "FootballManager/DOKPickPlayerTableViewController.m"
+         timestampString = "388620337.935034"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "103"
+         endingLineNumber = "103"
+         landmarkName = "-tableView:cellForRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "FootballManager/DOKPickPlayerTableViewController.m"
+         timestampString = "388620353.937541"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "102"
+         endingLineNumber = "102"
+         landmarkName = "-tableView:cellForRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "FootballManager/DOKPickPlayerTableViewController.m"
+         timestampString = "388620515.045674"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "104"
+         endingLineNumber = "104"
+         landmarkName = "-tableView:cellForRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "FootballManager/DOKPlayerModel+Details.m"
+         timestampString = "388621424.772596"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "42"
+         endingLineNumber = "42"
+         landmarkName = "+preferredPosition:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

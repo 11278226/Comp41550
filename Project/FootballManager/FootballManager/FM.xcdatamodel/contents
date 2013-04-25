@@ -6,6 +6,7 @@
         <attribute name="gameWeek" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="homeGoals" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="homeTeam" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="league" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <entity name="Players" syncable="YES">
         <attribute name="assists" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -35,7 +36,7 @@
         <attribute name="wins" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Match" positionX="160" positionY="192" width="128" height="120"/>
+        <element name="Match" positionX="160" positionY="192" width="128" height="135"/>
         <element name="Players" positionX="160" positionY="192" width="128" height="270"/>
         <element name="Teams" positionX="160" positionY="192" width="128" height="165"/>
     </elements>

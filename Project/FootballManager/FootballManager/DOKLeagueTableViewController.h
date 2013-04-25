@@ -11,4 +11,6 @@
 
 @interface DOKLeagueTableViewController : CoreDataTableViewController
 
+@property (nonatomic, assign) int league;
+
 @end

@@ -524,11 +524,27 @@
                                     <outlet property="delegate" destination="5sv-m3-JHP" id="PUe-pi-5ee"/>
                                 </connections>
                             </tableView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="qUV-M9-Ygt">
+                                <rect key="frame" x="100" y="465" width="120" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="End Season">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="UIe-7P-s3C" kind="modal" identifier="endSeason" modalTransitionStyle="crossDissolve" id="H52-2c-tNX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" tag="2" title="Match Day" image="83-calendar.png" id="pMp-3p-Nn1"/>
                     <connections>
+                        <outlet property="endSeasonButton" destination="qUV-M9-Ygt" id="man-kV-V0Y"/>
                         <outlet property="myTableView" destination="dPi-Bq-0Ys" id="8hU-v8-Pct"/>
                         <outlet property="playMatchesButton" destination="0aF-A3-pfO" id="Kng-6i-pxq"/>
                     </connections>
@@ -536,6 +552,49 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aKh-9M-8su" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1662" y="399"/>
+        </scene>
+        <!--End Season View Controller-->
+        <scene sceneID="01e-wE-geS">
+            <objects>
+                <viewController id="UIe-7P-s3C" customClass="DOKEndSeasonViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kow-Vk-qne">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="grid_pattern.png" id="tVp-NP-Wue">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Congratulations" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qjD-XL-UtJ">
+                                <rect key="frame" x="20" y="146" width="280" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="LPG-RX-Blo">
+                                <rect key="frame" x="84" y="456" width="153" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Start Next Season">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="4bO-HV-7vj" kind="modal" identifier="nextSeason" modalTransitionStyle="flipHorizontal" id="IWh-9J-8s2"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="zkr-vs-xYn"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tqs-jm-kdg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="829" y="335"/>
         </scene>
         <!--Settings View Controller - Settings-->
         <scene sceneID="xy5-EI-ryn">
@@ -1512,33 +1571,61 @@
         <scene sceneID="G4I-ix-W39">
             <objects>
                 <tableViewController id="pX7-aL-2Ca" customClass="DOKPickPlayerTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9N1-Dz-RNk">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="9N1-Dz-RNk">
                         <rect key="frame" x="0.0" y="44" width="320" height="475"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Formation Cell" id="svJ-Vy-EIp">
-                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Formation Cell" id="svJ-Vy-EIp">
+                                <rect key="frame" x="0.0" y="22" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="59"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" id="cfQ-L4-3sj">
-                                            <rect key="frame" x="0.0" y="0.0" width="43" height="43"/>
+                                            <rect key="frame" x="0.0" y="7" width="44" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </imageView>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p8p-JN-l19">
-                                            <rect key="frame" x="51" y="11" width="173" height="21"/>
+                                            <rect key="frame" x="51" y="2" width="173" height="20"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Urw-D2-1MF">
-                                            <rect key="frame" x="230" y="11" width="50" height="21"/>
+                                            <rect key="frame" x="51" y="41" width="50" height="12"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CDj-S0-vyx">
+                                            <rect key="frame" x="118" y="41" width="50" height="12"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tuL-px-NnZ">
+                                            <rect key="frame" x="224" y="41" width="50" height="12"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Overall" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="H6y-nK-Kjg">
+                                            <rect key="frame" x="224" y="26" width="54" height="12"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Favoured Positions" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RKo-1Y-uwZ">
+                                            <rect key="frame" x="51" y="26" width="173" height="12"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
@@ -1568,12 +1655,51 @@
                         <color key="tintColor" red="0.081260956379999999" green="0.44081182070000002" blue="0.13802480850000001" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="acv-ct-pFW" kind="relationship" relationship="rootViewController" id="9da-6C-0sD"/>
+                        <segue destination="Lvv-l1-UCK" kind="relationship" relationship="rootViewController" id="Phj-mk-UKL"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TRs-up-rF6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1662" y="-281"/>
+        </scene>
+        <!--Pick League View Controller - Leagues-->
+        <scene sceneID="s3w-4T-c7S">
+            <objects>
+                <tableViewController id="Lvv-l1-UCK" customClass="DOKPickLeagueViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="SlQ-9i-OxV">
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Which League Cell" id="WAI-gM-fD1">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleToFill" image="arrow_right.png" id="Z4q-Fq-9bw">
+                                            <rect key="frame" x="290" y="7" width="20" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Lvv-l1-UCK" id="ayE-lS-nHk"/>
+                            <outlet property="delegate" destination="Lvv-l1-UCK" id="Cn3-xV-IO0"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Leagues" id="jj1-ak-ioE"/>
+                    <connections>
+                        <segue destination="acv-ct-pFW" kind="push" identifier="pushLeague" id="35M-vS-IHi"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qNt-pJ-Aet" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2249" y="-381"/>
         </scene>
         <!--Stats Table View Controller - Season Stats-->
         <scene sceneID="Ugw-TP-2UE">
@@ -1613,7 +1739,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JV4-No-jb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2149" y="-357"/>
+            <point key="canvasLocation" x="2833" y="-649"/>
         </scene>
         <!--Goals Leader Board View Controller-->
         <scene sceneID="5MU-sL-N7M">
@@ -1680,7 +1806,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DBc-Nw-8wR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2683" y="-631"/>
+            <point key="canvasLocation" x="3359" y="-1055"/>
         </scene>
         <!--League Table View Controller - League Table-->
         <scene sceneID="pAs-NM-8au">
@@ -1755,7 +1881,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tL1-CA-Xzw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2683" y="7"/>
+            <point key="canvasLocation" x="3359" y="-413"/>
         </scene>
         <!--Tab Bar View Controller - My Career-->
         <scene sceneID="jIG-fD-d1M">
@@ -1786,7 +1912,7 @@
                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </label>
             </objects>
-            <point key="canvasLocation" x="713" y="-433"/>
+            <point key="canvasLocation" x="1033" y="-333"/>
         </scene>
     </scenes>
     <resources>
@@ -1806,13 +1932,156 @@
         <image name="soccer_field.jpg" width="801" height="1200"/>
         <image name="twitterButton.png" width="72" height="72"/>
     </resources>
+    <classes>
+        <class className="CoreDataTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CoreDataTableViewController.h"/>
+        </class>
+        <class className="DOKCareerMainScreenViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKCareerMainScreenViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="formationButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="passingButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="pickPlayer:" candidateClass="UIButton"/>
+                <relationship kind="action" name="tacklingButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="formationButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="myScrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="passingButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="playerFive" candidateClass="UIView"/>
+                <relationship kind="outlet" name="playerFour" candidateClass="UIView"/>
+                <relationship kind="outlet" name="playerSeven" candidateClass="UIView"/>
+                <relationship kind="outlet" name="playerSix" candidateClass="UIView"/>
+                <relationship kind="outlet" name="playerThree" candidateClass="UIView"/>
+                <relationship kind="outlet" name="playerTwo" candidateClass="UIView"/>
+                <relationship kind="outlet" name="playersTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="selectionDefence" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="selectionDefenceTwo" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="selectionKeeper" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="selectionMid" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="selectionStriker" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="selectionWing" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="selectionWingTwo" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="tacklingButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="DOKEndSeasonViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKEndSeasonViewController.h"/>
+        </class>
+        <class className="DOKGameWeekViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKGameWeekViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="endSeasonButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="myTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="playMatchesButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="DOKGoalsLeaderBoardViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKGoalsLeaderBoardViewController.h"/>
+        </class>
+        <class className="DOKLeagueTableViewController" superclassName="CoreDataTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKLeagueTableViewController.h"/>
+        </class>
+        <class className="DOKMatchTabBarController" superclassName="UITabBarController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKMatchTabBarController.h"/>
+        </class>
+        <class className="DOKMatchViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKMatchViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="closeButtonPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="playMatch:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="avgTerritoryView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="awayPassesLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="awayPossessionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="awayScore" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="awayShotsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="awayTacklesLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="awayTeamLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="closeButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="defTerritory" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="fwdTerritory" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="homePassesLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="homePossessionView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="homeScore" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="homeShotsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="homeTacklesLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="homeTeamLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="midTerritory" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="navBar" candidateClass="UINavigationBar"/>
+                <relationship kind="outlet" name="playButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="possessionImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="possessionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="territoryImageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="timeLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="DOKNewCareerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKNewCareerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changeNumberOfDivisions:" candidateClass="UIStepper"/>
+                <relationship kind="action" name="changeTeamDivision:" candidateClass="UIStepper"/>
+                <relationship kind="action" name="chooseTeam:" candidateClass="UIButton"/>
+                <relationship kind="action" name="generateCareer:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="chooseTeamButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="division" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="divisionStepper" candidateClass="UIStepper"/>
+                <relationship kind="outlet" name="nameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="numberOfDivisions" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="teamNameField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="DOKOtherTeamsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKOtherTeamsViewController.h"/>
+        </class>
+        <class className="DOKPickLeagueViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKPickLeagueViewController.h"/>
+        </class>
+        <class className="DOKPickPlayerTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKPickPlayerTableViewController.h"/>
+        </class>
+        <class className="DOKPlayerDetailViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKPlayerDetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="player" candidateClass="DOKPlayerModel"/>
+            </relationships>
+        </class>
+        <class className="DOKPlayerModel" superclassName="NSManagedObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKPlayerModel.h"/>
+        </class>
+        <class className="DOKSettingsViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKSettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="cellSwitchButtonPressed:forEvent:" candidateClass="UISwitch"/>
+            </relationships>
+        </class>
+        <class className="DOKSquadViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKSquadViewController.h"/>
+        </class>
+        <class className="DOKStatsTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKStatsTableViewController.h"/>
+        </class>
+        <class className="DOKTabBarViewController" superclassName="UITabBarController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKTabBarViewController.h"/>
+        </class>
+        <class className="DOKViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DOKViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="continueCareerPressed:" candidateClass="UIButton"/>
+                <relationship kind="action" name="facebookButton:"/>
+                <relationship kind="action" name="twitterButton:"/>
+                <relationship kind="outlet" name="continueCareerButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="divisionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="nameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="subView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="teamNameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="CUH-vL-u1g"/>
+        <segue reference="IWh-9J-8s2"/>
         <segue reference="cbo-nF-hPj"/>
     </inferredMetricsTieBreakers>
 </document>

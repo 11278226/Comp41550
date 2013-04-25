@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E0C4CA01728AA4200A758CA /* DOKEndSeasonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E0C4C9F1728AA4200A758CA /* DOKEndSeasonViewController.m */; };
 		7E388F491722138C000A041C /* yellowarrowleft.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E388F471722138C000A041C /* yellowarrowleft.png */; };
 		7E388F4A1722138C000A041C /* yellowarrowright.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E388F481722138C000A041C /* yellowarrowright.png */; };
 		7E3D2EFA17171986006D4C60 /* DOKMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E3D2EF917171986006D4C60 /* DOKMatch.m */; };
@@ -225,18 +226,22 @@
 		7EC75151172094370077926A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EC75150172094370077926A /* Default-568h@2x.png */; };
 		7EC7C9341722AD480028B08E /* DOKPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC7C9331722AD480028B08E /* DOKPlayer.m */; };
 		7EC7C9371722C1490028B08E /* DOKStatsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EC7C9361722C1490028B08E /* DOKStatsTableViewController.m */; };
+		7ED7DE85172886DF004D5351 /* DOKPickLeagueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED7DE84172886DF004D5351 /* DOKPickLeagueViewController.m */; };
 		7ED82C0F16BEDC8E0075C505 /* DOKOtherTeamsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ED82C0E16BEDC8E0075C505 /* DOKOtherTeamsViewController.m */; };
 		7EDFEE44171B5DEA002E06AB /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EDFEE42171B5DEA002E06AB /* close.png */; };
 		7EDFEE45171B5DEA002E06AB /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7EDFEE43171B5DEA002E06AB /* close@2x.png */; };
 		7EDFEE48171B6627002E06AB /* DOKPlayerPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFEE47171B6627002E06AB /* DOKPlayerPageViewController.m */; };
 		7EDFEE4B171B6A0F002E06AB /* DOKPickPlayerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EDFEE4A171B6A0F002E06AB /* DOKPickPlayerTableViewController.m */; };
 		7EEE05361722F7680033C04B /* DOKGoalsLeaderBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EEE05351722F7680033C04B /* DOKGoalsLeaderBoardViewController.m */; };
+		7EF538D61729BBD900A8C051 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF538D51729BBD900A8C051 /* MBProgressHUD.m */; };
 		7EF711CA171F44DB00881184 /* DOKMatchTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF711C9171F44DB00881184 /* DOKMatchTabBarController.m */; };
 		7EF8FEB516AAE19A00F756E5 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EF8FEB416AAE19A00F756E5 /* CoreData.framework */; };
 		7EF95D5316BC7C310011D9CF /* DOKTeamModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7EF95D5216BC7C310011D9CF /* DOKTeamModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7E0C4C9E1728AA4200A758CA /* DOKEndSeasonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKEndSeasonViewController.h; sourceTree = "<group>"; };
+		7E0C4C9F1728AA4200A758CA /* DOKEndSeasonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKEndSeasonViewController.m; sourceTree = "<group>"; };
 		7E388F471722138C000A041C /* yellowarrowleft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowarrowleft.png; sourceTree = "<group>"; };
 		7E388F481722138C000A041C /* yellowarrowright.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowarrowright.png; sourceTree = "<group>"; };
 		7E3D2EF817171986006D4C60 /* DOKMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKMatch.h; sourceTree = "<group>"; };
@@ -644,6 +649,8 @@
 		7EC7C9331722AD480028B08E /* DOKPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKPlayer.m; sourceTree = "<group>"; };
 		7EC7C9351722C1490028B08E /* DOKStatsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKStatsTableViewController.h; sourceTree = "<group>"; };
 		7EC7C9361722C1490028B08E /* DOKStatsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKStatsTableViewController.m; sourceTree = "<group>"; };
+		7ED7DE83172886DF004D5351 /* DOKPickLeagueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKPickLeagueViewController.h; sourceTree = "<group>"; };
+		7ED7DE84172886DF004D5351 /* DOKPickLeagueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKPickLeagueViewController.m; sourceTree = "<group>"; };
 		7ED82C0D16BEDC8E0075C505 /* DOKOtherTeamsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKOtherTeamsViewController.h; sourceTree = "<group>"; };
 		7ED82C0E16BEDC8E0075C505 /* DOKOtherTeamsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKOtherTeamsViewController.m; sourceTree = "<group>"; };
 		7EDFEE42171B5DEA002E06AB /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
@@ -654,6 +661,8 @@
 		7EDFEE4A171B6A0F002E06AB /* DOKPickPlayerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKPickPlayerTableViewController.m; sourceTree = "<group>"; };
 		7EEE05341722F7680033C04B /* DOKGoalsLeaderBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKGoalsLeaderBoardViewController.h; sourceTree = "<group>"; };
 		7EEE05351722F7680033C04B /* DOKGoalsLeaderBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKGoalsLeaderBoardViewController.m; sourceTree = "<group>"; };
+		7EF538D41729BBD900A8C051 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		7EF538D51729BBD900A8C051 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		7EF711C8171F44DB00881184 /* DOKMatchTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOKMatchTabBarController.h; sourceTree = "<group>"; };
 		7EF711C9171F44DB00881184 /* DOKMatchTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOKMatchTabBarController.m; sourceTree = "<group>"; };
 		7EF8FEB416AAE19A00F756E5 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -1031,6 +1040,10 @@
 				7EC7C9361722C1490028B08E /* DOKStatsTableViewController.m */,
 				7EEE05341722F7680033C04B /* DOKGoalsLeaderBoardViewController.h */,
 				7EEE05351722F7680033C04B /* DOKGoalsLeaderBoardViewController.m */,
+				7ED7DE83172886DF004D5351 /* DOKPickLeagueViewController.h */,
+				7ED7DE84172886DF004D5351 /* DOKPickLeagueViewController.m */,
+				7E0C4C9E1728AA4200A758CA /* DOKEndSeasonViewController.h */,
+				7E0C4C9F1728AA4200A758CA /* DOKEndSeasonViewController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1057,6 +1070,7 @@
 		7EA4E5BD1719C5E6003C9596 /* 3rd Party Libs */ = {
 			isa = PBXGroup;
 			children = (
+				7EF538D31729BBCC00A8C051 /* UIExtension */,
 				7E890E4C1719F006000A32FA /* AddThis */,
 				7EA4E7331719CF73003C9596 /* Flurry */,
 				7EA4E5BE1719C618003C9596 /* Airship */,
@@ -1486,6 +1500,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		7EF538D31729BBCC00A8C051 /* UIExtension */ = {
+			isa = PBXGroup;
+			children = (
+				7EF538D41729BBD900A8C051 /* MBProgressHUD.h */,
+				7EF538D51729BBD900A8C051 /* MBProgressHUD.m */,
+			);
+			name = UIExtension;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1751,6 +1774,9 @@
 				7EC7C9341722AD480028B08E /* DOKPlayer.m in Sources */,
 				7EC7C9371722C1490028B08E /* DOKStatsTableViewController.m in Sources */,
 				7EEE05361722F7680033C04B /* DOKGoalsLeaderBoardViewController.m in Sources */,
+				7ED7DE85172886DF004D5351 /* DOKPickLeagueViewController.m in Sources */,
+				7E0C4CA01728AA4200A758CA /* DOKEndSeasonViewController.m in Sources */,
+				7EF538D61729BBD900A8C051 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

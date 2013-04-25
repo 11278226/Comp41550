@@ -149,6 +149,5 @@
             [defaults setBool:NO forKey:@"Perfect Scouting"];
     }
     [defaults synchronize];
-//    NSLog(@"sender %@ --- event %@",sender,indexPath);
 }
 @end

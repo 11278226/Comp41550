@@ -23,7 +23,12 @@
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property (weak, nonatomic) IBOutlet UIButton *playMatchesButton;
 @property (nonatomic) NSMutableArray *matches;
+@property (nonatomic) NSMutableArray *leagueOneMatches;
+@property (nonatomic) NSMutableArray *leagueTwoMatches;
+@property (nonatomic) NSMutableArray *leagueThreeMatches;
+@property (nonatomic) NSMutableArray *leagueFourMatches;
 @property (nonatomic) NSMutableArray *teams;
+@property (weak, nonatomic) IBOutlet UIButton *endSeasonButton;
 @property (nonatomic, retain) NSUserDefaults *defaults;
 @end
 
@@ -82,6 +87,10 @@
     
     
     self.matches = [NSMutableArray array];
+    self.leagueOneMatches = [NSMutableArray array];
+    self.leagueTwoMatches = [NSMutableArray array];
+    self.leagueThreeMatches = [NSMutableArray array];
+    self.leagueFourMatches = [NSMutableArray array];
     self.teams = [NSMutableArray array];
     
     
@@ -94,7 +103,11 @@
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Match"];
     request.predicate = [NSPredicate predicateWithFormat:@"gameWeek = %d",[showingGameWeek intValue]];
+    
     self.matches = [[[[DOKAppDelegate sharedAppDelegate] managedObjectContext] executeFetchRequest:request error:&error] mutableCopy];
+    
+    
+    
     if ([self.matches count] == 0) {
         self.playMatchesButton.hidden = YES;
         showingGameWeek = [NSNumber numberWithInt:([showingGameWeek intValue] - 1)];
@@ -107,6 +120,26 @@
     if (![[[DOKAppDelegate sharedAppDelegate] managedObjectContext] save:&saveError]) {
         NSLog(@"Saving changes to book book two failed: %@", saveError);
     }
+    
+    for (DOKMatch *thisMatch in self.matches) {
+        switch ([thisMatch.league intValue]) {
+            case 1:
+                [self.leagueOneMatches addObject:thisMatch];
+                break;
+            case 2:
+                [self.leagueTwoMatches addObject:thisMatch];
+                break;
+            case 3:
+                [self.leagueThreeMatches addObject:thisMatch];
+                break;
+            case 4:
+                [self.leagueFourMatches addObject:thisMatch];
+                break;
+            default:
+                break;
+        }
+    }
+    
     [self.myTableView reloadData];
 }
 
@@ -118,7 +151,28 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.matches count];
+    switch (section) {
+        case 0:
+            return [self.leagueOneMatches count];
+            break;
+        case 1:
+            return [self.leagueTwoMatches count];
+            break;
+        case 2:
+            return [self.leagueThreeMatches count];
+            break;
+        case 3:
+            return [self.leagueFourMatches count];
+            break;
+        default:
+            break;
+    }
+    return nil;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 4;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -127,8 +181,24 @@
 	
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    DOKMatch *currMatch = [self.matches objectAtIndex:indexPath.row];
-//    NSLog(@"%@",currMatch.homeTeam)
+    DOKMatch *currMatch;// = [self.matches objectAtIndex:indexPath.row];
+    switch (indexPath.section) {
+        case 0:
+            currMatch = [self.leagueOneMatches objectAtIndex:indexPath.row];
+            break;
+        case 1:
+            currMatch = [self.leagueTwoMatches objectAtIndex:indexPath.row];
+            break;
+        case 2:
+            currMatch = [self.leagueThreeMatches objectAtIndex:indexPath.row];
+            break;
+        case 3:
+            currMatch = [self.leagueFourMatches objectAtIndex:indexPath.row];
+            break;
+            
+        default:
+            break;
+    }
     
     ((UILabel *)[cell viewWithTag:1]).text = currMatch.homeTeam;
     ((UILabel *)[cell viewWithTag:2]).text = currMatch.awayTeam;
@@ -172,6 +242,7 @@
     headerLabel.textAlignment = NSTextAlignmentCenter;
     headerLabel.shadowColor = [UIColor darkGrayColor];
     NSString *title = [self tableView:tableView titleForHeaderInSection:section];
+    
     headerLabel.text = title;
     
     UIButton *prevButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
@@ -215,6 +286,8 @@
     if (!([self.matches count] == 0)) {
         showingGameWeek = [NSNumber numberWithInt:([showingGameWeek intValue] + 1)];
         [self reloadAll];
+    } else {
+        self.endSeasonButton.hidden = NO;
     }
     
 }
@@ -226,6 +299,23 @@
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+    switch (section) {
+        case 0:
+            return [NSString stringWithFormat:@"League 1"];
+            break;
+        case 1:
+            return [NSString stringWithFormat:@"League 2"];
+            break;
+        case 2:
+            return [NSString stringWithFormat:@"League 3"];
+            break;
+        case 3:
+            return [NSString stringWithFormat:@"League 4"];
+            break;
+            
+        default:
+            break;
+    }
     return [NSString stringWithFormat:@"Matches"];
 }
 

@@ -21,7 +21,7 @@
     return [NSNumber numberWithInt:overall];
 }
 
-+ (NSString *)preferredPosition:(DOKPlayerModel *)player {
++ (NSMutableArray *)preferredPosition:(DOKPlayerModel *)player {
     int goalie;
     int def;
     int mid;
@@ -32,38 +32,34 @@
     fwd = ([[player shooting] intValue] + [[player offensivePositioning] intValue]/2 + [[player strength] intValue] + [[player dribbling] intValue]/2 + [[player passing] intValue]/2)*(10/7);
     NSArray *result = [NSArray arrayWithObjects:[NSNumber numberWithInt:goalie],[NSNumber numberWithInt:def],[NSNumber numberWithInt:mid],[NSNumber numberWithInt:fwd], nil];
     
-    NSInteger highestNumber = 0;
-    NSInteger numberIndex;
-    for (NSNumber *theNumber in result)
-    {
-        if ([theNumber integerValue] > highestNumber) {
-            highestNumber = [theNumber integerValue];
-            numberIndex = [result indexOfObject:theNumber];
+    NSMutableArray *answer = [NSMutableArray array];
+    
+    NSArray *sorted = [result sortedArrayUsingSelector:@selector(compare:)];
+    bool fwdChosen = NO;
+    bool midChosen = NO;
+    bool defChosen = NO;
+    
+    for (NSNumber *thisNumber in sorted) {
+        if ([thisNumber intValue]==fwd && !fwdChosen) {
+            [answer insertObject:@"FWD" atIndex:0];
+            fwdChosen = YES;
+        } else if ([thisNumber intValue]==mid && !midChosen) {
+            [answer insertObject:@"MID" atIndex:0];
+            midChosen = YES;
+        } else if ([thisNumber intValue]==def && !defChosen) {
+            [answer insertObject:@"DEF" atIndex:0];
+            defChosen = YES;
+        } else if ([thisNumber intValue]==goalie) {
+            [answer insertObject:@"GK" atIndex:0];
         }
     }
-    switch (numberIndex) {
-        case 0:
-            return @"GK";
-            break;
-        case 1:
-            return @"DEF";
-            break;
-        case 2:
-            return @"MID";
-            break;
-        case 3:
-            return @"FWD";
-            break;
-        default:
-            return nil;
-            break;
-    }
-//    NSArray *sortedResult = [result sortedArrayUsingComparator:^(id firstObject, id secondObject) {
-//        return [((NSString *)firstObject) compare:((NSString *)secondObject) options:NSNumericSearch];
-//    }];
+    
+
     
     
-    return nil;
+    return answer;
 }
+
+
 
 @end

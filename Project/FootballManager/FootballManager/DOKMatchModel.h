@@ -17,5 +17,6 @@
 @property (nonatomic,retain) NSNumber *homeGoals;
 @property (nonatomic,retain) NSNumber *awayGoals;
 @property (nonatomic,retain) NSNumber *gameWeek;
+@property (nonatomic,retain) NSNumber *league;
 
 @end

@@ -104,6 +104,7 @@
     //Assign the gestureRecognizers property of our pageViewController to our view's gestureRecognizers property.
     self.view.gestureRecognizers = self.myPageViewController.gestureRecognizers;
     self.pageControl.currentPage = self.currentIndex;
+    self.title = self.player.name;
 }
 
 - (void)didReceiveMemoryWarning
@@ -123,6 +124,7 @@
         return nil;
     }
     DOKPlayerDetailViewController *contentViewController = [[DOKPlayerDetailViewController alloc] init];
+    
     contentViewController.player = [self.playerArray objectAtIndex:self.currentIndex - 1];
     return contentViewController;
 }
@@ -135,6 +137,7 @@
     {
         return nil;
     }
+    
     DOKPlayerDetailViewController *contentViewController = [[DOKPlayerDetailViewController alloc] init];
     contentViewController.player = [self.playerArray objectAtIndex:self.currentIndex + 1];
     return contentViewController;
@@ -164,6 +167,7 @@
             if([myContent isEqual:[(DOKPlayerDetailViewController *)[pageViewController.viewControllers objectAtIndex:0] player]])
             {
                 self.pageControl.currentPage = i;
+                self.title = [myContent name];
             }
         }
     }

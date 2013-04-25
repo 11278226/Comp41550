@@ -44,6 +44,7 @@
                                                                                            selector:nil],[NSSortDescriptor sortDescriptorWithKey:@"goals"
                                                                                                                                        ascending:NO
                                                                                                                                         selector:nil], nil];
+        
     } else {
         request.sortDescriptors = [NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"goals"
                                                                                       ascending:NO
@@ -51,6 +52,7 @@
                                                                                                                                    ascending:NO
                                                                                                                                     selector:nil], nil];
     }
+//    request.predicate = [NSPredicate predicateWithFormat:@"team.league = %d", self.league];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:[[DOKAppDelegate sharedAppDelegate] managedObjectContext]
                                                                           sectionNameKeyPath:nil

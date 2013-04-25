@@ -13,7 +13,7 @@
 @interface DOKTeamModel : NSManagedObject
 
 @property (nonatomic,retain) NSString *teamName;
-@property (nonatomic,retain) NSNumber *leagueID;
+@property (nonatomic,retain) NSNumber *league;
 @property (nonatomic,retain) NSNumber *wins;
 @property (nonatomic,retain) NSNumber *draws;
 @property (nonatomic,retain) NSNumber *losses;

@@ -39,18 +39,18 @@
     self.title = self.player.name;
     
 //    int overall = [[self.player overall] intValue];
-    int overall = [DOKPlayerModel overallForPlayer:self.player];
-    if (overall < 98) {
-        NSLog(@"One Star");
-    } else if (overall < 122) {
-        NSLog(@"Two Star");
-    } else if (overall < 146) {
-        NSLog(@"Three Star");
-    } else if (overall < 170) {
-        NSLog(@"Four Star");
-    } else {
-        NSLog(@"Five Star");
-    }    
+//    int overall = [DOKPlayerModel overallForPlayer:self.player];
+//    if (overall < 98) {
+//        NSLog(@"One Star");
+//    } else if (overall < 122) {
+//        NSLog(@"Two Star");
+//    } else if (overall < 146) {
+//        NSLog(@"Three Star");
+//    } else if (overall < 170) {
+//        NSLog(@"Four Star");
+//    } else {
+//        NSLog(@"Five Star");
+//    }    
 }
 
 

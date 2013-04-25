@@ -11,5 +11,5 @@
 @interface DOKPlayerModel (Details)
 + (int)overallForPlayer:(DOKPlayerModel *)player;
 - (NSNumber *)overall;
-+ (NSString *)preferredPosition:(DOKPlayerModel *)player;
++ (NSMutableArray *)preferredPosition:(DOKPlayerModel *)player;
 @end
